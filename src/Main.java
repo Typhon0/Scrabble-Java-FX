@@ -2,9 +2,13 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.Case;
+import model.Scrabble;
 
 import java.io.IOException;
 
@@ -12,12 +16,13 @@ public class Main extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
+    private Scrabble scrabble = new Scrabble();;
+
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Scrabble JavaFX");
-
         initRootLayout();
 
         showBoard();
@@ -52,6 +57,10 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/board.fxml"));
             AnchorPane boardview = (AnchorPane) loader.load();
 
+
+            drawboard(boardview);
+
+
             // Set person overview into the center of root layout.
             rootLayout.setCenter(boardview);
         } catch (IOException e) {
@@ -59,14 +68,36 @@ public class Main extends Application {
         }
     }
 
+
+    public void drawboard(AnchorPane boardview) {
+
+        int x = 0;
+        int y = 0;
+        ImageView imageView = null;
+
+        for (int i = 0; i < 15; i++) {
+            x = 0;
+            for (int j = 0; j < 15; j++) {
+                imageView = scrabble.getBoard()[i][j].getTexture();
+                imageView.setLayoutY(y);
+                imageView.setLayoutX(x);
+                boardview.getChildren().add(imageView);
+                System.out.println(y + " X :" + x);
+                x = x + 50;
+
+            }
+            y = y + 60;
+        }
+    }
+
     /**
      * Returns the main stage.
+     *
      * @return
      */
     public Stage getPrimaryStage() {
         return primaryStage;
     }
-
 
 
     public static void main(String[] args) {
