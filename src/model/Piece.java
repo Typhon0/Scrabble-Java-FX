@@ -1,11 +1,17 @@
+/**
+ * @author Remi Lenoir
+ */
 package model;
 
 public class Piece {
 	
 	private char lettre;
 	private int value;
+	/**
+	 * @param lettre is the character of the piece
+	 * @param value is the number of point of the letter
+	 */
 	public Piece(char lettre, int value) {
-		super();
 		this.lettre = lettre;
 		this.value = value;
 	}

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Pioche {
+	//bag contain all the letter
 	private ArrayList<Piece> bag;
 
 	Pioche() {
@@ -37,25 +38,29 @@ public class Pioche {
 		addToBag('Y', 10, 1);
 		addToBag('Z', 10, 1);
 		addToBag('?', 0, 2);
-		Collections.shuffle(bag);
+		Collections.shuffle(bag);	//shuffle the bag
 	}
-
+	/**
+	 * @param lettre is the character to add
+	 * @param val is the number of point of the letter
+	 * @param nb is the number of pieces with the character "lettre"
+	 */
 	private void addToBag(char lettre, int val, int nb) {
 		for (int i = 0; i < nb; i++) {
 			bag.add(new Piece(lettre, val));
 		}
 	}
-
+	//add the piece P in the bag
 	public void addInBag(Piece p) {
 		bag.add(p);
 	}
-
+	//add all the piece contain in remise in the bag
 	public void addInBag(ArrayList<Piece> remise) {
 		for (Piece p : remise) {
 			bag.add(p);
 		}
 	}
-
+	//take the number of "count" letter in the bag
 	public ArrayList<Piece> takeLetterInBag(int count) {
 		if (count > bag.size()) {
 			count = bag.size();
@@ -68,6 +73,18 @@ public class Pioche {
 		return miniList;
 	}
 
+	public int nbPieceInBag(){
+		return bag.size();
+	}
+	//return the max points contain in the bag
+	public int pointsInBag(){
+		int res=0;
+		for(Piece p:bag){
+			res += p.getValue();
+		}
+		return res;
+	}
+	
 	public ArrayList<Piece> getBag() {
 		return bag;
 	}
