@@ -1,6 +1,6 @@
 /**@author Remi Lenoir
  * */
-package model;
+package com.scrabble.model;
 
 import java.util.ArrayList;
 import java.util.Collections;

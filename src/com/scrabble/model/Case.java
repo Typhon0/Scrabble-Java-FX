@@ -1,4 +1,4 @@
-package model;
+package com.scrabble.model;
 
 
 import javafx.scene.image.ImageView;

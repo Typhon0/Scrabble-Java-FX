@@ -1,3 +1,5 @@
+package com.scrabble;
+import com.scrabble.controller.MainUIController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -5,7 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import model.Scrabble;
+import com.scrabble.model.Scrabble;
 
 import java.io.IOException;
 
@@ -32,7 +34,7 @@ public class MainApp extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/rootLayout.fxml"));
+            loader.setLocation(MainApp.class.getResource("com/scrabble/view/rootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
             // Show the scene containing the root layout.
@@ -51,9 +53,13 @@ public class MainApp extends Application {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/board.fxml"));
+            loader.setLocation(MainApp.class.getResource("com/scrabble/view/board.fxml"));
             AnchorPane boardview = (AnchorPane) loader.load();
 
+
+            // Give the controller access to the main app.
+            MainUIController controller = loader.getController();
+            controller.setMainApp(this);
 
             drawboard(boardview);
 

@@ -1,7 +1,7 @@
 /**
  * @author Remi Lenoir
  */
-package model;
+package com.scrabble.model;
 
 public class Piece {
 	

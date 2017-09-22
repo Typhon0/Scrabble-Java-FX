@@ -1,4 +1,4 @@
-package model;
+package com.scrabble.model;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
