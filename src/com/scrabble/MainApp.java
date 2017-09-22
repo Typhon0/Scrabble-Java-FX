@@ -34,7 +34,7 @@ public class MainApp extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("com/scrabble/view/rootLayout.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/rootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
             // Show the scene containing the root layout.
@@ -53,13 +53,13 @@ public class MainApp extends Application {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("com/scrabble/view/board.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/board.fxml"));
             AnchorPane boardview = (AnchorPane) loader.load();
 
 
             // Give the controller access to the main app.
-            MainUIController controller = loader.getController();
-            controller.setMainApp(this);
+            //MainUIController controller = loader.getController();
+            //controller.setMainApp(this);
 
             drawboard(boardview);
 
