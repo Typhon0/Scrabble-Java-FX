@@ -39,6 +39,9 @@ public class MainApp extends Application {
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
+            scene.getStylesheets().add(getClass().getResource("view/style.css").toExternalForm());
+            primaryStage.setMinHeight(360);
+            primaryStage.setMinWidth(480);
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
@@ -61,7 +64,7 @@ public class MainApp extends Application {
             //MainUIController controller = loader.getController();
             //controller.setMainApp(this);
 
-            drawboard(boardview);
+            //drawboard(boardview);
 
 
             // Set person overview into the center of root layout.
