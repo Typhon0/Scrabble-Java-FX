@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  author: Remi Lenoir -->
+<BoardColor>
+	<color name="Jewel">#126B40</color>
+	<color name="TurquoiseBlue">#6CDAE7</color>
+	<color name="SeaPink">#ED989E</color>
+	<color name="Danube">#6093D1</color>
+	<color name="Monza">#C7031E</color>
+</BoardColor>
