@@ -8,6 +8,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -16,7 +17,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import com.scrabble.model.Scrabble;
 
 import java.awt.Button;
@@ -97,12 +100,12 @@ public class MainApp extends Application {
 		// ajout des cases (Pane)
 		for (int i = 0; i < numColsRows; i++) {
 			for (int j = 0; j < numColsRows; j++) {
-				Pane p = new Pane();
+				StackPane p = new StackPane();
 				p.setStyle("-fx-background-color:#126B40"); 
 				boardGrid.add(p, i, j);
 			}
 		}
-		setColorCases(boardGrid);
+		setColorAndWordBonusCases(boardGrid);
 		//setWordCases(boardGrid);
 		
 		boardGrid.setPadding(new Insets(5));
@@ -116,25 +119,46 @@ public class MainApp extends Application {
 		// TODO force to be square
 	}
 
-	private void setColorCases(GridPane board) {
+	private void setColorAndWordBonusCases(GridPane board) {
 		int[] listeMT = { 0, 7, 14, 105, 119, 210, 217, 224 };
 		int[] listeLD = { 3, 11, 36, 38, 45, 52, 59, 92, 96, 98, 102, 108, 116, 122, 126, 128, 132, 165, 172, 179, 186,
 				188, 213, 221 };
 		int[] listeMD = { 16, 28, 32, 42, 48, 56, 64, 70, 154, 160, 168, 176, 182, 192, 196, 208 };
 		int[] listeLT = { 20, 24, 76, 80, 84, 88, 136, 140, 144, 148, 200, 204 };
+		StackPane p = new StackPane();
 		for (int i : listeMT) {
 			board.getChildren().get(i).setStyle("-fx-background-color:#C7031E");
+			Label lab = new Label("MT");
+			lab.setStyle("-fx-text-fill:white; -fx-font-weight: bold;");
+			p = (StackPane) board.getChildren().get(i);
+			p.getChildren().add(lab);
 		}
 		for (int i : listeLT) {
 			board.getChildren().get(i).setStyle("-fx-background-color:#6093D1");
+			Label lab = new Label("LT");
+			lab.setStyle("-fx-text-fill:white; -fx-font-weight: bold;");
+			p = (StackPane) board.getChildren().get(i);
+			p.getChildren().add(lab);
 		}
 		for (int i : listeMD) {
 			board.getChildren().get(i).setStyle("-fx-background-color:#ED989E");
+			Label lab = new Label("MD");
+			lab.setStyle("-fx-text-fill:white; -fx-font-weight: bold;");
+			p = (StackPane) board.getChildren().get(i);
+			p.getChildren().add(lab);
 		}
 		for (int i : listeLD) {
+			Label lab = new Label("LD");
+			lab.setStyle("-fx-text-fill:white; -fx-font-weight: bold;");
+			p = (StackPane) board.getChildren().get(i);
+			p.getChildren().add(lab);
 			board.getChildren().get(i).setStyle("-fx-background-color:#6CDAE7");
 		}
 		//milieu (etoile)
+		Label lab = new Label("\u2605");
+		//lab.setStyle("-fx-text-fill:black;");
+		p = (StackPane) board.getChildren().get(112);
+		p.getChildren().add(lab);
 		board.getChildren().get(112).setStyle("-fx-background-color:#ED989E");
 	}
 
