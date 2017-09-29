@@ -40,7 +40,7 @@
             <Pane minHeight="20.0" minWidth="35.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color:grey" GridPane.rowIndex="1" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color:brown" GridPane.columnIndex="1">
                <children>
-                  <AnchorPane fx:id="board" prefHeight="200.0" prefWidth="200.0" styleClass="playBoard" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                  <AnchorPane fx:id="board" style="-fx-background-color:black" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                </children>
             </AnchorPane>
             <Pane minHeight="20.0" minWidth="65.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color:blue" GridPane.columnIndex="1" GridPane.rowIndex="1" />

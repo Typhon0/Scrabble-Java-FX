@@ -2,8 +2,18 @@
 <!--  author: Remi Lenoir -->
 <BoardColor>
 	<color name="Jewel">#126B40</color>
+	<color name="Eucalyptus">#278A5B</color>
+	
 	<color name="TurquoiseBlue">#6CDAE7</color>
+	<color name="Charlotte">#BAEEF9</color>
+	
 	<color name="SeaPink">#ED989E</color>
+	<color name="Shilo">#E8B9B3</color>
+	
 	<color name="Danube">#6093D1</color>
+	<color name="Cornflower">#93CCEA</color>
+	
 	<color name="Monza">#C7031E</color>
+	<color name="WildWatermelon">#FD5B78</color>
+	
 </BoardColor>

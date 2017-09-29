@@ -1,4 +1,23 @@
-.playBoard {
-	-fx-background-radius: 10;
-	-fx-background-color:white;
+.gradiantGeneral {
+	-fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 65% , #278A5B, #126B40);
+}
+
+.gradiantMT {
+	-fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 65% , #FD5B78, #C7031E);
+}
+
+.gradiantLT {
+	-fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 65% , #93CCEA, #6093D1);
+}
+
+.gradiantMD {
+	-fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 65% , #E8B9B3, #ED989E);
+}
+
+.gradiantLD {
+	-fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 65% , #BAEEF9, #6CDAE7);
+}
+
+.invisible{
+	-fx-opacity: 0.0;
 }

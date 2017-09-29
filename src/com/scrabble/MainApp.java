@@ -107,12 +107,14 @@ public class MainApp extends Application {
 		for (int i = 0; i < numColsRows; i++) {
 			for (int j = 0; j < numColsRows; j++) {
 				StackPane p = new StackPane();
-				p.setStyle("-fx-background-color:#126B40"); 
+				//p.setStyle("-fx-background-color:#126B40"); 
+				p.getStyleClass().add("gradiantGeneral");
 				boardGrid.add(p, i, j);
 			}
 		}
+		//boardGrid.getStyleClass().add("gradiantGeneral");
 		setColorAndWordBonusCases(boardGrid);
-		//setWordCases(boardGrid);
+		//boardGrid.setGridLinesVisible(true);
 		
 		boardGrid.setPadding(new Insets(5));
 		// fit parent
@@ -124,7 +126,7 @@ public class MainApp extends Application {
 		paneBoard.getChildren().add(boardGrid);
 		// TODO force to be square
 	}
-
+	
 	private void setColorAndWordBonusCases(GridPane board) {
 		int[] listeMT = { 0, 7, 14, 105, 119, 210, 217, 224 };
 		int[] listeLD = { 3, 11, 36, 38, 45, 52, 59, 92, 96, 98, 102, 108, 116, 122, 126, 128, 132, 165, 172, 179, 186,
@@ -132,42 +134,49 @@ public class MainApp extends Application {
 		int[] listeMD = { 16, 28, 32, 42, 48, 56, 64, 70, 154, 160, 168, 176, 182, 192, 196, 208 };
 		int[] listeLT = { 20, 24, 76, 80, 84, 88, 136, 140, 144, 148, 200, 204 };
 		StackPane p = new StackPane();
+		//TODO optimiser et styliser
 		for (int i : listeMT) {
-			board.getChildren().get(i).setStyle("-fx-background-color:#C7031E");
+			p = (StackPane) board.getChildren().get(i);
+			p.getStyleClass().clear();
+			p.getStyleClass().add("gradiantMT");
 			Label lab = new Label("MT");
 			lab.setStyle("-fx-text-fill:white; -fx-font-weight: bold;");
-			p = (StackPane) board.getChildren().get(i);
 			p.getChildren().add(lab);
 		}
 		for (int i : listeLT) {
-			board.getChildren().get(i).setStyle("-fx-background-color:#6093D1");
+			p = (StackPane) board.getChildren().get(i);
+			p.getStyleClass().clear();
+			p.getStyleClass().add("gradiantLT");
 			Label lab = new Label("LT");
 			lab.setStyle("-fx-text-fill:white; -fx-font-weight: bold;");
-			p = (StackPane) board.getChildren().get(i);
 			p.getChildren().add(lab);
 		}
 		for (int i : listeMD) {
-			board.getChildren().get(i).setStyle("-fx-background-color:#ED989E");
+			p = (StackPane) board.getChildren().get(i);
+			p.getStyleClass().clear();
+			p.getStyleClass().add("gradiantMD");
 			Label lab = new Label("MD");
 			lab.setStyle("-fx-text-fill:white; -fx-font-weight: bold;");
-			p = (StackPane) board.getChildren().get(i);
 			p.getChildren().add(lab);
 		}
 		for (int i : listeLD) {
+			p = (StackPane) board.getChildren().get(i);
+			p.getStyleClass().clear();
+			p.getStyleClass().add("gradiantLD");
 			Label lab = new Label("LD");
 			lab.setStyle("-fx-text-fill:white; -fx-font-weight: bold;");
-			p = (StackPane) board.getChildren().get(i);
 			p.getChildren().add(lab);
-			board.getChildren().get(i).setStyle("-fx-background-color:#6CDAE7");
 		}
 		//milieu (etoile)
 		Label lab = new Label("\u2605");
-		//lab.setStyle("-fx-text-fill:black;");
 		p = (StackPane) board.getChildren().get(112);
 		p.getChildren().add(lab);
-		board.getChildren().get(112).setStyle("-fx-background-color:#ED989E");
+		p.getStyleClass().clear();
+		p.getStyleClass().add("gradiantMD");
 	}
-
+	
+	
+	
 	/**
 	 * Returns the main stage.
 	 *
