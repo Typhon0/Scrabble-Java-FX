@@ -74,6 +74,12 @@ public class MainApp extends Application {
 			drawboard(boardview);
 
 			rootLayout.setCenter(boardview);
+
+            // Give the controller access to the main app.
+            MainUIController controller = loader.getController();
+            controller.setMainApp(this);
+
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
