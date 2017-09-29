@@ -4,8 +4,9 @@
 package com.scrabble.model;
 
 public class Piece {
-	
+	// Lettre correspondant à la pièce
 	private char lettre;
+	// Valeur de la pièce
 	private int value;
 	/**
 	 * @param lettre is the character of the piece
@@ -15,15 +16,22 @@ public class Piece {
 		this.lettre = lettre;
 		this.value = value;
 	}
+
+	// Retourne de la lettre de la pièce
 	public char getLettre() {
 		return lettre;
 	}
+
+	// Modifie la lettre de la pièce par le paramètre
 	public void setLettre(char lettre) {
 		this.lettre = lettre;
 	}
+
+	// Retourne la valeur de la pièce
 	public int getValue() {
 		return value;
 	}
+
 	public void setValue(int value) {
 		this.value = value;
 	}
