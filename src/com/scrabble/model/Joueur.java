@@ -14,6 +14,14 @@ public class Joueur {
     // Liste des pièces dans la main du joueur
     private ArrayList<Piece> main;
 
+    // Constructeur par défaut
+    public Joueur() {
+        this.pseudo = "";
+        this.nbPoints = 0;
+        this.main = new ArrayList<Piece>();
+    }
+
+
     /* Constructeur du joueur
     * pseudo = Pseudo du joueur
     * pioche = Les 7 premières pièces de la main
