@@ -53,9 +53,10 @@ public class MainApp extends Application {
 			Scene scene = new Scene(rootLayout);
 			scene.getStylesheets().add(getClass().getResource("view/style.css").toExternalForm());
 
-			primaryStage.setMinHeight(360);
-			primaryStage.setMinWidth(480);
+			primaryStage.setHeight(625);
+			primaryStage.setWidth(725);
 			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -134,13 +135,12 @@ public class MainApp extends Application {
 		int[] listeMD = { 16, 28, 32, 42, 48, 56, 64, 70, 154, 160, 168, 176, 182, 192, 196, 208 };
 		int[] listeLT = { 20, 24, 76, 80, 84, 88, 136, 140, 144, 148, 200, 204 };
 		StackPane p = new StackPane();
-		//TODO optimiser et styliser
 		for (int i : listeMT) {
 			p = (StackPane) board.getChildren().get(i);
 			p.getStyleClass().clear();
 			p.getStyleClass().add("gradiantMT");
 			Label lab = new Label("MT");
-			lab.setStyle("-fx-text-fill:white; -fx-font-weight: bold;");
+			lab.setStyle("-fx-text-fill:#25272C;");
 			p.getChildren().add(lab);
 		}
 		for (int i : listeLT) {
@@ -148,7 +148,7 @@ public class MainApp extends Application {
 			p.getStyleClass().clear();
 			p.getStyleClass().add("gradiantLT");
 			Label lab = new Label("LT");
-			lab.setStyle("-fx-text-fill:white; -fx-font-weight: bold;");
+			lab.setStyle("-fx-text-fill:#25272C;");
 			p.getChildren().add(lab);
 		}
 		for (int i : listeMD) {
@@ -156,7 +156,7 @@ public class MainApp extends Application {
 			p.getStyleClass().clear();
 			p.getStyleClass().add("gradiantMD");
 			Label lab = new Label("MD");
-			lab.setStyle("-fx-text-fill:white; -fx-font-weight: bold;");
+			lab.setStyle("-fx-text-fill:#25272C;");
 			p.getChildren().add(lab);
 		}
 		for (int i : listeLD) {
@@ -164,11 +164,12 @@ public class MainApp extends Application {
 			p.getStyleClass().clear();
 			p.getStyleClass().add("gradiantLD");
 			Label lab = new Label("LD");
-			lab.setStyle("-fx-text-fill:white; -fx-font-weight: bold;");
+			lab.setStyle("-fx-text-fill:#25272C;");
 			p.getChildren().add(lab);
 		}
 		//milieu (etoile)
 		Label lab = new Label("\u2605");
+		lab.setStyle("-fx-text-fill:black;");
 		p = (StackPane) board.getChildren().get(112);
 		p.getChildren().add(lab);
 		p.getStyleClass().clear();
