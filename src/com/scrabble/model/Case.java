@@ -10,9 +10,9 @@ public class Case {
 
     private ImageView texture;
     private Piece piece;
-    private String bonus;
+    private BonusCase bonus;
 
-    public Case(ImageView texture, String _bonus) {
+    public Case(ImageView texture, BonusCase _bonus) {
         this.texture = texture;
         piece = new Piece(); // La case est vide par defaut
         bonus = _bonus;
@@ -34,11 +34,11 @@ public class Case {
         this.piece = piece;
     }
 
-    public String getBonus() {
+    public BonusCase getBonus() {
         return bonus;
     }
 
-    public void setBonus(String bonus) {
+    public void setBonus(BonusCase bonus) {
         this.bonus = bonus;
     }
     
