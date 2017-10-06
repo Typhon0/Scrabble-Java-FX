@@ -25,7 +25,7 @@ public class Scrabble {
     public void initTab() {
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
-                board[i][j] = new Case(new ImageView(new Image("com/scrabble/assets/textures/case.png")));
+                board[i][j] = new Case(new ImageView(new Image("com/scrabble/assets/ressources/case.png")));
             }
         }
 
