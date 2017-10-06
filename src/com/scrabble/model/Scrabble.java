@@ -12,7 +12,6 @@ public class Scrabble {
 
     private Case[][] board;
     private Pioche pioche;
-    private ArrayList<Piece> bag;
     private ArrayList<Joueur> joueurs;
 
     public Scrabble() {
@@ -25,7 +24,7 @@ public class Scrabble {
     public void initTab() {
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
-                board[i][j] = new Case(new ImageView(new Image("com/scrabble/assets/ressources/case.png")));
+                board[i][j] = new Case(new ImageView(new Image("com/scrabble/ressources/case.png")),"");
             }
         }
 

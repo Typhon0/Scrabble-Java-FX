@@ -16,6 +16,12 @@ public class Piece {
 		this.lettre = lettre;
 		this.value = value;
 	}
+	
+	public Piece() // constructeur par defaut d'une piece Vide
+	{
+		this.lettre = '@';
+		this.value = 0;
+	}
 
 	// Retourne de la lettre de la pièce
 	public char getLettre() {

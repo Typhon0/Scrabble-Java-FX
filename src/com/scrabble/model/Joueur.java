@@ -57,4 +57,25 @@ public class Joueur {
     public void addNbPoints(int points){
         this.nbPoints = this.nbPoints + points;
     }
+    
+    public void poserUnePiece(Piece p, Case c)
+    {
+    	if(possede(p)) // Si le joueur possede cette piece
+    	{
+    				System.out.println("piece non possedee");
+    		if(c.estVide())
+    		{
+    			c.setPiece(p);
+    		}
+    		else
+    		{
+    				System.out.println("piece non vide");
+    		}
+    	}
+    }
+    
+    public boolean possede(Piece p)
+    {
+    	return this.main.contains(p);
+    }
 }

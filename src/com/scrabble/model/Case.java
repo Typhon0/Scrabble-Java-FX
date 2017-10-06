@@ -12,9 +12,10 @@ public class Case {
     private Piece piece;
     private String bonus;
 
-    public Case(ImageView texture) {
+    public Case(ImageView texture, String _bonus) {
         this.texture = texture;
-
+        piece = new Piece(); // La case est vide par defaut
+        bonus = _bonus;
     }
 
     public ImageView getTexture() {
@@ -39,5 +40,10 @@ public class Case {
 
     public void setBonus(String bonus) {
         this.bonus = bonus;
+    }
+    
+    public boolean estVide() // Renvoie vrai si la case contient la piece vide, faux sinon
+    {
+    	return (piece.getLettre()=='@')&&(piece.getValue()==0);
     }
 }
