@@ -2,6 +2,7 @@
 
 <!--  author = Remi Lenoir -->
 
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -9,6 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
+<?import com.scrabble.model.DraggableImageView?>
 <AnchorPane minHeight="100.0" minWidth="100.0" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scrabble.controller.MainUIController">
    <children>
       <GridPane layoutX="100.0" layoutY="118.0" minHeight="100.0" minWidth="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -40,10 +42,12 @@
             <Pane minHeight="20.0" minWidth="35.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color:grey" GridPane.rowIndex="1" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color:brown" GridPane.columnIndex="1">
                <children>
-                  <AnchorPane fx:id="board" style="-fx-background-color:black" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                  <AnchorPane fx:id="board" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color:black" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                </children>
             </AnchorPane>
-            <Pane minHeight="20.0" minWidth="65.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color:blue" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Pane minHeight="20.0" minWidth="65.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color:blue" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+               </children></Pane>
          </children>
       </GridPane>
    </children>
