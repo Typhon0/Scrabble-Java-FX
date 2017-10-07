@@ -1,29 +1,16 @@
 package com.scrabble.model;
 
-
-import javafx.scene.image.ImageView;
-
 /**
  * Created by loic on 18/09/2017.
  */
 public class Case {
 
-    private ImageView texture;
     private Piece piece;
     private BonusCase bonus;
 
-    public Case(ImageView texture, BonusCase _bonus) {
-        this.texture = texture;
+    public Case(BonusCase _bonus) {
         piece = new Piece(); // La case est vide par defaut
         bonus = _bonus;
-    }
-
-    public ImageView getTexture() {
-        return texture;
-    }
-
-    public void setTexture(ImageView texture) {
-        this.texture = texture;
     }
 
     public Piece getPiece() {
@@ -46,4 +33,6 @@ public class Case {
     {
     	return (piece.getLettre()=='@')&&(piece.getValue()==0);
     }
+
+
 }
