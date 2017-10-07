@@ -1,6 +1,8 @@
 package com.scrabble;
 
 import com.scrabble.controller.MainUIController;
+import com.scrabble.model.BonusCase;
+import com.scrabble.model.Case;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +28,8 @@ import java.awt.Button;
 import java.awt.List;
 import java.io.IOException;
 import java.util.Arrays;
+
+import static com.scrabble.model.BonusCase.MT;
 
 public class MainApp extends Application {
 
@@ -109,12 +113,12 @@ public class MainApp extends Application {
 			for (int j = 0; j < numColsRows; j++) {
 				StackPane p = new StackPane();
 				//p.setStyle("-fx-background-color:#126B40"); 
-				p.getStyleClass().add("gradiantGeneral");
+				//p.getStyleClass().add("gradiantGeneral");
 				boardGrid.add(p, i, j);
 			}
 		}
 		//boardGrid.getStyleClass().add("gradiantGeneral");
-		setColorAndWordBonusCases(boardGrid);
+		setColor(boardGrid);
 		//boardGrid.setGridLinesVisible(true);
 		
 		boardGrid.setPadding(new Insets(5));
@@ -125,57 +129,35 @@ public class MainApp extends Application {
 		AnchorPane.setBottomAnchor(boardGrid, 0.0);
 
 		paneBoard.getChildren().add(boardGrid);
-		// TODO force to be square
 	}
 	
-	private void setColorAndWordBonusCases(GridPane board) {
-		int[] listeMT = { 0, 7, 14, 105, 119, 210, 217, 224 };
-		int[] listeLD = { 3, 11, 36, 38, 45, 52, 59, 92, 96, 98, 102, 108, 116, 122, 126, 128, 132, 165, 172, 179, 186,
-				188, 213, 221 };
-		int[] listeMD = { 16, 28, 32, 42, 48, 56, 64, 70, 154, 160, 168, 176, 182, 192, 196, 208 };
-		int[] listeLT = { 20, 24, 76, 80, 84, 88, 136, 140, 144, 148, 200, 204 };
-		StackPane p = new StackPane();
-		for (int i : listeMT) {
-			p = (StackPane) board.getChildren().get(i);
-			p.getStyleClass().clear();
-			p.getStyleClass().add("gradiantMT");
-			Label lab = new Label("MT");
-			lab.setStyle("-fx-text-fill:#25272C;");
-			p.getChildren().add(lab);
+	private void setColor(GridPane board) {
+		Case[][] plateau = scrabble.getBoard();
+		for(int i = 0;i<225;i++){
+			switch(plateau[i/15][i%15].getBonus()) {
+				case MT:
+					board.getChildren().get(i).getStyleClass().add("gradiantMT");
+					break;
+				case MD:
+					board.getChildren().get(i).getStyleClass().add("gradiantMD");
+					break;
+				case LT:
+					board.getChildren().get(i).getStyleClass().add("gradiantLT");
+					break;
+				case LD:
+					board.getChildren().get(i).getStyleClass().add("gradiantLD");
+					break;
+				case Vide:
+					board.getChildren().get(i).getStyleClass().add("gradiantGeneral");
+					break;
+			}
+
 		}
-		for (int i : listeLT) {
-			p = (StackPane) board.getChildren().get(i);
-			p.getStyleClass().clear();
-			p.getStyleClass().add("gradiantLT");
-			Label lab = new Label("LT");
-			lab.setStyle("-fx-text-fill:#25272C;");
-			p.getChildren().add(lab);
-		}
-		for (int i : listeMD) {
-			p = (StackPane) board.getChildren().get(i);
-			p.getStyleClass().clear();
-			p.getStyleClass().add("gradiantMD");
-			Label lab = new Label("MD");
-			lab.setStyle("-fx-text-fill:#25272C;");
-			p.getChildren().add(lab);
-		}
-		for (int i : listeLD) {
-			p = (StackPane) board.getChildren().get(i);
-			p.getStyleClass().clear();
-			p.getStyleClass().add("gradiantLD");
-			Label lab = new Label("LD");
-			lab.setStyle("-fx-text-fill:#25272C;");
-			p.getChildren().add(lab);
-		}
-		//milieu (etoile)
-		Label lab = new Label("\u2605");
-		lab.setStyle("-fx-text-fill:black;");
-		p = (StackPane) board.getChildren().get(112);
-		p.getChildren().add(lab);
-		p.getStyleClass().clear();
-		p.getStyleClass().add("gradiantMD");
+		//etoile
+
 	}
-	
+
+
 	
 	
 	/**

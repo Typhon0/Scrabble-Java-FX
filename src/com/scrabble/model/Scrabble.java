@@ -48,14 +48,16 @@ public class Scrabble {
         for (int k:LD) {
             board[k/15][k%15].setBonus(BonusCase.LD);
         }
-        /*
+        //le milieu (etoile)
+        board[7][7].setBonus(BonusCase.MD);
+/*
         for (int x = 0;x<15; x++){
             for(int y=0;y<15;y++){
                 System.out.print("[" + board[x][y].getBonus() + "]");
             }
             System.out.println();
         }
-        */
+*/
     }
 
     public void initBag(){
