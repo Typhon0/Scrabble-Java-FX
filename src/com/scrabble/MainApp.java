@@ -133,19 +133,28 @@ public class MainApp extends Application {
 	
 	private void setColor(GridPane board) {
 		Case[][] plateau = scrabble.getBoard();
+		StackPane sp = new StackPane();
 		for(int i = 0;i<225;i++){
 			switch(plateau[i/15][i%15].getBonus()) {
 				case MT:
-					board.getChildren().get(i).getStyleClass().add("gradiantMT");
+					sp = (StackPane) board.getChildren().get(i);
+					sp.getStyleClass().add("gradiantMT");
+					sp.getChildren().add(new Label("MT"));
 					break;
 				case MD:
-					board.getChildren().get(i).getStyleClass().add("gradiantMD");
+					sp = (StackPane) board.getChildren().get(i);
+					sp.getStyleClass().add("gradiantMD");
+					sp.getChildren().add(new Label("MD"));
 					break;
 				case LT:
-					board.getChildren().get(i).getStyleClass().add("gradiantLT");
+					sp = (StackPane) board.getChildren().get(i);
+					sp.getStyleClass().add("gradiantLT");
+					sp.getChildren().add(new Label("LT"));
 					break;
 				case LD:
-					board.getChildren().get(i).getStyleClass().add("gradiantLD");
+					sp = (StackPane) board.getChildren().get(i);
+					sp.getStyleClass().add("gradiantLD");
+					sp.getChildren().add(new Label("LD"));
 					break;
 				case Vide:
 					board.getChildren().get(i).getStyleClass().add("gradiantGeneral");
@@ -154,7 +163,10 @@ public class MainApp extends Application {
 
 		}
 		//etoile
-
+		sp = (StackPane) board.getChildren().get(112);
+		sp.getChildren().clear();
+		sp.getStyleClass().add("gradiantMD");
+		sp.getChildren().add(new Label("\u2605"));
 	}
 
 

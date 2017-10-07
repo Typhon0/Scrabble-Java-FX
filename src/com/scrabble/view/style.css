@@ -17,7 +17,9 @@
 .gradiantLD {
 	-fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 65% , #BAEEF9, #6CDAE7);
 }
-
+*.label {
+	-fx-text-fill: #25272C;
+}
 .invisible{
 	-fx-opacity: 0.0;
 }
