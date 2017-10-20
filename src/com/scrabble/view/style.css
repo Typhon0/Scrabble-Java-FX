@@ -49,3 +49,7 @@
 .ImageButton:pressed{
 	-fx-background-image: url('../ressources/Button/textButtonDown.png');
 }
+
+#menu{
+    -fx-background-color: #34495e;
+}

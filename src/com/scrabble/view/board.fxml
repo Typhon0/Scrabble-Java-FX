@@ -15,9 +15,22 @@
 <?import javafx.scene.layout.StackPane?>
 
 <?import com.scrabble.model.ImageButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Font?>
 <AnchorPane minHeight="100.0" minWidth="100.0" prefHeight="615.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scrabble.controller.MainUIController">
     <children>
-        <GridPane layoutX="100.0" layoutY="118.0" minHeight="100.0" minWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane  fx:id="menu" prefHeight="615.0" prefWidth="725.0" translateX="0">
+         <children>
+             <Button onAction="#HandleNewGame" layoutX="305.0" layoutY="297.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="115.0" text="Nouvelle Partie" />
+             <Button layoutX="304.0" layoutY="362.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="115.0" text="Quitter" />
+             <Button fx:id="NewGameBtn" layoutX="304.0" layoutY="239.0" mnemonicParsing="false"  prefHeight="30.0" prefWidth="115.0" text="Charger Partie" />
+             <Label layoutX="294.0" layoutY="44.0" prefHeight="48.0" prefWidth="137.0" text="Scrabble">
+                 <font>
+                     <Font size="31.0" />
+                 </font>
+             </Label>
+         </children>
+      </AnchorPane><GridPane layoutX="100.0" layoutY="118.0" minHeight="100.0" minWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="50.0" percentWidth="35.0" prefWidth="100.0" />
                 <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="50.0" percentWidth="65.0" prefWidth="100.0" />
@@ -53,7 +66,7 @@
                         </StackPane>
                         <Pane prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <children>
-                                <ImageButton alignment="CENTER" layoutX="30.0" layoutY="9.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="195.0" scaleX="0.8" scaleY="0.8" text="Menu" />
+                                <ImageButton fx:id="MenuBtn" alignment="CENTER" layoutX="30.0" layoutY="9.0" mnemonicParsing="false" onAction="#HandleMenuButton" prefHeight="49.0" prefWidth="195.0" scaleX="0.8" scaleY="0.8" text="Menu" />
                             </children>
                         </Pane>
                     </children>
