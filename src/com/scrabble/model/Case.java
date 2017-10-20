@@ -8,7 +8,7 @@ public class Case {
     private Piece piece;
     private BonusCase bonus;
     private boolean libre;
-    private int x; // coordonnée x de la case sur le plateau
+    private int x; // coordonne x de la case sur le plateau
     private int y; // coordonnee y de la case sur le plateau
 
     public Case(BonusCase _bonus, int i, int j) {

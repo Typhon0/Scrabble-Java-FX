@@ -42,7 +42,7 @@ public class Piece {
 		}
 		else
 		{
-			System.out.println("La piece n'est pas posée.");
+			System.out.println("La piece n'est pas posÃ©e.");
 			return new Case(BonusCase.Vide, -1, -1);
 		}
 	}

@@ -23,3 +23,11 @@
 .invisible{
 	-fx-opacity: 0.0;
 }
+
+.mainBoard {
+	-fx-background-color: black;
+	-fx-border-color: black;
+	-fx-border-width: 5;
+	-fx-border-insets: -5;
+	-fx-border-radius: 15;
+}
