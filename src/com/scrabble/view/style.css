@@ -1,3 +1,8 @@
+@font-face {
+    src: url("../ressources/Fonts/Lato-Regular.ttf");
+
+}
+
 .gradiantGeneral {
 	-fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 65% , #278A5B, #126B40);
 }
@@ -25,19 +30,22 @@
 }
 
 .mainBoard {
-	-fx-background-color: black;
-	-fx-border-color: black;
+	-fx-background-color: #34495e;
+	-fx-border-color: #34495e;
 	-fx-border-width: 5;
 	-fx-border-insets: -5;
 	-fx-border-radius: 15;
 }
 
 .ImageButton{
-	-fx-background-image: url('../ressources/case.png');
+	-fx-background-image: url('../ressources/Button/textButton.png');
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: center;
+    -fx-font: 25 Lato;
+    -fx-text-fill: #ecf0f1;
+
 }
 
 .ImageButton:pressed{
-	-fx-background-image: url('../ressources/Piece/letter.png');
+	-fx-background-image: url('../ressources/Button/textButtonDown.png');
 }
