@@ -13,8 +13,16 @@ public class Dictionnaire {
     public Dictionnaire(){
         try {
             Scanner sc = new Scanner(new File("com/scrabble/ressources/dico_Scrabble.txt"));
+            while (sc.hasNextLine()){
+                dico.add(sc.nextLine());
+            }
         }catch (IOException e){
             e.printStackTrace();
         }
     }
+
+    public boolean motExistant(String mot){
+        return dico.contains(mot);
+    }
+
 }
