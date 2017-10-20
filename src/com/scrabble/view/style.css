@@ -31,3 +31,13 @@
 	-fx-border-insets: -5;
 	-fx-border-radius: 15;
 }
+
+.ImageButton{
+	-fx-background-image: url('../ressources/case.png');
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+}
+
+.ImageButton:pressed{
+	-fx-background-image: url('../ressources/Piece/letter.png');
+}
