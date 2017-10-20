@@ -34,7 +34,7 @@ import static com.scrabble.model.BonusCase.MT;
 public class MainApp extends Application {
 
 	private Stage primaryStage;
-	private BorderPane rootLayout;
+	private AnchorPane rootLayout;
 	private Scrabble scrabble = new Scrabble();;
 
 	@Override
@@ -42,7 +42,6 @@ public class MainApp extends Application {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Scrabble JavaFX");
 		initRootLayout();
-		showBoard();
 	}
 
 	/**
@@ -51,8 +50,13 @@ public class MainApp extends Application {
 	public void initRootLayout() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/rootLayout.fxml"));
-			rootLayout = (BorderPane) loader.load();
+			loader.setLocation(MainApp.class.getResource("view/board.fxml"));
+			rootLayout = (AnchorPane) loader.load();
+
+			drawboard(rootLayout);
+			// Give the controller access to the main app.
+			MainUIController controller = loader.getController();
+			controller.setMainApp(this);
 
 			Scene scene = new Scene(rootLayout);
 			scene.getStylesheets().add(getClass().getResource("view/style.css").toExternalForm());
@@ -67,28 +71,6 @@ public class MainApp extends Application {
 		}
 	}
 
-	/**
-	 * Shows the board inside the root layout.
-	 */
-	public void showBoard() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/board.fxml"));
-			AnchorPane boardview = (AnchorPane) loader.load();
-
-			drawboard(boardview);
-
-			rootLayout.setCenter(boardview);
-
-            // Give the controller access to the main app.
-            MainUIController controller = loader.getController();
-            controller.setMainApp(this);
-
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public void drawboard(AnchorPane boardview) {
 		AnchorPane paneBoard = (AnchorPane) boardview.lookup("#board");
