@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
@@ -51,15 +52,18 @@
                         <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color:purple" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
                     </children>
                 </GridPane>
-                <Pane minHeight="20.0" minWidth="35.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color:grey" GridPane.rowIndex="1" />
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color:brown" GridPane.columnIndex="1">
                     <children>
                         <AnchorPane fx:id="board" prefHeight="200.0" prefWidth="200.0" styleClass="mainBoard" stylesheets="@style.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                     </children>
                 </AnchorPane>
-                <Pane minHeight="20.0" minWidth="65.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color:blue" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <children>
-                    </children></Pane>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1" />
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+               <children>
+                  <StackPane fx:id="mainJoueur" alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="300.0" style="-fx-background-color: yellow;" HBox.hgrow="ALWAYS" />
+                  <StackPane fx:id="boutonJoueur" prefHeight="150.0" prefWidth="150.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
             </children>
         </GridPane>
     </children>
