@@ -13,12 +13,14 @@ public class Scrabble {
     private Case[][] board;
     private Pioche pioche;
     private ArrayList<Joueur> joueurs;
+    private ArrayList<String> dictionnaire;
 
     public Scrabble() {
         board = new Case[15][15];
         initTab();
         initBag();
         initJoueurs();
+        initDictionnaire();
     }
 
     public void initTab() {
@@ -73,6 +75,11 @@ public class Scrabble {
 
     public Case[][] getBoard() {
         return board;
+    }
+
+    public void initDictionnaire(){
+        Dictionnaire dico = new Dictionnaire();
+        this.dictionnaire = dico.dico;
     }
 
     public void setBoard(Case[][] board) {
