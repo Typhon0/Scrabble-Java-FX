@@ -13,12 +13,17 @@ public class Joueur {
     private int nbPoints;
     // Liste des pièces dans la main du joueur
     private ArrayList<Piece> main;
+    
+    // Tentative de creation d'un mot sur le tour
+    private ArrayList<Piece> essaiMot;
+    private ArrayList<Case> positionMot;
 
     // Constructeur par défaut
     public Joueur() {
         this.pseudo = "";
         this.nbPoints = 0;
         this.main = new ArrayList<Piece>();
+        this.essaiMot = new ArrayList<Piece>();  
     }
 
 
@@ -63,9 +68,10 @@ public class Joueur {
     	if(possede(p)) // Si le joueur possede cette piece
     	{
     				System.out.println("piece non possedee");
-    		if(c.estVide())
+    		if(c.estLibre())
     		{
     			c.setPiece(p);
+    			this.essaiMot.add(p);
     		}
     		else
     		{
@@ -78,4 +84,12 @@ public class Joueur {
     {
     	return this.main.contains(p);
     }
+    
+    public boolean motValide()
+    {
+    	
+    	
+    	return false;
+    }
+    
 }

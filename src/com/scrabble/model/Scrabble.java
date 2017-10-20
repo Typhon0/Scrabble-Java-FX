@@ -32,7 +32,7 @@ public class Scrabble {
         //initialisation des 255 cases a Vide
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
-                board[i][j] = new Case(BonusCase.Vide);
+                board[i][j] = new Case(BonusCase.Vide, i, j);
             }
         }
         //attribution des bonus
