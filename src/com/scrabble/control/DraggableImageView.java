@@ -1,9 +1,12 @@
-package com.scrabble.model;
+package com.scrabble.control;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseDragEvent;
+
+import java.io.IOException;
 
 /**
  * Created by loic on 06/10/2017.
@@ -50,8 +53,6 @@ public class DraggableImageView extends ImageView {
                 relocate(273, 468);
             }
         });
-
-
 
     }
     public DraggableImageView(Image image) {

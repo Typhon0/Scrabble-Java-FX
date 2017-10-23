@@ -14,21 +14,22 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<?import com.scrabble.model.ImageButton?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.text.Font?>
+<?import com.scrabble.control.ImageButton?>
 <AnchorPane minHeight="100.0" minWidth="100.0" prefHeight="615.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scrabble.controller.MainUIController">
     <children>
-      <AnchorPane  fx:id="menu" prefHeight="615.0" prefWidth="725.0" translateX="0">
+      <AnchorPane fx:id="menu" prefHeight="615.0" prefWidth="725.0" translateX="0">
          <children>
-             <Button onAction="#HandleNewGame" layoutX="305.0" layoutY="297.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="115.0" text="Nouvelle Partie" />
-             <Button layoutX="304.0" layoutY="362.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="115.0" text="Quitter" />
-             <Button fx:id="NewGameBtn" layoutX="304.0" layoutY="239.0" mnemonicParsing="false"  prefHeight="30.0" prefWidth="115.0" text="Charger Partie" />
-             <Label layoutX="294.0" layoutY="44.0" prefHeight="48.0" prefWidth="137.0" text="Scrabble">
-                 <font>
-                     <Font size="31.0" />
-                 </font>
-             </Label>
+             <ImageButton fx:id="NewGameBtn" onAction="#HandleNewGame" layoutX="265.0" layoutY="220.0" mnemonicParsing="false" text="Nouvelle Partie" />
+             <ImageButton fx:id="LoadGameBtn" onAction="#HandleLoadGame" layoutX="265.0" layoutY="280.0" mnemonicParsing="false" text="Charger Partie" />
+             <ImageButton fx:id="QuitGameBtn" onAction="#HandleQuitGame" layoutX="265.0" layoutY="341.0" mnemonicParsing="false" text="Quitter" />
+             <ImageView fitHeight="48.0" layoutX="244.0" layoutY="54.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                 <image>
+                     <Image url="@../ressources/title_scrabble.png" />
+                 </image>
+                 <StackPane.margin>
+                     <Insets />
+                 </StackPane.margin>
+             </ImageView>
          </children>
       </AnchorPane><GridPane layoutX="100.0" layoutY="118.0" minHeight="100.0" minWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>

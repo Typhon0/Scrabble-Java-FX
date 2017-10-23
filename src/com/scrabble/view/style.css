@@ -41,8 +41,13 @@
 	-fx-background-image: url('../ressources/Button/textButton.png');
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: center;
-    -fx-font: 25 Lato;
+    -fx-font: 23 Lato;
     -fx-text-fill: #ecf0f1;
+    -fx-alignment: center;
+    -fx-pref-width: 195;
+    -fx-pref-height: 49;
+    -fx-scale-x: 0.8;
+    -fx-scale-y: 0.8;
 
 }
 
@@ -52,4 +57,9 @@
 
 #menu{
     -fx-background-color: #34495e;
+
+}
+
+#menu .label{
+	-fx-text-fill: #ecf0f1;
 }
