@@ -53,22 +53,20 @@ public class MainUIController {
         loader.setLocation(MainApp.class.getResource("view/Menu.fxml"));
         menuContent = (Pane) loader.load();
         menu.getChildren().add(menuContent);*/
-       menu.toFront();
+        menu.toFront();
 
     }
 
 
-
-
     @FXML
     public void HandleMenuButton(ActionEvent actionEvent) throws IOException {
-        Animations.SlideInFromLeft(menu,500,mainApp.getPrimaryStage().getWidth());
+        Animations.SlideInFromLeft(menu, 500, mainApp.getPrimaryStage().getWidth());
         menu.toFront();
     }
 
     @FXML
     public void HandleNewGame(ActionEvent actionEvent) throws IOException {
-        Animations.SlideOutToLeft(menu,500,mainApp.getPrimaryStage().getWidth());
+        Animations.SlideOutToLeft(menu, 500, mainApp.getPrimaryStage().getWidth());
         menu.toFront();
     }
 
@@ -78,5 +76,7 @@ public class MainUIController {
 
     @FXML
     public void HandleQuitGame(ActionEvent actionEvent) {
+
+        mainApp.getPrimaryStage().close();
     }
 }
