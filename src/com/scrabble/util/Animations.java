@@ -19,7 +19,7 @@ public final class Animations {
      * @param duration
      * @param FromX
      */
-    public static void SlideInFromLeft(Node s, double duration, double FromX,double ToX) {
+    public static void SlideInFromLeft(Node s, double duration, double FromX, double ToX) {
         TranslateTransition tt = new TranslateTransition(new Duration(duration), s);
         tt.setFromX(-FromX);
         tt.setToX(ToX);
@@ -43,6 +43,7 @@ public final class Animations {
 
     /**
      * Bounce In Transition of a node
+     *
      * @param node
      */
     public static void BounceInTransition(Node node) {
@@ -76,10 +77,11 @@ public final class Animations {
 
     /**
      * Bounce Out transition of a node and close parent if closeParent is true
+     *
      * @param node
      * @param closeParent
      */
-    public static void BounceOutTransition(Node node,Boolean closeParent) {
+    public static void BounceOutTransition(Node node, Boolean closeParent) {
         Timeline t = new Timeline();
         t.setDelay(Duration.seconds(0.2));
         t.getKeyFrames().addAll(new KeyFrame(Duration.millis(0),
@@ -109,7 +111,7 @@ public final class Animations {
         t.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(closeParent == true){
+                if (closeParent == true) {
                     node.getParent().setVisible(false);
                 }
                 node.setVisible(false);

@@ -31,9 +31,9 @@ public class MainUIController {
     @FXML
     private ImageButton MenuBtn;
     @FXML
-    private StackPane popup;
+    private StackPane dialog;
     @FXML
-    private AnchorPane popupContent;
+    private AnchorPane dialogContent;
     @FXML
     private Button buttonOkPopup;
     @FXML
@@ -58,7 +58,6 @@ public class MainUIController {
 
     /**
      * This method is automatically called after the fxml file has been loaded.
-     *
      */
     @FXML
     private void initialize() {
@@ -68,16 +67,18 @@ public class MainUIController {
 
     /**
      * Action event handler for the go to menu button
+     *
      * @param actionEvent
      */
     @FXML
-    public void HandleMenuButton(ActionEvent actionEvent)  {
+    public void HandleMenuButton(ActionEvent actionEvent) {
         Animations.SlideInFromLeft(menu, 500, mainApp.getPrimaryStage().getWidth(), 0);
         menu.toFront();
     }
 
     /**
      * Action event handler for the New Game button on the menu
+     *
      * @param actionEvent
      */
     @FXML
@@ -88,6 +89,7 @@ public class MainUIController {
 
     /**
      * Action event handler for the Load Game button on the menu
+     *
      * @param actionEvent
      */
     @FXML
@@ -97,6 +99,7 @@ public class MainUIController {
 
     /**
      * Action event handler for the Exit button on the menu
+     *
      * @param actionEvent
      */
     @FXML
@@ -112,40 +115,44 @@ public class MainUIController {
 
     /**
      * Action event handler for the OK button of the dialog
+     *
      * @param actionEvent
      */
     @FXML
     public void handlebuttonOkPopup(ActionEvent actionEvent) {
 
-        Animations.BounceOutTransition(popupContent,true);
+        Animations.BounceOutTransition(dialogContent, true);
 
     }
 
     /**
      * Action event handler for the No button of the dialog
+     *
      * @param actionEvent
      */
     @FXML
     public void handlebuttonNonPopup(ActionEvent actionEvent) {
 
-        Animations.BounceOutTransition(popupContent,true);
+        Animations.BounceOutTransition(dialogContent, true);
 
 
     }
 
     /**
      * Action event handler for the yes button of the dialog
+     *
      * @param actionEvent
      */
     @FXML
     public void handlebuttonOuiPopup(ActionEvent actionEvent) {
-        Animations.BounceOutTransition(popupContent,true);
+        Animations.BounceOutTransition(dialogContent, true);
 
 
     }
 
     /**
      * Show information dialog with a button to click OK
+     *
      * @param title
      * @param message
      */
@@ -155,15 +162,16 @@ public class MainUIController {
         buttonNonPopup.setVisible(false);
         this.title.setText(title);
         this.message.setText(message);
-        popup.toFront();
-        popup.setVisible(true);
-        popupContent.setVisible(true);
-        Animations.BounceInTransition(popupContent);
+        dialog.toFront();
+        dialog.setVisible(true);
+        dialogContent.setVisible(true);
+        Animations.BounceInTransition(dialogContent);
 
     }
 
     /**
      * Show a confirmation dialog with  Yes and No buttons
+     *
      * @param title
      * @param message
      */
@@ -174,11 +182,11 @@ public class MainUIController {
         buttonNonPopup.setVisible(true);
         this.title.setText(title);
         this.message.setText(message);
-        popup.toFront();
-        popup.setVisible(true);
-        popupContent.setVisible(true);
+        dialog.toFront();
+        dialog.setVisible(true);
+        dialogContent.setVisible(true);
 
-        Animations.BounceInTransition(popupContent);
+        Animations.BounceInTransition(dialogContent);
 
     }
 
