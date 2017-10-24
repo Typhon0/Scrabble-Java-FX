@@ -9,13 +9,14 @@ import javafx.scene.input.MouseDragEvent;
 import java.io.IOException;
 
 /**
- * Created by loic on 06/10/2017.
+ * Draggable image view
  */
 public class DraggableImageView extends ImageView {
     private double mouseX ;
     private double mouseY ;
     private double lastPosX ;
     private double lastPosY ;
+
     public DraggableImageView()
     {
         super();

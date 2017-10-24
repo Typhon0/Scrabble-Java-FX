@@ -2,6 +2,7 @@ package com.scrabble;
 
 import com.scrabble.controller.MainUIController;
 import com.scrabble.model.Case;
+import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,8 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import com.scrabble.model.Scrabble;
@@ -43,15 +46,12 @@ public class MainApp extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/board.fxml"));
             rootLayout = (AnchorPane) loader.load();
-
             drawboard(rootLayout);
             // Give the controller access to the main app.
             MainUIController controller = loader.getController();
             controller.setMainApp(this);
-
             Scene scene = new Scene(rootLayout);
-            scene.getStylesheets().add(getClass().getResource("view/style.css").toExternalForm());
-
+            scene.getStylesheets().add(getClass().getResource("ressources/Styles/style.css").toExternalForm());
             primaryStage.setHeight(625);
             primaryStage.setWidth(725);
             primaryStage.setScene(scene);

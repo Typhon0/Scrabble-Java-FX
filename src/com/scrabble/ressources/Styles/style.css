@@ -1,5 +1,5 @@
 @font-face {
-    src: url("../ressources/Fonts/Lato-Regular.ttf");
+    src: url("../Fonts/Lato-Regular.ttf");
 
 }
 
@@ -38,7 +38,7 @@
 }
 
 .ImageButton{
-	-fx-background-image: url('../ressources/Button/textButton.png');
+	-fx-background-image: url('../Button/textButton.png');
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: center;
     -fx-font: 23 Lato;
@@ -46,13 +46,15 @@
     -fx-alignment: center;
     -fx-pref-width: 195;
     -fx-pref-height: 49;
+	-fx-min-width: 195;
+	-fx-min-height: 49;
     -fx-scale-x: 0.8;
     -fx-scale-y: 0.8;
 
 }
 
 .ImageButton:pressed{
-	-fx-background-image: url('../ressources/Button/textButtonDown.png');
+	-fx-background-image: url('../Button/textButtonDown.png');
 }
 
 #menu{
@@ -62,4 +64,11 @@
 
 #menu .label{
 	-fx-text-fill: #ecf0f1;
+}
+
+#dialogContent {
+	-fx-border-radius: 10 10 10 10;
+	-fx-background-radius: 10 10 10 10;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-background-color: #ecf0f1;
 }

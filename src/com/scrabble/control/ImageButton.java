@@ -1,11 +1,11 @@
 package com.scrabble.control;
 
 
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 
-import java.io.IOException;
-
+/**
+ * Custom button with an image
+ */
 public class ImageButton extends Button {
 
     public ImageButton() {
