@@ -55,7 +55,6 @@ public class MainApp extends Application {
             primaryStage.setHeight(625);
             primaryStage.setWidth(725);
             primaryStage.setScene(scene);
-            primaryStage.setResizable(false);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();

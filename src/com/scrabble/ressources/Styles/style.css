@@ -31,10 +31,6 @@
 
 .mainBoard {
 	-fx-background-color: #34495e;
-	-fx-border-color: #34495e;
-	-fx-border-width: 5;
-	-fx-border-insets: -5;
-	-fx-border-radius: 15;
 }
 
 .ImageButton{

@@ -27,7 +27,7 @@ public class MainUIController {
     @FXML
     private ImageView logo;
     @FXML
-    private Pane logoContainer;
+    private StackPane logoContainer, mainJoueur, boutonJoueur;
     @FXML
     private ImageButton MenuBtn;
     @FXML
