@@ -12,7 +12,8 @@ public class Dictionnaire {
     ArrayList<String> dico;
     public Dictionnaire(){
         try {
-            Scanner sc = new Scanner(new File("com/scrabble/ressources/dico_Scrabble.txt"));
+            dico = new ArrayList<>();
+            Scanner sc = new Scanner(new File("src/com/scrabble/ressources/dico_Scrabble.txt"));
             while (sc.hasNextLine()){
                 dico.add(sc.nextLine());
             }
