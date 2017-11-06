@@ -34,7 +34,7 @@ public class Piece {
 		return posee;
 	}
 	
-	public Case getCasePiece(Case c)
+	public Case getCasePiece()
 	{
 		if(posee) // si la case est posee
 		{
@@ -42,7 +42,7 @@ public class Piece {
 		}
 		else
 		{
-			System.out.println("La piece n'est pas posée.");
+			System.out.println("La piece n'est pas posee.");
 			return new Case(BonusCase.Vide, -1, -1);
 		}
 	}
