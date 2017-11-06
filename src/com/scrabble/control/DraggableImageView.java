@@ -1,5 +1,7 @@
 package com.scrabble.control;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.image.Image;
@@ -19,6 +21,7 @@ public class DraggableImageView extends ImageView {
 
     public DraggableImageView()
     {
+
         super();
 
         setOnMousePressed(event -> {
@@ -26,7 +29,7 @@ public class DraggableImageView extends ImageView {
             mouseY = event.getSceneY() ;
             lastPosX = getLayoutX();
             lastPosY=getLayoutY();
-            this.setCursor(Cursor.HAND);
+            this.setCursor(Cursor.MOVE);
         });
 
         setOnMouseDragged(event -> {
@@ -38,7 +41,6 @@ public class DraggableImageView extends ImageView {
             System.out.println("last Layout X  " + lastPosX + " last Layout Y" + lastPosY);*/
 
                 relocate(getLayoutX() + deltaX, getLayoutY() + deltaY);
-
 
 
                 mouseX = event.getSceneX();
@@ -53,6 +55,14 @@ public class DraggableImageView extends ImageView {
 
                 relocate(273, 468);
             }
+        });
+
+        setOnMouseEntered(event -> {
+            this.setCursor(Cursor.HAND);
+        });
+
+        setOnMouseExited(event -> {
+            this.setCursor(Cursor.DEFAULT);
         });
 
     }

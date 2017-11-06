@@ -54,16 +54,16 @@ public final class Animations {
                         new KeyValue(node.scaleXProperty(), 0.3),
                         new KeyValue(node.scaleYProperty(), 0.3)
                 ),
-                new KeyFrame(Duration.millis(500),
+                new KeyFrame(Duration.millis(300),
                         new KeyValue(node.opacityProperty(), 1),
                         new KeyValue(node.scaleXProperty(), 1.05),
                         new KeyValue(node.scaleYProperty(), 1.05)
                 ),
-                new KeyFrame(Duration.millis(700),
+                new KeyFrame(Duration.millis(500),
                         new KeyValue(node.scaleXProperty(), 0.9),
                         new KeyValue(node.scaleYProperty(), 0.9)
                 ),
-                new KeyFrame(Duration.millis(1000),
+                new KeyFrame(Duration.millis(800),
                         new KeyValue(node.scaleXProperty(), 1),
                         new KeyValue(node.scaleYProperty(), 1)
                 )
@@ -88,16 +88,16 @@ public final class Animations {
                         new KeyValue(node.scaleXProperty(), 1),
                         new KeyValue(node.scaleYProperty(), 1)
                 ),
-                new KeyFrame(Duration.millis(250),
+                new KeyFrame(Duration.millis(150),
                         new KeyValue(node.scaleXProperty(), 0.95),
                         new KeyValue(node.scaleYProperty(), 0.95)
                 ),
-                new KeyFrame(Duration.millis(500),
+                new KeyFrame(Duration.millis(300),
                         new KeyValue(node.opacityProperty(), 1),
                         new KeyValue(node.scaleXProperty(), 1.1),
                         new KeyValue(node.scaleYProperty(), 1.1)
                 ),
-                new KeyFrame(Duration.millis(1000),
+                new KeyFrame(Duration.millis(800),
                         new KeyValue(node.opacityProperty(), 0),
                         new KeyValue(node.scaleXProperty(), 0.3),
                         new KeyValue(node.scaleYProperty(), 0.3)
