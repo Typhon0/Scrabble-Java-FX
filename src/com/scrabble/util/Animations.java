@@ -21,9 +21,11 @@ public final class Animations {
      */
     public static void SlideInFromLeft(Node s, double duration, double FromX, double ToX) {
         TranslateTransition tt = new TranslateTransition(new Duration(duration), s);
+        s.setVisible(true);
         tt.setFromX(-FromX);
         tt.setToX(ToX);
         tt.play();
+
     }
 
     /**
@@ -37,7 +39,12 @@ public final class Animations {
         TranslateTransition tt = new TranslateTransition(new Duration(duration), s);
         tt.setToX(-ToX);
         tt.play();
-
+        tt.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+              s.setVisible(false);
+            }
+        });
 
     }
 

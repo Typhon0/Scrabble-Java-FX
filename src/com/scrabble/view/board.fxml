@@ -2,6 +2,8 @@
 
 <!--  author = Remi Lenoir | Loïc Sculier -->
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-<?import com.scrabble.control.ImageButton?>
+
 <AnchorPane minHeight="100.0" minWidth="100.0" prefHeight="615.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scrabble.controller.MainUIController">
     <children>
         <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -27,8 +29,8 @@
                         </StackPane>
                         <VBox alignment="TOP_CENTER" spacing="15.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <ImageButton alignment="CENTER" mnemonicParsing="false" onAction="#HandleMenuButton" prefHeight="49.0" prefWidth="195.0" text="Menu" />
-                                <ImageButton alignment="CENTER" mnemonicParsing="false" onAction="#HandlePopupButton" prefHeight="49.0" prefWidth="195.0" text="popup" />
+                                <Button alignment="CENTER" mnemonicParsing="false" onAction="#HandleMenuButton" prefHeight="49.0" prefWidth="195.0" text="Menu" />
+                                <Button alignment="CENTER" mnemonicParsing="false" onAction="#HandlePopupButton" prefHeight="49.0" prefWidth="195.0" text="popup" />
                             </children>
                         </VBox>
                     </children>
@@ -46,25 +48,45 @@
                 </VBox>
             </children>
         </HBox>
-        <AnchorPane fx:id="menu" prefHeight="615.0" prefWidth="725.0" translateX="0">
+        <AnchorPane fx:id="menu" prefHeight="615.0" prefWidth="725.0" translateX="0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <ImageView fitHeight="48.0" layoutX="244.0" layoutY="54.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
-                    <image>
-                        <Image url="@../ressources/title_scrabble.png" />
-                    </image>
-                </ImageView>
-                <ImageButton fx:id="NewGameBtn" layoutX="265.0" layoutY="220.0" mnemonicParsing="false" onAction="#HandleNewGame" text="Nouvelle Partie" />
-                <ImageButton fx:id="LoadGameBtn" layoutX="265.0" layoutY="280.0" mnemonicParsing="false" onAction="#HandleLoadGame" text="Charger Partie" />
-                <ImageButton fx:id="QuitGameBtn" layoutX="265.0" layoutY="341.0" mnemonicParsing="false" onAction="#HandleQuitGame" text="Quitter" />
+            <StackPane layoutX="244.0" layoutY="54.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                      <ImageView fitHeight="48.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_CENTER">
+                          <image>
+                              <Image url="@../ressources/title_scrabble.png" />
+                          </image>
+                     <StackPane.margin>
+                        <Insets top="30.0" />
+                     </StackPane.margin>
+                      </ImageView>
+                      <Button fx:id="NewGameBtn" mnemonicParsing="false" onAction="#HandleNewGame" text="Nouvelle Partie" StackPane.alignment="CENTER" />
+                      <Button fx:id="LoadGameBtn" mnemonicParsing="false" onAction="#HandleLoadGame" text="Charger Partie" StackPane.alignment="CENTER">
+                     <StackPane.margin>
+                        <Insets top="100.0" />
+                     </StackPane.margin>
+                  </Button>
+                      <Button fx:id="QuitGameBtn" mnemonicParsing="false" onAction="#HandleQuitGame" text="Quitter" StackPane.alignment="CENTER">
+                     <StackPane.margin>
+                        <Insets top="200.0" />
+                     </StackPane.margin>
+                  </Button>
+                  <Text fill="#bdc3c7" strokeType="OUTSIDE" strokeWidth="0.0" text="Scrabble Java FX - © 2017" StackPane.alignment="BOTTOM_CENTER">
+                     <StackPane.margin>
+                        <Insets bottom="30.0" />
+                     </StackPane.margin>
+                  </Text>
+               </children>
+            </StackPane>
             </children>
         </AnchorPane>
         <StackPane fx:id="dialog" layoutX="362.5" layoutY="307.5" prefHeight="615.0" prefWidth="725.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <AnchorPane fx:id="dialogContent" maxHeight="200.0" maxWidth="400.0" minHeight="250.0" minWidth="450.0" prefHeight="200.0" prefWidth="400.0" scaleX="0.0" scaleY="0.0" visible="false" StackPane.alignment="CENTER">
                     <children>
-                        <ImageButton fx:id="buttonOkPopup" layoutX="128.0" layoutY="185.0" maxHeight="49.0" maxWidth="195.0" minHeight="49.0" minWidth="195.0" mnemonicParsing="false" onAction="#handlebuttonOkPopup" prefHeight="49.0" prefWidth="195.0" scaleX="0.8" scaleY="0.8" text="Ok" visible="false" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="128.0" AnchorPane.rightAnchor="127.0" AnchorPane.topAnchor="185.0" />
-                        <ImageButton fx:id="buttonOuiPopup" layoutX="261.0" layoutY="192.0" maxHeight="49.0" maxWidth="195.0" minHeight="49.0" minWidth="195.0" mnemonicParsing="false" onAction="#handlebuttonOuiPopup" prefHeight="49.0" prefWidth="195.0" scaleX="0.8" scaleY="0.8" text="Oui" visible="false" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="261.0" AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="192.0" />
-                        <ImageButton fx:id="buttonNonPopup" layoutX="-5.0" layoutY="192.0" maxHeight="49.0" maxWidth="195.0" minHeight="49.0" minWidth="195.0" mnemonicParsing="false" onAction="#handlebuttonNonPopup" prefHeight="49.0" prefWidth="195.0" scaleX="0.8" scaleY="0.8" text="Non" visible="false" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="-5.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="192.0" />
+                        <Button fx:id="buttonOkPopup" layoutX="128.0" layoutY="185.0" maxHeight="49.0" maxWidth="195.0" minHeight="49.0" minWidth="195.0" mnemonicParsing="false" onAction="#handlebuttonOkPopup" prefHeight="49.0" prefWidth="195.0" scaleX="0.8" scaleY="0.8" text="Ok" visible="false" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="128.0" AnchorPane.rightAnchor="127.0" AnchorPane.topAnchor="185.0" />
+                        <Button fx:id="buttonOuiPopup" layoutX="261.0" layoutY="192.0" maxHeight="49.0" maxWidth="195.0" minHeight="49.0" minWidth="195.0" mnemonicParsing="false" onAction="#handlebuttonOuiPopup" prefHeight="49.0" prefWidth="195.0" scaleX="0.8" scaleY="0.8" text="Oui" visible="false" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="261.0" AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="192.0" />
+                        <Button fx:id="buttonNonPopup" layoutX="-5.0" layoutY="192.0" maxHeight="49.0" maxWidth="195.0" minHeight="49.0" minWidth="195.0" mnemonicParsing="false" onAction="#handlebuttonNonPopup" prefHeight="49.0" prefWidth="195.0" scaleX="0.8" scaleY="0.8" text="Non" visible="false" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="-5.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="192.0" />
                         <Text fx:id="title" layoutX="170.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 20" text="Text" textAlignment="CENTER" wrappingWidth="110.99999877624214" AnchorPane.bottomAnchor="212.78125" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="169.00000122375786" AnchorPane.topAnchor="13.6640625" />
                         <Text fx:id="message" layoutX="50.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 15" text="Text" wrappingWidth="350.21875" AnchorPane.bottomAnchor="125.8359375" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="49.78125" AnchorPane.topAnchor="106.498046875" />
                     </children>

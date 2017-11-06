@@ -217,7 +217,7 @@ public class Joueur {
 			iMax += 1;
 		}
 		
-		if(iMin == iMax) // une seule lettre à la verticale pour un mot construit horizontalement -> OK
+		if(iMin == iMax) // une seule lettre a la verticale pour un mot construit horizontalement -> OK
 		{
 			return true;
 		}
@@ -243,7 +243,7 @@ public class Joueur {
 			jMax += 1;
 		}
 		
-		if(jMin == jMax) // une seule lettre à la verticale pour un mot construit horizontalement -> OK
+		if(jMin == jMax) // une seule lettre a la verticale pour un mot construit horizontalement -> OK
 		{
 			return true;
 		}
