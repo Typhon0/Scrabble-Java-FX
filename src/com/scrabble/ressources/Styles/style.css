@@ -33,7 +33,27 @@
 	-fx-background-color: #34495e;
 }
 
-.ImageButton{
+#pioche{
+    -fx-background-image: url('../pioche_2_256.png');
+    -fx-background-size: 64px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: bottom;
+    -fx-background-color: transparent;
+    -fx-focus-color:transparent;
+
+}
+
+#pioche:hover{
+    -fx-background-image: url('../pioche_256.png');
+}
+
+#pioche:pressed{
+    -fx-scale-x: 0.8;
+    -fx-scale-y: 0.8;
+}
+
+
+.GreenButton{
 	-fx-background-image: url('../Button/textButton.png');
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: center;
@@ -46,12 +66,16 @@
 	-fx-min-height: 49;
     -fx-scale-x: 0.8;
     -fx-scale-y: 0.8;
+    -fx-background-color: transparent;
+    -fx-focus-color:transparent;
 
 }
 
-.ImageButton:pressed{
+.GreenButton:pressed{
 	-fx-background-image: url('../Button/textButtonDown.png');
 }
+
+
 
 #menu{
     -fx-background-color: #34495e;

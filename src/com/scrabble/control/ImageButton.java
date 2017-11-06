@@ -10,8 +10,7 @@ public class ImageButton extends Button {
 
     public ImageButton() {
         super();
-        this.getStyleClass().clear();
-        this.getStyleClass().add("ImageButton");
+        this.getStyleClass().add("GreenButton");
 
     }
 }

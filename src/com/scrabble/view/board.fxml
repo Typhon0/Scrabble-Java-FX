@@ -29,8 +29,8 @@
                         </StackPane>
                         <VBox alignment="TOP_CENTER" spacing="15.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <Button alignment="CENTER" mnemonicParsing="false" onAction="#HandleMenuButton" prefHeight="49.0" prefWidth="195.0" text="Menu" />
-                                <Button alignment="CENTER" mnemonicParsing="false" onAction="#HandlePopupButton" prefHeight="49.0" prefWidth="195.0" text="popup" />
+                                <Button alignment="CENTER" mnemonicParsing="false" onAction="#HandleMenuButton" prefHeight="49.0" prefWidth="195.0" styleClass="GreenButton" text="Menu" />
+                                <Button alignment="CENTER" mnemonicParsing="false" onAction="#HandlePopupButton" prefHeight="49.0" prefWidth="195.0" styleClass="GreenButton" text="popup" />
                             </children>
                         </VBox>
                     </children>
@@ -41,7 +41,10 @@
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                             <children>
                                 <StackPane fx:id="mainJoueur" prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                <StackPane fx:id="boutonJoueur" prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                                <StackPane fx:id="boutonJoueur" prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Button fx:id="pioche" prefHeight="100" prefWidth="100" mnemonicParsing="false" />
+                           </children></StackPane>
                             </children>
                         </HBox>
                     </children>
@@ -60,13 +63,13 @@
                         <Insets top="30.0" />
                      </StackPane.margin>
                       </ImageView>
-                      <Button fx:id="NewGameBtn" mnemonicParsing="false" onAction="#HandleNewGame" text="Nouvelle Partie" StackPane.alignment="CENTER" />
-                      <Button fx:id="LoadGameBtn" mnemonicParsing="false" onAction="#HandleLoadGame" text="Charger Partie" StackPane.alignment="CENTER">
+                      <Button fx:id="NewGameBtn" mnemonicParsing="false" onAction="#HandleNewGame" styleClass="GreenButton" text="Nouvelle Partie" StackPane.alignment="CENTER" />
+                      <Button fx:id="LoadGameBtn" mnemonicParsing="false" onAction="#HandleLoadGame" styleClass="GreenButton" text="Charger Partie" StackPane.alignment="CENTER">
                      <StackPane.margin>
                         <Insets top="100.0" />
                      </StackPane.margin>
                   </Button>
-                      <Button fx:id="QuitGameBtn" mnemonicParsing="false" onAction="#HandleQuitGame" text="Quitter" StackPane.alignment="CENTER">
+                      <Button fx:id="QuitGameBtn" mnemonicParsing="false" onAction="#HandleQuitGame" styleClass="GreenButton" text="Quitter" StackPane.alignment="CENTER">
                      <StackPane.margin>
                         <Insets top="200.0" />
                      </StackPane.margin>
@@ -84,9 +87,9 @@
             <children>
                 <AnchorPane fx:id="dialogContent" maxHeight="200.0" maxWidth="400.0" minHeight="250.0" minWidth="450.0" prefHeight="200.0" prefWidth="400.0" scaleX="0.0" scaleY="0.0" visible="false" StackPane.alignment="CENTER">
                     <children>
-                        <Button fx:id="buttonOkPopup" layoutX="128.0" layoutY="185.0" maxHeight="49.0" maxWidth="195.0" minHeight="49.0" minWidth="195.0" mnemonicParsing="false" onAction="#handlebuttonOkPopup" prefHeight="49.0" prefWidth="195.0" scaleX="0.8" scaleY="0.8" text="Ok" visible="false" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="128.0" AnchorPane.rightAnchor="127.0" AnchorPane.topAnchor="185.0" />
-                        <Button fx:id="buttonOuiPopup" layoutX="261.0" layoutY="192.0" maxHeight="49.0" maxWidth="195.0" minHeight="49.0" minWidth="195.0" mnemonicParsing="false" onAction="#handlebuttonOuiPopup" prefHeight="49.0" prefWidth="195.0" scaleX="0.8" scaleY="0.8" text="Oui" visible="false" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="261.0" AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="192.0" />
-                        <Button fx:id="buttonNonPopup" layoutX="-5.0" layoutY="192.0" maxHeight="49.0" maxWidth="195.0" minHeight="49.0" minWidth="195.0" mnemonicParsing="false" onAction="#handlebuttonNonPopup" prefHeight="49.0" prefWidth="195.0" scaleX="0.8" scaleY="0.8" text="Non" visible="false" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="-5.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="192.0" />
+                        <Button fx:id="buttonOkPopup" layoutX="128.0" layoutY="185.0" maxHeight="49.0" maxWidth="195.0" minHeight="49.0" minWidth="195.0" mnemonicParsing="false" onAction="#handlebuttonOkPopup" prefHeight="49.0" prefWidth="195.0" scaleX="0.8" scaleY="0.8" styleClass="GreenButton" text="Ok" visible="false" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="128.0" AnchorPane.rightAnchor="127.0" AnchorPane.topAnchor="185.0" />
+                        <Button fx:id="buttonOuiPopup" layoutX="261.0" layoutY="192.0" maxHeight="49.0" maxWidth="195.0" minHeight="49.0" minWidth="195.0" mnemonicParsing="false" onAction="#handlebuttonOuiPopup" prefHeight="49.0" prefWidth="195.0" scaleX="0.8" scaleY="0.8" styleClass="GreenButton" text="Oui" visible="false" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="261.0" AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="192.0" />
+                        <Button fx:id="buttonNonPopup" layoutX="-5.0" layoutY="192.0" maxHeight="49.0" maxWidth="195.0" minHeight="49.0" minWidth="195.0" mnemonicParsing="false" onAction="#handlebuttonNonPopup" prefHeight="49.0" prefWidth="195.0" scaleX="0.8" scaleY="0.8" styleClass="GreenButton" text="Non" visible="false" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="-5.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="192.0" />
                         <Text fx:id="title" layoutX="170.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 20" text="Text" textAlignment="CENTER" wrappingWidth="110.99999877624214" AnchorPane.bottomAnchor="212.78125" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="169.00000122375786" AnchorPane.topAnchor="13.6640625" />
                         <Text fx:id="message" layoutX="50.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 15" text="Text" wrappingWidth="350.21875" AnchorPane.bottomAnchor="125.8359375" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="49.78125" AnchorPane.topAnchor="106.498046875" />
                     </children>
