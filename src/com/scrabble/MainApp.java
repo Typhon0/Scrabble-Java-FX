@@ -54,6 +54,8 @@ public class MainApp extends Application {
             scene.getStylesheets().add(getClass().getResource("ressources/Styles/style.css").toExternalForm());
             primaryStage.setHeight(625);
             primaryStage.setWidth(725);
+            primaryStage.setMinHeight(570);
+            primaryStage.setMinWidth(670);
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
@@ -101,6 +103,7 @@ public class MainApp extends Application {
         AnchorPane.setBottomAnchor(boardGrid, 0.0);
 
         paneBoard.getChildren().add(boardGrid);
+
     }
 
     private void setColor(GridPane board) {

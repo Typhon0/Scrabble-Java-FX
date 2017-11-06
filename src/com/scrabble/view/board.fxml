@@ -16,7 +16,7 @@
     <children>
         <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <VBox prefHeight="200.0" prefWidth="250.0">
+                <VBox prefHeight="200.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
                     <children>
                         <StackPane fx:id="logoContainer" prefHeight="150.0" prefWidth="200.0">
                             <children>
@@ -35,10 +35,10 @@
                         </VBox>
                     </children>
                 </VBox>
-                <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                     <children>
-                        <AnchorPane fx:id="board" minHeight="300.0" minWidth="300.0" prefHeight="400.0" prefWidth="400.0" styleClass="mainBoard" stylesheets="@../ressources/Styles/style.css" />
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                        <AnchorPane fx:id="board" maxHeight="900.0" maxWidth="900.0" minHeight="300.0" minWidth="300.0" prefHeight="400.0" prefWidth="400.0" styleClass="mainBoard" stylesheets="@../ressources/Styles/style.css" />
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                             <children>
                                 <StackPane fx:id="mainJoueur" prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                                 <StackPane fx:id="boutonJoueur" prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />

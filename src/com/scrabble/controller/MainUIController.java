@@ -3,6 +3,7 @@ package com.scrabble.controller;
 import com.scrabble.MainApp;
 import com.scrabble.control.ImageButton;
 import com.scrabble.util.Animations;
+import javafx.beans.InvalidationListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,7 +22,8 @@ public class MainUIController {
 
     public MainApp mainApp;
 
-
+    @FXML
+    private AnchorPane board;
     @FXML
     private AnchorPane menu;
     @FXML
@@ -62,8 +64,15 @@ public class MainUIController {
     @FXML
     private void initialize() {
         menu.toFront();
+        board.widthProperty().addListener((InvalidationListener) observable -> {
+            board.setMinHeight(board.widthProperty().doubleValue());
+            board.setMaxHeight(board.widthProperty().doubleValue());
+
+
+        });
 
     }
+
 
     /**
      * Action event handler for the go to menu button
