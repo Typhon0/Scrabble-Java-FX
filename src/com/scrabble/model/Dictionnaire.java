@@ -21,6 +21,10 @@ public class Dictionnaire {
             e.printStackTrace();
         }
     }
+    
+    public ArrayList<String> getDico(){
+    	return this.dico;
+    }
 
     public boolean motExistant(String mot){
         return dico.contains(mot);
