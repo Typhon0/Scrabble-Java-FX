@@ -38,12 +38,12 @@
                 <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                     <children>
                         <AnchorPane fx:id="board" maxHeight="900.0" maxWidth="900.0" minHeight="300.0" minWidth="300.0" prefHeight="400.0" prefWidth="400.0" styleClass="mainBoard" stylesheets="@../ressources/Styles/style.css" />
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <StackPane fx:id="mainJoueur" prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                <StackPane fx:id="boutonJoueur" prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                        <HBox fx:id="mainJoueur" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS" />
+                                <StackPane fx:id="boutonJoueur" prefHeight="150.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="pioche" prefHeight="100" prefWidth="100" mnemonicParsing="false" />
+                              <Button fx:id="pioche" mnemonicParsing="false" onAction="#HandlePiocheButton" prefHeight="100" prefWidth="100" />
                            </children></StackPane>
                             </children>
                         </HBox>

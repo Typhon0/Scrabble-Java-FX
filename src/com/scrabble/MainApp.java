@@ -29,7 +29,6 @@ public class MainApp extends Application {
     private Stage primaryStage;
     private AnchorPane rootLayout;
     private Scrabble scrabble = new Scrabble();
-    ;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -153,6 +152,8 @@ public class MainApp extends Application {
     public Stage getPrimaryStage() {
         return primaryStage;
     }
+
+    public Scrabble getScrabble(){return this.scrabble;}
 
     public static void main(String[] args) {
         launch(args);

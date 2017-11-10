@@ -14,44 +14,42 @@ import java.io.IOException;
  * Draggable image view
  */
 public class DraggableImageView extends ImageView {
-    private double mouseX ;
-    private double mouseY ;
-    private double lastPosX ;
-    private double lastPosY ;
+    private double mouseX;
+    private double mouseY;
+    private double lastPosX;
+    private double lastPosY;
 
-    public DraggableImageView()
-    {
+    public DraggableImageView() {
 
         super();
 
         setOnMousePressed(event -> {
-            mouseX = event.getSceneX() ;
-            mouseY = event.getSceneY() ;
+            mouseX = event.getSceneX();
+            mouseY = event.getSceneY();
             lastPosX = getLayoutX();
-            lastPosY=getLayoutY();
+            lastPosY = getLayoutY();
             this.setCursor(Cursor.MOVE);
         });
 
         setOnMouseDragged(event -> {
 
-            double deltaX = event.getSceneX() - mouseX ;
-            double deltaY = event.getSceneY() - mouseY ;
+            double deltaX = event.getSceneX() - mouseX;
+            double deltaY = event.getSceneY() - mouseY;
             /*System.out.println(deltaX + "Delta Y :" + deltaY);
             System.out.println("Layout X  " + getLayoutX() + " Layout Y" + getLayoutY());
             System.out.println("last Layout X  " + lastPosX + " last Layout Y" + lastPosY);*/
 
-                relocate(getLayoutX() + deltaX, getLayoutY() + deltaY);
+            relocate(getLayoutX() + deltaX, getLayoutY() + deltaY);
 
 
-                mouseX = event.getSceneX();
-                mouseY = event.getSceneY();
+            mouseX = event.getSceneX();
+            mouseY = event.getSceneY();
 
         });
 
 
-
         setOnMouseReleased(event -> {
-            if((getLayoutX() < 0 || getLayoutY() < 0) || (getLayoutX() > getScene().getHeight() || getLayoutY() > getScene().getWidth())) {
+            if ((getLayoutX() < 0 || getLayoutY() < 0) || (getLayoutX() > getScene().getHeight() || getLayoutY() > getScene().getWidth())) {
 
                 relocate(273, 468);
             }
@@ -66,20 +64,49 @@ public class DraggableImageView extends ImageView {
         });
 
     }
+
     public DraggableImageView(Image image) {
         super(image);
 
         setOnMousePressed(event -> {
-            mouseX = event.getSceneX() ;
-            mouseY = event.getSceneY() ;
+            mouseX = event.getSceneX();
+            mouseY = event.getSceneY();
+            lastPosX = getLayoutX();
+            lastPosY = getLayoutY();
+            this.setCursor(Cursor.MOVE);
         });
 
         setOnMouseDragged(event -> {
-            double deltaX = event.getSceneX() - mouseX ;
-            double deltaY = event.getSceneY() - mouseY ;
+
+            double deltaX = event.getSceneX() - mouseX;
+            double deltaY = event.getSceneY() - mouseY;
+            /*System.out.println(deltaX + "Delta Y :" + deltaY);
+            System.out.println("Layout X  " + getLayoutX() + " Layout Y" + getLayoutY());
+            System.out.println("last Layout X  " + lastPosX + " last Layout Y" + lastPosY);*/
+
             relocate(getLayoutX() + deltaX, getLayoutY() + deltaY);
-            mouseX = event.getSceneX() ;
-            mouseY = event.getSceneY() ;
+
+
+            mouseX = event.getSceneX();
+            mouseY = event.getSceneY();
+
         });
+
+
+        setOnMouseReleased(event -> {
+            if ((getLayoutX() < 0 || getLayoutY() < 0) || (getLayoutX() > getScene().getHeight() || getLayoutY() > getScene().getWidth())) {
+
+                relocate(273, 468);
+            }
+        });
+
+        setOnMouseEntered(event -> {
+            this.setCursor(Cursor.HAND);
+        });
+
+        setOnMouseExited(event -> {
+            this.setCursor(Cursor.DEFAULT);
+        });
+
     }
 }
