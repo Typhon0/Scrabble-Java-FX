@@ -5,15 +5,16 @@ import com.scrabble.control.DraggableImageView;
 import com.scrabble.control.ImageButton;
 import com.scrabble.model.Piece;
 import com.scrabble.util.Animations;
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
@@ -54,6 +55,8 @@ public class MainUIController {
     private Button buttonNonPopup;
     @FXML
     private HBox mainJoueur;
+    @FXML
+    Label score;
 
     /**
      * Is called by the main application to give a reference back to itself.
@@ -78,6 +81,12 @@ public class MainUIController {
 
         });
 
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                score.textProperty().bind(mainApp.getScrabble().getJoueur(0).nbPointsProperty().asString());
+            }
+        });
     }
 
 
@@ -209,18 +218,19 @@ public class MainUIController {
 
         Animations.BounceInTransition(dialogContent);
 
+        mainApp.getScrabble().getJoueur(0).addNbPoints(5);
     }
 
     //TODO
-    public static void swapHand(int i,int j){
+    public static void swapHand(int i, int j) {
 
     }
 
-    public DraggableImageView generateDragFromLetter(char ch, double size){
-        if(ch == '?'){
-            return new DraggableImageView(new Image("/com/scrabble/ressources/Piece/letter.png",size,size,true,true), board);
-        }else{
-            return new DraggableImageView(new Image("/com/scrabble/ressources/Piece/letter_" + ch + ".png",size,size,true,true), board);
+    public DraggableImageView generateDragFromLetter(char ch, double size) {
+        if (ch == '?') {
+            return new DraggableImageView(new Image("/com/scrabble/ressources/Piece/letter.png", size, size, true, true), board);
+        } else {
+            return new DraggableImageView(new Image("/com/scrabble/ressources/Piece/letter_" + ch + ".png", size, size, true, true), board);
         }
     }
 
@@ -230,9 +240,9 @@ public class MainUIController {
         ArrayList<ImageView> listePiece = new ArrayList<ImageView>();
         mainJoueur.getChildren().clear();
         double size = board.getWidth();
-        size/=10;
+        size /= 10;
         for (Piece p : main) {
-            DraggableImageView img = generateDragFromLetter(p.getLettre(),size);
+            DraggableImageView img = generateDragFromLetter(p.getLettre(), size);
             listePiece.add(img);
         }
         for (ImageView div : listePiece) {
