@@ -225,15 +225,7 @@ public class MainUIController {
     }
 
     public void showHand() {
-        //TODO get hand from model
-        ArrayList<Piece> main = new ArrayList<Piece>();
-        main.add(new Piece('A', 1));
-        main.add(new Piece('B', 3));
-        main.add(new Piece('C', 3));
-        main.add(new Piece('D', 2));
-        main.add(new Piece('E', 1));
-        main.add(new Piece('F', 4));
-        main.add(new Piece('G', 2));
+        ArrayList<Piece> main = mainApp.getScrabble().getJoueur(0).getMain();
 
         ArrayList<ImageView> listePiece = new ArrayList<ImageView>();
         mainJoueur.getChildren().clear();

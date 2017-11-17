@@ -13,7 +13,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -96,7 +98,29 @@ public class DraggableImageView extends ImageView {
 
                     //in board
                     if(X > boardBounds.getMinX() && X < boardBounds.getMaxX() && Y > boardBounds.getMinY() && Y < boardBounds.getMaxY()){
-                        //TODO
+                        GridPane grille = (GridPane) board.getChildren().get(0);
+                        int caseX, caseY;
+                        double sizeH, sizeW;
+                        sizeH = (boardBounds.getMaxY()-(boardBounds.getMinY()+5))/15;
+                        sizeW = (boardBounds.getMaxX()-(boardBounds.getMinX()+5))/15;
+                        X = X-boardBounds.getMinX()+5;
+                        Y = Y-boardBounds.getMinY()+5;
+                        caseX = (int) Math.round(X/sizeW);
+                        caseY = (int) Math.round(Y/sizeH);
+                        caseX--;
+                        caseY--;
+
+                        System.out.println(caseX + " " + caseY);
+
+                        StackPane sp = (StackPane) grille.getChildren().get(caseX*15 + caseY%15);
+                        DraggableImageView div = (DraggableImageView) event.getSource();
+                        Image img = new Image(div.getImage().getUrl(),sizeH,sizeW,true,true);
+                        sp.getChildren().clear();
+                        sp.getChildren().add(new ImageView(img));
+                        HBox mainJoueur = (HBox) div.getParent();
+                        mainJoueur.getChildren().removeAll(div);
+
+                        //TODO link with model
 
                     }else{
                         setTranslateX(0.0);

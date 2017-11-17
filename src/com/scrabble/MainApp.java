@@ -7,6 +7,7 @@ import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -85,6 +86,7 @@ public class MainApp extends Application {
         for (int i = 0; i < numColsRows; i++) {
             for (int j = 0; j < numColsRows; j++) {
                 StackPane p = new StackPane();
+                p.setAlignment(Pos.CENTER);
                 //p.setStyle("-fx-background-color:#126B40");
                 //p.getStyleClass().add("gradiantGeneral");
                 boardGrid.add(p, i, j);
