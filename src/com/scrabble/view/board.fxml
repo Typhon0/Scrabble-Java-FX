@@ -12,45 +12,54 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="100.0" minWidth="100.0" prefHeight="615.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scrabble.controller.MainUIController">
+<AnchorPane fx:id="baseAnchor" minHeight="100.0" minWidth="100.0" prefHeight="615.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scrabble.controller.MainUIController">
     <children>
-        <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <VBox prefHeight="200.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
-                    <children>
-                        <StackPane fx:id="logoContainer" prefHeight="150.0" prefWidth="200.0">
-                            <children>
-                                <ImageView fx:id="logo" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../ressources/title_scrabble.png" />
-                                    </image>
-                                </ImageView>
-                            </children>
-                        </StackPane>
-                        <VBox alignment="TOP_CENTER" spacing="15.0" VBox.vgrow="ALWAYS">
-                            <children>
-                                <Button alignment="CENTER" mnemonicParsing="false" onAction="#HandleMenuButton" prefHeight="49.0" prefWidth="195.0" styleClass="GreenButton" text="Menu" />
-                                <Button alignment="CENTER" mnemonicParsing="false" onAction="#HandlePopupButton" prefHeight="49.0" prefWidth="195.0" styleClass="GreenButton" text="popup" />
-                            </children>
-                        </VBox>
-                    </children>
-                </VBox>
-                <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                    <children>
-                        <AnchorPane fx:id="board" maxHeight="900.0" maxWidth="900.0" minHeight="300.0" minWidth="300.0" prefHeight="400.0" prefWidth="400.0" styleClass="mainBoard" stylesheets="@../ressources/Styles/style.css" />
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                            <children>
-                                <StackPane fx:id="mainJoueur" prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                <StackPane fx:id="boutonJoueur" prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Button fx:id="pioche" prefHeight="100" prefWidth="100" mnemonicParsing="false" />
-                           </children></StackPane>
-                            </children>
-                        </HBox>
-                    </children>
-                </VBox>
-            </children>
-        </HBox>
+      <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+              <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                  <children>
+                      <VBox prefHeight="200.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
+                          <children>
+                              <StackPane fx:id="logoContainer" prefHeight="150.0" prefWidth="200.0">
+                                  <children>
+                                      <ImageView fx:id="logo" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                              <Image url="@../ressources/title_scrabble.png" />
+                                          </image>
+                                      </ImageView>
+                                  </children>
+                              </StackPane>
+                              <VBox alignment="TOP_CENTER" spacing="15.0" VBox.vgrow="ALWAYS">
+                                  <children>
+                                      <Button alignment="CENTER" mnemonicParsing="false" onAction="#HandleMenuButton" prefHeight="49.0" prefWidth="195.0" styleClass="GreenButton" text="Menu" />
+                                      <Button alignment="CENTER" mnemonicParsing="false" onAction="#HandlePopupButton" prefHeight="49.0" prefWidth="195.0" styleClass="GreenButton" text="popup" />
+                                  </children>
+                              </VBox>
+                          </children>
+                      </VBox>
+                      <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                          <children>
+                              <AnchorPane fx:id="board" maxHeight="900.0" maxWidth="900.0" minHeight="300.0" minWidth="300.0" prefHeight="400.0" prefWidth="400.0" styleClass="mainBoard" stylesheets="@../ressources/Styles/style.css" />
+                          </children>
+                      </VBox>
+                  </children>
+              </HBox>
+                  <HBox alignment="CENTER" minHeight="200.0" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                      <children>
+                  <HBox fx:id="mainJoueur" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets top="20.0" />
+                     </padding>
+                  </HBox>
+                          <StackPane fx:id="boutonJoueur" minWidth="150.0" prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="pioche" mnemonicParsing="false" onAction="#HandlePiocheButton" prefHeight="100" prefWidth="100" />
+                     </children>
+                  </StackPane>
+                      </children>
+                  </HBox>
+         </children>
+      </VBox>
         <AnchorPane fx:id="menu" prefHeight="615.0" prefWidth="725.0" translateX="0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
             <StackPane layoutX="244.0" layoutY="54.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
