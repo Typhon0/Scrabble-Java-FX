@@ -211,7 +211,21 @@ public class MainUIController {
 
     }
 
+    //TODO
+    public static void swapHand(int i,int j){
+
+    }
+
+    public DraggableImageView generateDragFromLetter(char ch, double size){
+        if(ch == '?'){
+            return new DraggableImageView(new Image("/com/scrabble/ressources/Piece/letter.png",size,size,true,true), board);
+        }else{
+            return new DraggableImageView(new Image("/com/scrabble/ressources/Piece/letter_" + ch + ".png",size,size,true,true), board);
+        }
+    }
+
     public void showHand() {
+        //TODO get hand from model
         ArrayList<Piece> main = new ArrayList<Piece>();
         main.add(new Piece('A', 1));
         main.add(new Piece('B', 3));
@@ -221,18 +235,17 @@ public class MainUIController {
         main.add(new Piece('F', 4));
         main.add(new Piece('G', 2));
 
-        ArrayList<DraggableImageView> listePiece = new ArrayList<DraggableImageView>();
+        ArrayList<ImageView> listePiece = new ArrayList<ImageView>();
         mainJoueur.getChildren().clear();
         double size = board.getWidth();
-        size/=16;
+        size/=10;
         for (Piece p : main) {
-            //System.out.println("../ressources/Piece/letter_" + p.getLettre() + ".png");
-            listePiece.add(new DraggableImageView(new Image("/com/scrabble/ressources/Piece/letter_" + p.getLettre() + ".png",size,size,false,false)));
+            DraggableImageView img = generateDragFromLetter(p.getLettre(),size);
+            listePiece.add(img);
         }
-        for (DraggableImageView div : listePiece) {
+        for (ImageView div : listePiece) {
             mainJoueur.getChildren().add(div);
         }
-
 
     }
 

@@ -2,11 +2,19 @@ package com.scrabble.control;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseDragEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -14,99 +22,86 @@ import java.io.IOException;
  * Draggable image view
  */
 public class DraggableImageView extends ImageView {
-    private double mouseX;
-    private double mouseY;
-    private double lastPosX;
-    private double lastPosY;
+    double orgSceneX, orgSceneY;
+    double orgTranslateX, orgTranslateY;
+    AnchorPane board;
+    Bounds boardBounds;
 
-    public DraggableImageView() {
-
-        super();
-
-        setOnMousePressed(event -> {
-            mouseX = event.getSceneX();
-            mouseY = event.getSceneY();
-            lastPosX = getLayoutX();
-            lastPosY = getLayoutY();
-            this.setCursor(Cursor.MOVE);
-        });
-
-        setOnMouseDragged(event -> {
-
-            double deltaX = event.getSceneX() - mouseX;
-            double deltaY = event.getSceneY() - mouseY;
-            /*System.out.println(deltaX + "Delta Y :" + deltaY);
-            System.out.println("Layout X  " + getLayoutX() + " Layout Y" + getLayoutY());
-            System.out.println("last Layout X  " + lastPosX + " last Layout Y" + lastPosY);*/
-
-            relocate(getLayoutX() + deltaX, getLayoutY() + deltaY);
-
-
-            mouseX = event.getSceneX();
-            mouseY = event.getSceneY();
-
-        });
-
-
-        setOnMouseReleased(event -> {
-            if ((getLayoutX() < 0 || getLayoutY() < 0) || (getLayoutX() > getScene().getHeight() || getLayoutY() > getScene().getWidth())) {
-
-                relocate(273, 468);
-            }
-        });
-
-        setOnMouseEntered(event -> {
-            this.setCursor(Cursor.HAND);
-        });
-
-        setOnMouseExited(event -> {
-            this.setCursor(Cursor.DEFAULT);
-        });
-
-    }
-
-    public DraggableImageView(Image image) {
+    public DraggableImageView(Image image, AnchorPane board){
         super(image);
-
-        setOnMousePressed(event -> {
-            mouseX = event.getSceneX();
-            mouseY = event.getSceneY();
-            lastPosX = getLayoutX();
-            lastPosY = getLayoutY();
-            this.setCursor(Cursor.MOVE);
-        });
-
-        setOnMouseDragged(event -> {
-
-            double deltaX = event.getSceneX() - mouseX;
-            double deltaY = event.getSceneY() - mouseY;
-            /*System.out.println(deltaX + "Delta Y :" + deltaY);
-            System.out.println("Layout X  " + getLayoutX() + " Layout Y" + getLayoutY());
-            System.out.println("last Layout X  " + lastPosX + " last Layout Y" + lastPosY);*/
-
-            relocate(getLayoutX() + deltaX, getLayoutY() + deltaY);
-
-
-            mouseX = event.getSceneX();
-            mouseY = event.getSceneY();
-
-        });
-
-
-        setOnMouseReleased(event -> {
-            if ((getLayoutX() < 0 || getLayoutY() < 0) || (getLayoutX() > getScene().getHeight() || getLayoutY() > getScene().getWidth())) {
-
-                relocate(273, 468);
-            }
-        });
-
-        setOnMouseEntered(event -> {
-            this.setCursor(Cursor.HAND);
-        });
-
-        setOnMouseExited(event -> {
-            this.setCursor(Cursor.DEFAULT);
-        });
-
+        this.board = board;
+        this.setOnMousePressed(ImageViewOnMousePressedEventHandler);
+        this.setOnMouseDragged(ImageViewOnMouseDraggedEventHandler);
+        this.setOnMouseEntered(ImageViewOnMouseEnteredHandler);
+        this.setOnMouseExited(ImageViewOnMouseExitedHandler);
+        this.setOnMouseReleased(ImageViewOnMouseReleasedHandler);
     }
+
+    private void updateBoardBounds(){
+        boardBounds = board.localToScene(board.getBoundsInLocal());
+    }
+    //click enfonce
+    EventHandler<MouseEvent> ImageViewOnMousePressedEventHandler =
+            new EventHandler<MouseEvent>() {
+
+                @Override
+                public void handle(MouseEvent t) {
+                    orgSceneX = t.getSceneX();
+                    orgSceneY = t.getSceneY();
+                    orgTranslateX = ((ImageView)(t.getSource())).getTranslateX();
+                    orgTranslateY = ((ImageView)(t.getSource())).getTranslateY();
+                }
+            };
+    //click enfonce et mouvement souris
+    EventHandler<MouseEvent> ImageViewOnMouseDraggedEventHandler =
+            new EventHandler<MouseEvent>() {
+
+                @Override
+                public void handle(MouseEvent t) {
+                    setCursor(Cursor.CLOSED_HAND);
+                    double offsetX = t.getSceneX() - orgSceneX;
+                    double offsetY = t.getSceneY() - orgSceneY;
+                    double newTranslateX = orgTranslateX + offsetX;
+                    double newTranslateY = orgTranslateY + offsetY;
+
+                    ((ImageView)(t.getSource())).setTranslateX(newTranslateX);
+                    ((ImageView)(t.getSource())).setTranslateY(newTranslateY);
+                }
+            };
+    //curseur de souris sur la node
+    EventHandler<MouseEvent> ImageViewOnMouseEnteredHandler =
+            new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setCursor(Cursor.HAND);
+                    updateBoardBounds();
+                }
+            };
+    //curseur de souris en dehors de la node
+    EventHandler<MouseEvent> ImageViewOnMouseExitedHandler =
+            new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setCursor(Cursor.DEFAULT);
+                }
+            };
+    //click souris relache
+    EventHandler<MouseEvent> ImageViewOnMouseReleasedHandler =
+            new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setCursor(Cursor.HAND);
+                    double X = event.getSceneX();
+                    double Y = event.getSceneY();
+
+                    //in board
+                    if(X > boardBounds.getMinX() && X < boardBounds.getMaxX() && Y > boardBounds.getMinY() && Y < boardBounds.getMaxY()){
+                        //TODO
+
+                    }else{
+                        setTranslateX(0.0);
+                        setTranslateY(0.0);
+                    }
+                }
+            };
 }
