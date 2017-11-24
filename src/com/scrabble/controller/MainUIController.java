@@ -1,7 +1,6 @@
 package com.scrabble.controller;
 
 import com.scrabble.MainApp;
-import com.scrabble.control.DraggableImageView;
 import com.scrabble.control.ImageButton;
 import com.scrabble.model.Piece;
 import com.scrabble.util.Animations;
@@ -13,7 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
@@ -216,27 +214,37 @@ public class MainUIController {
 
     }
 
-    public DraggableImageView generateDragFromLetter(char ch, double size){
+    public Button generateButtonFromLetter(char ch, double size){
+        //TODO
+        Button btn = new Button();
+        btn.getStyleClass().add("buttonLetter");
         if(ch == '?'){
-            return new DraggableImageView(new Image("/com/scrabble/ressources/Piece/letter.png",size,size,true,true), board);
+            //btn.setText("?");
+            btn.setStyle("-fx-background-image: url('/com/scrabble/ressources/Piece/letter.png')");
+            //btn.setStyle("-fx-background-size: 20px");
         }else{
-            return new DraggableImageView(new Image("/com/scrabble/ressources/Piece/letter_" + ch + ".png",size,size,true,true), board);
+            //btn.setText(String.valueOf(ch));
+            btn.setStyle("-fx-background-image: url('/com/scrabble/ressources/Piece/letter_" + ch + ".png')");
+            //btn.setStyle("-fx-background-size: 20px");
+            btn.setMinHeight(40);
+            btn.setMinWidth(40);
         }
+        return btn;
     }
 
     public void showHand() {
         ArrayList<Piece> main = mainApp.getScrabble().getJoueur(0).getMain();
 
-        ArrayList<ImageView> listePiece = new ArrayList<ImageView>();
-        mainJoueur.getChildren().clear();
+        ArrayList<Button> listePiece = new ArrayList<Button>();
+       // mainJoueur.getChildren().clear();
         double size = board.getWidth();
         size/=10;
         for (Piece p : main) {
-            DraggableImageView img = generateDragFromLetter(p.getLettre(),size);
-            listePiece.add(img);
+            Button btn = generateButtonFromLetter(p.getLettre(),size);
+            listePiece.add(btn);
         }
-        for (ImageView div : listePiece) {
-            mainJoueur.getChildren().add(div);
+        for (Button b : listePiece) {
+            mainJoueur.getChildren().add(b);
         }
 
     }
