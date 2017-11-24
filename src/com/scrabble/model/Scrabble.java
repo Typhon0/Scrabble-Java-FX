@@ -14,13 +14,18 @@ public class Scrabble {
     private Pioche pioche;
     private ArrayList<Joueur> joueurs;
     private Dictionnaire dictionnaire;
+    private int courantPlayer;
+    private int nbPlayer;
 
     public Scrabble() {
         board = new Case[15][15];
         initTab();
         initBag();
         initJoueurs();
+        nbPlayer=4;
+        courantPlayer=0;
         initDictionnaire();
+
     }
 
     public void initTab() {
@@ -100,4 +105,15 @@ public class Scrabble {
     }
 
 
+
+    public void changementTour(){
+        if(courantPlayer==nbPlayer-1)
+            courantPlayer=0;
+        else
+            courantPlayer++;
+    }
+
+    public int getCourantPlayer() {
+        return courantPlayer;
+    }
 }
