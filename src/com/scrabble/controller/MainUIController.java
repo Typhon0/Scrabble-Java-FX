@@ -231,7 +231,8 @@ public class MainUIController {
      */
     @FXML
     public void HandleShuffle(ActionEvent actionEvent) {
-        
+        mainApp.getScrabble().getJoueur(0).melanger();
+        showHand();
     }
 
     /**
