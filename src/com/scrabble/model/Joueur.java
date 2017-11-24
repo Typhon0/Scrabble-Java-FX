@@ -321,21 +321,21 @@ public class Joueur {
     	}
     }
 
-	public int compterPoints(Case[][] board){
-		int nbPP = 0;
-		int nbPG = 0;
+	public int compterPoints(Case[][] board){  // fonction qui compte les points du nouveau mot
+		int nbPP = 0;			// points des lettres deja existantes
+		int nbPG = 0;			// points du mot principal ( lettres posées )
 		int cmpLettre=0;
 		int coefMultG=1;
 		int coefMultP=1;
 		int verOuHor; //1 = mot d'essai en horizontal / 2 = vertical / 0 = une lettre inseree;
-		if (essaiMot.size()==1)
+		if (essaiMot.size()==1)    					// test si il n'y a qu'une lettre de posée
 			verOuHor=0;
-		else if (essaiMot.get(0).getCasePiece().getX()==essaiMot.get(1).getCasePiece().getX()) {
+		else if (essaiMot.get(0).getCasePiece().getX()==essaiMot.get(1).getCasePiece().getX()) { // test si le mot est horizontal
 			verOuHor = 1;
 			nbPG+=pointsLettresDejaPresententHorizontal(board,essaiMot.get(0).getCasePiece().getX());
 
 		}
-		else {
+		else {		// le mot est vertical
 			verOuHor = 2;
 			nbPG=pointsLettresDejaPresententVertical(board,essaiMot.get(0).getCasePiece().getY());
 		}
@@ -359,18 +359,18 @@ public class Joueur {
 			else {
 				nbPG+= essaiMot.get(cmpLettre).getValue();
 			}
-			nbPP += pointsPetitMot(cmpLettre,board,verOuHor) * coefMultP;
+			nbPP += pointsPetitMot(cmpLettre,board,verOuHor) * coefMultP; // calcul des points des lettres posées auparavant
 			coefMultP=1;
 			cmpLettre+=1;
 		}
 		nbPG *= coefMultG;
-		if(essaiMot.size()==7)
+		if(essaiMot.size()==7)   // bonus si toutes les lettres sont posées
 			nbPG+=50;
 		return nbPG + nbPP;
 
 	}
 
-	public int pointsPetitMot(int cmpLettre, Case[][] board, int versOuHor){
+	public int pointsPetitMot(int cmpLettre, Case[][] board, int versOuHor){  // appel des fonction qui comptent les points selon la direction du mot
 		if(versOuHor==0){
 			return motPoseAuparavantHorizontal(cmpLettre,board) + motPoseAuparavantVertical(cmpLettre, board);
 		}
@@ -382,7 +382,7 @@ public class Joueur {
 		}
 	}
 
-	public int motPoseAuparavantHorizontal(int cmpLettre,Case[][] board){
+	public int motPoseAuparavantHorizontal(int cmpLettre,Case[][] board){   // comptage des mots déja posés
 		int nbP = 0;
 		int xp = essaiMot.get(cmpLettre).getCasePiece().getY()+1;
 		int xm = essaiMot.get(cmpLettre).getCasePiece().getY()-1;
@@ -401,7 +401,7 @@ public class Joueur {
 		return nbP;
 	}
 
-	public int motPoseAuparavantVertical(int cmpLettre,Case[][] board){
+	public int motPoseAuparavantVertical(int cmpLettre,Case[][] board){    // comptage des mots déja posés
 		int nbP = 0;
 		int x = essaiMot.get(cmpLettre).getCasePiece().getY();
 		int yp = essaiMot.get(cmpLettre).getCasePiece().getX()+1;
@@ -420,7 +420,7 @@ public class Joueur {
 	}
 
 
-	public int pointsLettresDejaPresententHorizontal(Case[][] board, int ligne){
+	public int pointsLettresDejaPresententHorizontal(Case[][] board, int ligne){   // comptage des lettres déja posées ( meme direction que le mot principal )
 		int i=0;
 		int point = 0;
 		int[] tab = new int[essaiMot.size()];
@@ -450,7 +450,7 @@ public class Joueur {
 	}
 
 
-	public int pointsLettresDejaPresententVertical(Case[][] board, int ligne){
+	public int pointsLettresDejaPresententVertical(Case[][] board, int ligne){		// comptage des lettres déja posées ( meme direction que le mot principal )
 		int i=0;
 		int point = 0;
 		int[] tab = new int[essaiMot.size()];
@@ -474,7 +474,7 @@ public class Joueur {
 	}
 
 
-	public boolean contain(int valeur, int[] tab){
+	public boolean contain(int valeur, int[] tab){  // teste si la lettre est déja posée
 		for (int i=0;i<tab.length;i++){
 			//System.out.println(tab[i]);
 			if(tab[i]==valeur){
@@ -484,7 +484,7 @@ public class Joueur {
 		return false;
 	}
 	
-	public void melanger()
+	public void melanger() // melange la main
 	{
 		Collections.shuffle(this.main);
 	}
@@ -497,7 +497,7 @@ public class Joueur {
 		this.essaiMot = essaiMot;
 	}
 
-	public void echanger(ArrayList<Piece> lettres, Pioche pioche){
+	public void piocher(ArrayList<Piece> lettres, Pioche pioche){ // pioche des lettres
 		for (int i=0;i<lettres.size();i++){
 			for(int j=0;j<main.size();j++){
 				if(lettres.get(i).getLettre()==main.get(j).getLettre()){
