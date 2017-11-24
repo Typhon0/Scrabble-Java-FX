@@ -491,6 +491,18 @@ public class Joueur {
 		this.essaiMot = essaiMot;
 	}
 
+	public void echanger(ArrayList<Piece> lettres, Pioche pioche){
+		for (int i=0;i<lettres.size();i++){
+			for(int j=0;j<main.size();j++){
+				if(lettres.get(i).getLettre()==main.get(j).getLettre()){
+					i++;
+					pioche.addInBag(main.get(j));
+					main.set(j,pioche.takeLetterInBag(1).get(0));
+				}
+			}
+		}
+	}
+
 
 	public static void main(String[] args)
 	{
