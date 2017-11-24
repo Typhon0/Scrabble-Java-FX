@@ -92,7 +92,7 @@
 }
 
 .buttonLetter{
-    -fx-background-repeat: stretch;
+    -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
     -fx-background-size: 35px;
     -fx-focus-color:transparent;

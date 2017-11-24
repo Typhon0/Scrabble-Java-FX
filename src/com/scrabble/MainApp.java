@@ -83,9 +83,12 @@ public class MainApp extends Application {
             boardGrid.getRowConstraints().add(rowConst);
         }
         // ajout des cases (Pane)
+        int cpt=0;
         for (int i = 0; i < numColsRows; i++) {
             for (int j = 0; j < numColsRows; j++) {
                 StackPane p = new StackPane();
+                p.setId("S" + cpt);
+                cpt++;
                 p.setAlignment(Pos.CENTER);
                 //p.setStyle("-fx-background-color:#126B40");
                 //p.getStyleClass().add("gradiantGeneral");
