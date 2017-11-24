@@ -363,6 +363,8 @@ public class Joueur {
 			cmpLettre+=1;
 		}
 		nbPG *= coefMultG;
+		if(essaiMot.size()==7)
+			nbPG+=50;
 		return nbPG + nbPP;
 
 	}
@@ -452,7 +454,7 @@ public class Joueur {
 		int point = 0;
 		int[] tab = new int[essaiMot.size()];
 		for (int j=0; j<essaiMot.size();j++){
-			tab[i]=essaiMot.get(j).getCasePiece().getX();
+			tab[j]=essaiMot.get(j).getCasePiece().getX();
 		}
 		int xM = essaiMot.get(0).getCasePiece().getX()-1;
 		int xP = essaiMot.get(0).getCasePiece().getX()+1;
@@ -462,7 +464,7 @@ public class Joueur {
 			xM--;
 		}
 		while (!board[ligne][xP].estLibre() || contain(xP,tab)){
-			if (!board[ligne][xP].estLibre() && contain(xP,tab))
+			if (!board[ligne][xP].estLibre() && !contain(xP,tab))
 				point+=board[ligne][xP].getPiece().getValue();
 			xP++;
 		}
