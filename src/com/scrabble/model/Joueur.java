@@ -320,37 +320,37 @@ public class Joueur {
     	}
     }
 
-    public int compterPoints(Case[][] board){
-    	int nbPP = 0;
-    	int nbPG = 0;
-    	int cmpLettre=0;
-    	int coefMultG=1;
-    	int coefMultP=1;
-    	int verOuHor; //1 = mot d'essai en horizontal / 2 = vertical / 0 = une lettre inseree;
+	public int compterPoints(Case[][] board){
+		int nbPP = 0;
+		int nbPG = 0;
+		int cmpLettre=0;
+		int coefMultG=1;
+		int coefMultP=1;
+		int verOuHor; //1 = mot d'essai en horizontal / 2 = vertical / 0 = une lettre inseree;
 		if (essaiMot.size()==1)
 			verOuHor=0;
-    	else if (essaiMot.get(0).getCasePiece().getX()==essaiMot.get(1).getCasePiece().getX()) {
+		else if (essaiMot.get(0).getCasePiece().getX()==essaiMot.get(1).getCasePiece().getX()) {
 			verOuHor = 1;
 			nbPG+=pointsLettresDejaPresententHorizontal(board,essaiMot.get(0).getCasePiece().getX());
+
 		}
-    	else {
+		else {
 			verOuHor = 2;
 			nbPG=pointsLettresDejaPresententVertical(board,essaiMot.get(0).getCasePiece().getY());
 		}
 		while (cmpLettre<essaiMot.size()){
-
 			if(essaiMot.get(cmpLettre).getCasePiece().getBonus().equals(BonusCase.LD)) {
 				nbPG += essaiMot.get(cmpLettre).getValue() * 2;
 			}
-			if(essaiMot.get(cmpLettre).getCasePiece().getBonus().equals(BonusCase.LT)) {
+			else if(essaiMot.get(cmpLettre).getCasePiece().getBonus().equals(BonusCase.LT)) {
 				nbPG += essaiMot.get(cmpLettre).getValue() * 3;
 			}
-			if(essaiMot.get(cmpLettre).getCasePiece().getBonus().equals(BonusCase.MD)) {
+			else if(essaiMot.get(cmpLettre).getCasePiece().getBonus().equals(BonusCase.MD)) {
 				nbPG += essaiMot.get(cmpLettre).getValue();
 				coefMultG *=2;
 				coefMultP =2;
 			}
-			if(essaiMot.get(cmpLettre).getCasePiece().getBonus().equals(BonusCase.MT)) {
+			else if(essaiMot.get(cmpLettre).getCasePiece().getBonus().equals(BonusCase.MT)) {
 				nbPG += essaiMot.get(cmpLettre).getValue();
 				coefMultG *= 3;
 				coefMultP = 3;
@@ -368,11 +368,11 @@ public class Joueur {
 	}
 
 	public int pointsPetitMot(int cmpLettre, Case[][] board, int versOuHor){
-    	if(versOuHor==0){
-    		return motPoseAuparavantHorizontal(cmpLettre,board) + motPoseAuparavantVertical(cmpLettre, board);
+		if(versOuHor==0){
+			return motPoseAuparavantHorizontal(cmpLettre,board) + motPoseAuparavantVertical(cmpLettre, board);
 		}
 		else if(versOuHor==1){
-    		return motPoseAuparavantVertical(cmpLettre, board);
+			return motPoseAuparavantVertical(cmpLettre, board);
 		}
 		else {
 			return motPoseAuparavantHorizontal(cmpLettre, board);
@@ -380,30 +380,31 @@ public class Joueur {
 	}
 
 	public int motPoseAuparavantHorizontal(int cmpLettre,Case[][] board){
-    	int nbP = 0;
-    	int xp = essaiMot.get(cmpLettre).getCasePiece().getX();
-    	int xm = essaiMot.get(cmpLettre).getCasePiece().getX();
-    	int y = essaiMot.get(cmpLettre).getCasePiece().getY();
-    	Case casePlus = board[++xp][y];
-    	Case caseMoins = board[--xm][y];
-    	while (!casePlus.estLibre()){
-    		nbP += casePlus.getPiece().getValue();
-    		casePlus = board[++xp][y];
+		int nbP = 0;
+		int xp = essaiMot.get(cmpLettre).getCasePiece().getY()+1;
+		int xm = essaiMot.get(cmpLettre).getCasePiece().getY()-1;
+		int y = essaiMot.get(cmpLettre).getCasePiece().getX();
+		Case casePlus = board[xp][y];
+		Case caseMoins = board[xm][y];
+		while (!casePlus.estLibre()){
+			nbP += casePlus.getPiece().getValue();
+			casePlus = board[++xp][y];
 		}
 		while (!caseMoins.estLibre()){
 			nbP += caseMoins.getPiece().getValue();
 			caseMoins = board[--xm][y];
+			System.out.println(xm);
 		}
 		return nbP;
 	}
 
 	public int motPoseAuparavantVertical(int cmpLettre,Case[][] board){
 		int nbP = 0;
-		int x = essaiMot.get(cmpLettre).getCasePiece().getX();
-		int yp = essaiMot.get(cmpLettre).getCasePiece().getY();
-		int ym = essaiMot.get(cmpLettre).getCasePiece().getY();
-		Case casePlus = board[x][++yp];
-		Case caseMoins = board[x][--yp];
+		int x = essaiMot.get(cmpLettre).getCasePiece().getY();
+		int yp = essaiMot.get(cmpLettre).getCasePiece().getX()+1;
+		int ym = essaiMot.get(cmpLettre).getCasePiece().getX()-1;
+		Case casePlus = board[x][yp];
+		Case caseMoins = board[x][ym];
 		while (!casePlus.estLibre()){
 			nbP += casePlus.getPiece().getValue();
 			casePlus = board[x][++yp];
@@ -421,18 +422,24 @@ public class Joueur {
 		int point = 0;
 		int[] tab = new int[essaiMot.size()];
 		for (int j=0; j<essaiMot.size();j++){
-			tab[i]=essaiMot.get(j).getCasePiece().getY();
+			tab[j]=essaiMot.get(j).getCasePiece().getY();
+			//System.out.println(essaiMot.get(j).getCasePiece().getY());
 		}
-		int yM = essaiMot.get(0).getCasePiece().getX()-1;
-		int yP = essaiMot.get(0).getCasePiece().getX()+1;
-		while (!board[ligne][yM].estLibre() || contain(yM,tab)){
-			if (!board[ligne][yM].estLibre())
-				point+=board[ligne][yM].getPiece().getValue();
+		int yM = essaiMot.get(0).getCasePiece().getY()-1;
+		int yP = essaiMot.get(0).getCasePiece().getY()+1;
+
+		while (!board[yM][ligne].estLibre() || contain(yM,tab)){
+			if (!board[yM][ligne].estLibre()&& !contain(yM,tab)) {
+				//System.out.println(board[ligne][yM].getPiece().getValue());
+				point += board[yM][ligne].getPiece().getValue();
+			}
 			yM--;
 		}
-		while (!board[ligne][yP].estLibre() || contain(yP,tab)){
-			if (!board[ligne][yP].estLibre())
-				point+=board[ligne][yM].getPiece().getValue();
+
+		while (!board[yP][ligne].estLibre() || contain(yP,tab)){
+			if (!board[yP][ligne].estLibre()&& !contain(yP,tab)) {
+				point += board[yP][ligne].getPiece().getValue();
+			}
 			yP++;
 		}
 		return point;
@@ -449,14 +456,14 @@ public class Joueur {
 		}
 		int xM = essaiMot.get(0).getCasePiece().getX()-1;
 		int xP = essaiMot.get(0).getCasePiece().getX()+1;
-		while (!board[xM][ligne].estLibre() || contain(xM,tab)){
-			if (!board[xM][ligne].estLibre())
-				point+=board[xM][ligne].getPiece().getValue();
+		while (!board[ligne][xM].estLibre() || contain(xM,tab)){
+			if (!board[ligne][xM].estLibre() && contain(xM,tab))
+				point+=board[ligne][xM].getPiece().getValue();
 			xM--;
 		}
-		while (!board[xP][ligne].estLibre() || contain(xP,tab)){
-			if (!board[xP][ligne].estLibre())
-				point+=board[xP][ligne].getPiece().getValue();
+		while (!board[ligne][xP].estLibre() || contain(xP,tab)){
+			if (!board[ligne][xP].estLibre() && contain(xP,tab))
+				point+=board[ligne][xP].getPiece().getValue();
 			xP++;
 		}
 		return point;
@@ -466,11 +473,20 @@ public class Joueur {
 
 	public boolean contain(int valeur, int[] tab){
 		for (int i=0;i<tab.length;i++){
+			//System.out.println(tab[i]);
 			if(tab[i]==valeur){
 				return true;
 			}
 		}
 		return false;
+	}
+
+	public ArrayList<Piece> getEssaiMot() {
+		return essaiMot;
+	}
+
+	public void setEssaiMot(ArrayList<Piece> essaiMot) {
+		this.essaiMot = essaiMot;
 	}
 
 
