@@ -65,7 +65,13 @@ public class MainUIController {
     @FXML
     private HBox mainJoueur;
     @FXML
-    Label score;
+    Text scoreJ1;
+    @FXML
+    Text scoreJ2;
+    @FXML
+    Text scoreJ3;
+    @FXML
+    Text scoreJ4;
 
     /**
      * Is called by the main application to give a reference back to itself.
@@ -93,12 +99,16 @@ public class MainUIController {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                score.textProperty().bind(mainApp.getScrabble().getJoueur(0).nbPointsProperty().asString());
                 boardGrid = (GridPane) board.getChildren().get(0);
                 ObservableList<Node> list= boardGrid.getChildren();
                 for(Node n:list){
                     n.setOnMouseClicked(onBoardClicked());
                 }
+                scoreJ1.textProperty().bind(mainApp.getScrabble().getJoueur(0).nbPointsProperty().asString());
+                scoreJ2.textProperty().bind(mainApp.getScrabble().getJoueur(1).nbPointsProperty().asString());
+                //scoreJ3.textProperty().bind(mainApp.getScrabble().getJoueur(2).nbPointsProperty().asString());
+                //scoreJ4.textProperty().bind(mainApp.getScrabble().getJoueur(3).nbPointsProperty().asString());
+                showHand();
             }
         });
 
@@ -212,6 +222,34 @@ public class MainUIController {
         dialogContent.setVisible(true);
         Animations.BounceInTransition(dialogContent);
 
+    }
+
+    /**
+     * Handle shuffle button
+     *
+     * @param actionEvent
+     */
+    @FXML
+    public void HandleShuffle(ActionEvent actionEvent) {
+        
+    }
+
+    /**
+     * Handle Swap or Recall button
+     *
+     * @param actionEvent
+     */
+    @FXML
+    public void HandleSwapRecall(ActionEvent actionEvent) {
+    }
+
+    /**
+     * Handle Jouer or Passer tour button
+     *
+     * @param actionEvent
+     */
+    @FXML
+    public void HandleSJouerPasserTour(ActionEvent actionEvent) {
     }
 
     /**

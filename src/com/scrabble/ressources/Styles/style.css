@@ -3,91 +3,137 @@
 
 }
 
+#baseAnchor{
+    -fx-background-color: #126B40;
+}
+
 .gradiantGeneral {
-	-fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 65% , #278A5B, #126B40);
+    -fx-background-color: radial-gradient(focus-distance 0%, center 50% 50%, radius 65%, #278A5B, #126B40);
 }
 
 .gradiantMT {
-	-fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 65% , #FD5B78, #C7031E);
+    -fx-background-color: radial-gradient(focus-distance 0%, center 50% 50%, radius 65%, #FD5B78, #C7031E);
 }
 
 .gradiantLT {
-	-fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 65% , #93CCEA, #6093D1);
+    -fx-background-color: radial-gradient(focus-distance 0%, center 50% 50%, radius 65%, #93CCEA, #6093D1);
 }
 
 .gradiantMD {
-	-fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 65% , #E8B9B3, #ED989E);
+    -fx-background-color: radial-gradient(focus-distance 0%, center 50% 50%, radius 65%, #E8B9B3, #ED989E);
 }
 
 .gradiantLD {
-	-fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 65% , #BAEEF9, #6CDAE7);
+    -fx-background-color: radial-gradient(focus-distance 0%, center 50% 50%, radius 65%, #BAEEF9, #6CDAE7);
 }
+
 *.label {
-	-fx-text-fill: #25272C;
+    -fx-text-fill: #25272C;
 }
-.invisible{
-	-fx-opacity: 0.0;
+
+.invisible {
+    -fx-opacity: 0.0;
 }
 
 .mainBoard {
-	-fx-background-color: #34495e;
+    -fx-background-color: #34495e;
 }
 
-#pioche{
+#PasserouJouer{
+    -fx-background-image: url('../Button/squareBtnValider.png');
+    -fx-background-size: 64px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: bottom;
+    -fx-background-color: transparent;
+    -fx-focus-color: transparent;
+}
+
+#PasserouJouer:pressed{
+    -fx-background-image: url('../Button/squareBtnValiderDown.png');
+}
+
+#pioche {
     -fx-background-image: url('../pioche_2_256.png');
     -fx-background-size: 64px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: bottom;
     -fx-background-color: transparent;
-    -fx-focus-color:transparent;
+    -fx-focus-color: transparent;
 
 }
 
-#pioche:hover{
+#pioche:hover {
     -fx-background-image: url('../pioche_256.png');
 }
 
-#pioche:pressed{
+#pioche:pressed {
     -fx-scale-x: 0.8;
     -fx-scale-y: 0.8;
 }
 
+#shuffleBtn {
+    -fx-background-image: url('../Button/shuffle.png');
+    -fx-background-size: 64px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: bottom;
+    -fx-background-color: transparent;
+    -fx-focus-color: transparent;
+}
 
-.GreenButton{
-	-fx-background-image: url('../Button/textButton.png');
-	-fx-background-repeat: no-repeat;
-	-fx-background-position: center;
+#shuffleBtn:pressed {
+    -fx-scale-x: 0.8;
+    -fx-scale-y: 0.8;
+}
+
+#swapRecallBtn {
+    -fx-background-image: url('../Button/swap.png');
+    -fx-background-size: 64px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: bottom;
+    -fx-background-color: transparent;
+    -fx-focus-color: transparent;
+}
+
+#swapRecallBtn:pressed {
+    -fx-scale-x: 0.8;
+    -fx-scale-y: 0.8;
+}
+
+.GreenButton {
+    -fx-background-image: url('../Button/textButton.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
     -fx-font: 23 Lato;
     -fx-text-fill: #ecf0f1;
     -fx-alignment: center;
     -fx-pref-width: 195;
     -fx-pref-height: 49;
-	-fx-min-width: 195;
-	-fx-min-height: 49;
+    -fx-min-width: 195;
+    -fx-min-height: 49;
     -fx-scale-x: 0.8;
     -fx-scale-y: 0.8;
     -fx-background-color: transparent;
-    -fx-focus-color:transparent;
+    -fx-focus-color: transparent;
 
 }
 
-.GreenButton:pressed{
-	-fx-background-image: url('../Button/textButtonDown.png');
+.GreenButton:pressed {
+    -fx-background-image: url('../Button/textButtonDown.png');
 }
 
-#menu{
+#menu {
     -fx-background-color: #34495e;
 
 }
 
-#menu .label{
-	-fx-text-fill: #ecf0f1;
+#menu .label {
+    -fx-text-fill: #ecf0f1;
 }
 
 #dialogContent {
-	-fx-border-radius: 10 10 10 10;
-	-fx-background-radius: 10 10 10 10;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
     -fx-background-color: #ecf0f1;
 }
 
@@ -95,6 +141,6 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
     -fx-background-size: 35px;
-    -fx-focus-color:transparent;
-    -fx-background-color:transparent;
+    -fx-focus-color: transparent;
+    -fx-background-color: transparent;
 }
