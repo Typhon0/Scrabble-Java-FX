@@ -88,4 +88,9 @@ public class Pioche {
 	public ArrayList<Piece> getBag() {
 		return bag;
 	}
+	
+	public boolean isEmpty()
+	{
+		return bag.isEmpty();
+	}
 }
