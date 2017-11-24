@@ -65,6 +65,11 @@ public class Scrabble {
     public void initBag() {
         pioche = new Pioche();
     }
+    
+    public Dictionnaire getDico()
+    {
+    	return this.dictionnaire;
+    }
 
 
     public void initJoueurs() {
