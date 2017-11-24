@@ -104,6 +104,17 @@ public class Scrabble {
         }
     }
 
+    public boolean finDuJeu(Joueur j)
+    {
+    	boolean fin = false;
+    	
+    	if(pioche.isEmpty() && j.getMain().isEmpty())
+    	{
+    		fin = true;
+    	}
+    	
+    	return fin;
+    }
 
 
     public void changementTour(){
