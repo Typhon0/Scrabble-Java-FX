@@ -4,6 +4,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -33,6 +34,7 @@
                                   <children>
                                       <Button alignment="CENTER" mnemonicParsing="false" onAction="#HandleMenuButton" prefHeight="49.0" prefWidth="195.0" styleClass="GreenButton" text="Menu" />
                                       <Button alignment="CENTER" mnemonicParsing="false" onAction="#HandlePopupButton" prefHeight="49.0" prefWidth="195.0" styleClass="GreenButton" text="popup" />
+                              <Label fx:id="score" text="0" />
                                   </children>
                               </VBox>
                           </children>
