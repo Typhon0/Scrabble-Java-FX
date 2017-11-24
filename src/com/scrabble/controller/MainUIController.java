@@ -55,7 +55,13 @@ public class MainUIController {
     @FXML
     private HBox mainJoueur;
     @FXML
-    Label score;
+    Text scoreJ1;
+    @FXML
+    Text scoreJ2;
+    @FXML
+    Text scoreJ3;
+    @FXML
+    Text scoreJ4;
 
     /**
      * Is called by the main application to give a reference back to itself.
@@ -83,7 +89,11 @@ public class MainUIController {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                score.textProperty().bind(mainApp.getScrabble().getJoueur(0).nbPointsProperty().asString());
+                scoreJ1.textProperty().bind(mainApp.getScrabble().getJoueur(0).nbPointsProperty().asString());
+                scoreJ2.textProperty().bind(mainApp.getScrabble().getJoueur(1).nbPointsProperty().asString());
+                //scoreJ3.textProperty().bind(mainApp.getScrabble().getJoueur(2).nbPointsProperty().asString());
+                //scoreJ4.textProperty().bind(mainApp.getScrabble().getJoueur(3).nbPointsProperty().asString());
+                showHand();
             }
         });
     }
@@ -199,6 +209,34 @@ public class MainUIController {
     }
 
     /**
+     * Handle shuffle button
+     *
+     * @param actionEvent
+     */
+    @FXML
+    public void HandleShuffle(ActionEvent actionEvent) {
+        
+    }
+
+    /**
+     * Handle Swap or Recall button
+     *
+     * @param actionEvent
+     */
+    @FXML
+    public void HandleSwapRecall(ActionEvent actionEvent) {
+    }
+
+    /**
+     * Handle Jouer or Passer tour button
+     *
+     * @param actionEvent
+     */
+    @FXML
+    public void HandleSJouerPasserTour(ActionEvent actionEvent) {
+    }
+
+    /**
      * Show a confirmation dialog with  Yes and No buttons
      *
      * @param title
@@ -225,15 +263,15 @@ public class MainUIController {
 
     }
 
-    public Button generateButtonFromLetter(char ch, double size){
+    public Button generateButtonFromLetter(char ch, double size) {
         //TODO
         Button btn = new Button();
         btn.getStyleClass().add("buttonLetter");
-        if(ch == '?'){
+        if (ch == '?') {
             //btn.setText("?");
             btn.setStyle("-fx-background-image: url('/com/scrabble/ressources/Piece/letter.png')");
             //btn.setStyle("-fx-background-size: 20px");
-        }else{
+        } else {
             //btn.setText(String.valueOf(ch));
             btn.setStyle("-fx-background-image: url('/com/scrabble/ressources/Piece/letter_" + ch + ".png')");
             //btn.setStyle("-fx-background-size: 20px");
@@ -247,11 +285,11 @@ public class MainUIController {
         ArrayList<Piece> main = mainApp.getScrabble().getJoueur(0).getMain();
 
         ArrayList<Button> listePiece = new ArrayList<Button>();
-       // mainJoueur.getChildren().clear();
+        // mainJoueur.getChildren().clear();
         double size = board.getWidth();
         size /= 10;
         for (Piece p : main) {
-            Button btn = generateButtonFromLetter(p.getLettre(),size);
+            Button btn = generateButtonFromLetter(p.getLettre(), size);
             listePiece.add(btn);
         }
         for (Button b : listePiece) {
@@ -259,5 +297,6 @@ public class MainUIController {
         }
 
     }
+
 
 }
