@@ -363,6 +363,8 @@ public class Joueur {
 			cmpLettre+=1;
 		}
 		nbPG *= coefMultG;
+		if(essaiMot.size()==7)
+			nbPG+=50;
 		return nbPG + nbPP;
 
 	}
