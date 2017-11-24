@@ -4,6 +4,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by alexr on 22/09/2017.
@@ -482,6 +483,11 @@ public class Joueur {
 		}
 		return false;
 	}
+	
+	public void melanger()
+	{
+		Collections.shuffle(this.main);
+	}
 
 	public ArrayList<Piece> getEssaiMot() {
 		return essaiMot;
@@ -498,22 +504,46 @@ public class Joueur {
 		
 		Joueur j = new Joueur();
 		
+		
+		
 		scrab.getBoard()[6][6].setPiece(new Piece('A',1));
 		scrab.getBoard()[7][6].setPiece(new Piece('B',3));
 		scrab.getBoard()[8][6].setPiece(new Piece('A',1));
 
 		scrab.getBoard()[12][6].setPiece(new Piece('A',1));
 		
-		j.main.add(new Piece('I',2));
-		j.main.add(new Piece('?',3));
-		j.main.add(new Piece('S',3));
+
+		j.main.add(new Piece('I',1));
+		j.main.add(new Piece('?',0));
+		j.main.add(new Piece('S',1));
+		
 		
 		j.poserUnePiece(j.main.get(0), scrab.getBoard()[9][6]);
 		j.poserUnePiece(j.main.get(1), scrab.getBoard()[10][6]);
 		j.poserUnePiece(j.main.get(2), scrab.getBoard()[11][6]);
 		
-		System.out.println(j.motValide(scrab.getBoard(), scrab.getDico()));
 		
+		System.out.println(j.motValide(scrab.getBoard(), scrab.getDico())+" "+j.compterPoints(scrab.getBoard()));
+		
+	}
+	
+	
+	public ArrayList<Case> trouverLettre(char c, Case[][] board)
+	{
+		ArrayList<Case> cases = new ArrayList<Case>();
+		
+		for(int i=0 ; i<15; i++)
+		{
+			for(int j=0; j<15; j++)
+			{
+				if(!(board[i][j].estLibre()) && board[i][j].getPiece().getLettre()==c)
+				{
+					cases.add(board[i][j]);
+				}
+			}
+		}
+		
+		return cases;
 	}
 
     public IntegerProperty nbPointsProperty() {

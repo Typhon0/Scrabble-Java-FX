@@ -34,6 +34,7 @@ public class Case {
 
     public void setPiece(Piece piece) {
         this.piece = piece;
+        this.piece.setCasePiece(this);
         this.libre = false;
     }
 
