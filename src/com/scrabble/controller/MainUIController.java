@@ -352,6 +352,7 @@ public class MainUIController {
                     mainApp.getScrabble().getJoueur(0).getMain().remove(numeroLettreDansMain);
 
                     LetterWaiting = null;
+                    showHand();
                 }
             }
         };
