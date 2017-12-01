@@ -10,6 +10,7 @@ import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -327,7 +328,7 @@ public class MainUIController {
                 if (event.getSource() instanceof StackPane && LetterWaiting != null) {
                     StackPane sp = (StackPane) event.getSource();
                     sp.getChildren().clear();
-                    LetterWaiting.setOnMouseClicked(onBoardClicked());
+                    LetterWaiting.setOnMouseClicked(null);
                     LetterWaiting.setMinSize(sp.getWidth(), sp.getHeight());
                     LetterWaiting.setMaxSize(sp.getWidth(), sp.getHeight());
                     LetterWaiting.getStyleClass().removeAll("buttonLetter");
@@ -349,4 +350,5 @@ public class MainUIController {
             }
         };
     }
+
 }
