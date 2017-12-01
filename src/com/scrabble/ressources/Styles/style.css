@@ -86,12 +86,18 @@
 }
 
 #swapRecallBtn {
-    -fx-background-image: url('../Button/swap.png');
     -fx-background-size: 64px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: bottom;
     -fx-background-color: transparent;
     -fx-focus-color: transparent;
+}
+
+.swapImg{
+    -fx-background-image: url('../Button/swap.png');
+}
+.recallImg{
+    -fx-background-image: url('../Button/recall.png');
 }
 
 #swapRecallBtn:pressed {
