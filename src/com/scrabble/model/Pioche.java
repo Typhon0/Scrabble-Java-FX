@@ -2,12 +2,17 @@
  * */
 package com.scrabble.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class Pioche {
 	//bag contain all the letter
 	private ArrayList<Piece> bag;
+
+	private IntegerProperty nbPiece;
 
 	Pioche() {
 		bag = new ArrayList<Piece>();
@@ -39,7 +44,9 @@ public class Pioche {
 		addToBag('Z', 10, 1);
 		addToBag('?', 0, 2);
 		Collections.shuffle(bag);	//shuffle the bag
-	}
+        nbPiece = new SimpleIntegerProperty(nbPieceInBag());
+
+    }
 	/**
 	 * @param lettre is the character to add
 	 * @param val is the number of point of the letter
@@ -69,6 +76,7 @@ public class Pioche {
 		for (int i = 0; i < count; i++) {
 			miniList.add(bag.get(0));
 			bag.remove(0);
+			nbPiece.set(nbPiece.getValue()-1);
 		}
 		return miniList;
 	}
@@ -76,6 +84,7 @@ public class Pioche {
 	public int nbPieceInBag(){
 		return bag.size();
 	}
+
 	//return the max points contain in the bag
 	public int pointsInBag(){
 		int res=0;
@@ -93,4 +102,16 @@ public class Pioche {
 	{
 		return bag.isEmpty();
 	}
+
+    public int getNbPiece() {
+        return nbPiece.get();
+    }
+
+    public IntegerProperty nbPieceProperty() {
+        return nbPiece;
+    }
+
+    public void setNbPiece(int nbPiece) {
+        this.nbPiece.set(nbPiece);
+    }
 }

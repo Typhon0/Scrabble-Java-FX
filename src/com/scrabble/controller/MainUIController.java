@@ -2,10 +2,7 @@ package com.scrabble.controller;
 
 import com.scrabble.MainApp;
 import com.scrabble.control.ImageButton;
-import com.scrabble.model.BonusCase;
-import com.scrabble.model.Case;
-import com.scrabble.model.Piece;
-import com.scrabble.model.Scrabble;
+import com.scrabble.model.*;
 import com.scrabble.util.Animations;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
@@ -41,6 +38,8 @@ public class MainUIController {
 
     private GridPane boardGrid;
 
+    @FXML
+    Button pioche;
     @FXML
     private AnchorPane board;
     @FXML
@@ -109,12 +108,10 @@ public class MainUIController {
                 for (Node n : list) {
                     n.setOnMouseClicked(onBoardClicked());
                 }
-                scoreJ1.textProperty().bind(mainApp.getScrabble().getJoueur(0).nbPointsProperty().asString());
-                scoreJ2.textProperty().bind(mainApp.getScrabble().getJoueur(1).nbPointsProperty().asString());
-                //scoreJ3.textProperty().bind(mainApp.getScrabble().getJoueur(2).nbPointsProperty().asString());
-                //scoreJ4.textProperty().bind(mainApp.getScrabble().getJoueur(3).nbPointsProperty().asString());
+
                 showHand();
                 initScoreBoard();
+                pioche.textProperty().bind(mainApp.getScrabble().getPioche().nbPieceProperty().asString());
                 mainApp.getScrabble().currentPlayerPropertyProperty().addListener(new ChangeListener<Number>() {
                     @Override
                     public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -270,7 +267,7 @@ public class MainUIController {
 
     @FXML
     public void HandlePiocheButton(ActionEvent actionEvent) {
-        showHand();
+        mainApp.getScrabble().getPioche().takeLetterInBag(1);
     }
 
     /**

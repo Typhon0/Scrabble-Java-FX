@@ -153,4 +153,8 @@ public class Scrabble {
     public void setCurrentPlayerProperty(int currentPlayerProperty) {
         this.currentPlayerProperty.set(currentPlayerProperty);
     }
+
+    public Pioche getPioche() {
+        return pioche;
+    }
 }
