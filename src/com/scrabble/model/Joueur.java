@@ -473,6 +473,9 @@ public class Joueur {
 
 	}
 
+	public void swap(int i,int j){
+		Collections.swap(main,i,j);
+	}
 
 	public boolean contain(int valeur, int[] tab){  // teste si la lettre est déja posée
 		for (int i=0;i<tab.length;i++){

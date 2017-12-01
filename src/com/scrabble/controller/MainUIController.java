@@ -63,7 +63,7 @@ public class MainUIController {
     @FXML
     private Button buttonOuiPopup;
     @FXML
-    private Button buttonNonPopup;
+    private Button buttonNonPopup, swapRecallBtn;
     @FXML
     private HBox mainJoueur;
     @FXML
@@ -83,6 +83,9 @@ public class MainUIController {
     @FXML
     AnchorPane J4Box;
 
+    private ArrayList<Button> lettrePlaceesCetteManche; //Graphique
+    private ArrayList<Piece> piecePlaceesCetteManche;   //model
+
     /**
      * Is called by the main application to give a reference back to itself.
      *
@@ -99,6 +102,12 @@ public class MainUIController {
     @FXML
     private void initialize() {
         menu.toFront();
+
+
+        });
+        swapRecallBtn.getStyleClass().add("swapImg");
+        lettrePlaceesCetteManche = new ArrayList<>();
+        piecePlaceesCetteManche = new ArrayList<>();
 
         Platform.runLater(new Runnable() {
             @Override
@@ -307,6 +316,32 @@ public class MainUIController {
      */
     @FXML
     public void HandleSwapRecall(ActionEvent actionEvent) {
+        //si il s'agit du swap
+        if (swapRecallBtn.getStyleClass().get(0).equals("swapImg")) {
+
+            //si il s'agit du recall
+        } else {
+            int x = 0;
+            for (Button b : lettrePlaceesCetteManche) {
+                StackPane sp = (StackPane) b.getParent();
+                int numeroDeCase = Integer.parseInt(sp.getId().replace("S", ""));
+                //retirer dans le modele du board
+                Case c = mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15];
+                mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15] = new Case(c.getBonus(), c.getX(), c.getY());
+                //ajouter à la main
+                mainApp.getScrabble().getJoueur(0).getMain().add(piecePlaceesCetteManche.get(x));
+                //retirer graphiquement
+                sp.getChildren().remove(b);
+                resetBonusLabel(sp, numeroDeCase);
+                x++;
+            }
+            lettrePlaceesCetteManche.clear();
+            piecePlaceesCetteManche.clear();
+            swapRecallBtn.getStyleClass().removeAll("recallImg");
+            swapRecallBtn.getStyleClass().add("swapImg");
+
+            showHand();
+        }
     }
 
     /**
@@ -341,8 +376,12 @@ public class MainUIController {
     }
 
     //TODO
-    public static void swapHand(int i, int j) {
-
+    public void swapHand(Button b) {
+        int numeroLettreDansMain = Integer.parseInt(LetterWaiting.getId().replace("B", ""));
+        int destination = Integer.parseInt(b.getId().replace("B", ""));
+        mainApp.getScrabble().getJoueur(0).swap(numeroLettreDansMain,destination);
+        LetterWaiting = null;
+        showHand();
     }
 
     public Button generateButtonFromLetter(char ch) {
@@ -380,9 +419,14 @@ public class MainUIController {
         return new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
-                Button b = (Button) event.getSource();
-                LetterWaiting = b;
-                //System.out.println(b);
+                if(LetterWaiting != null){
+                    Button b = (Button) event.getSource();
+                    swapHand(b);
+                }else {
+                    Button b = (Button) event.getSource();
+                    LetterWaiting = b;
+                    //System.out.println(b);
+                }
             }
         };
     }
@@ -408,13 +452,40 @@ public class MainUIController {
                     //put in board
                     mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15].setPiece(mainApp.getScrabble().getJoueur(0).getMain().get(numeroLettreDansMain));
                     //remove in hand
+                    piecePlaceesCetteManche.add(mainApp.getScrabble().getJoueur(0).getMain().get(numeroLettreDansMain));
                     mainApp.getScrabble().getJoueur(0).getMain().remove(numeroLettreDansMain);
 
+                    lettrePlaceesCetteManche.add(LetterWaiting);
                     LetterWaiting = null;
+                    swapRecallBtn.getStyleClass().removeAll("swapImg");
+                    swapRecallBtn.getStyleClass().add("recallImg");
                     showHand();
                 }
             }
         };
     }
 
+    public void resetBonusLabel(StackPane sp, int numero) {
+        BonusCase bonus = mainApp.getScrabble().getBoard()[numero % 15][numero / 15].getBonus();
+        if (((numero % 15) == 7) && ((numero / 15) == 7)) {
+            sp.getChildren().add(new Label("\u2605"));
+        } else {
+            switch (bonus) {
+                case Vide:
+                    break;
+                case LT:
+                    sp.getChildren().add(new Label("LT"));
+                    break;
+                case MT:
+                    sp.getChildren().add(new Label("MT"));
+                    break;
+                case MD:
+                    sp.getChildren().add(new Label("MD"));
+                    break;
+                case LD:
+                    sp.getChildren().add(new Label("LD"));
+                    break;
+            }
+        }
+    }
 }
