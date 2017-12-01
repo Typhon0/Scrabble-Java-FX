@@ -3,7 +3,7 @@
 
 }
 
-#baseAnchor{
+#baseAnchor {
     -fx-background-color: #126B40;
 }
 
@@ -39,7 +39,7 @@
     -fx-background-color: #34495e;
 }
 
-#PasserouJouer{
+#PasserouJouer {
     -fx-background-image: url('../Button/squareBtnValider.png');
     -fx-background-size: 64px;
     -fx-background-repeat: no-repeat;
@@ -48,7 +48,7 @@
     -fx-focus-color: transparent;
 }
 
-#PasserouJouer:pressed{
+#PasserouJouer:pressed {
     -fx-background-image: url('../Button/squareBtnValiderDown.png');
 }
 
@@ -137,7 +137,7 @@
     -fx-background-color: #ecf0f1;
 }
 
-.buttonLetter{
+.buttonLetter {
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
     -fx-background-size: 35px;
@@ -146,11 +146,22 @@
     -fx-smooth: true;
 }
 
-.resizingPiece{
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center center;
-    -fx-background-size: 22px;
-    -fx-focus-color: transparent;
-    -fx-background-color: transparent;
-    -fx-smooth: true;
+.scoreBoard {
+    -fx-background-radius: 10 10 10 10;
+    -fx-border-radius: 10 10 10 10;
+    -fx-border-color: black;
+    -fx-border-insets: 5%;
+    -fx-background-color: #95a5a6;
+
+}
+
+.scoreBoardHighlight {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+
+
+}
+
+.scoreBoard Text {
+    -fx-fill: white;
+    -fx-font-size: 24px;
 }

@@ -5,9 +5,12 @@ import com.scrabble.control.ImageButton;
 import com.scrabble.model.BonusCase;
 import com.scrabble.model.Case;
 import com.scrabble.model.Piece;
+import com.scrabble.model.Scrabble;
 import com.scrabble.util.Animations;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -23,6 +26,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 public class MainUIController {
@@ -46,7 +50,7 @@ public class MainUIController {
     @FXML
     private StackPane logoContainer, boutonJoueur;
     @FXML
-    private ImageButton MenuBtn;
+    private Button MenuBtn;
     @FXML
     private StackPane dialog;
     @FXML
@@ -71,6 +75,14 @@ public class MainUIController {
     Text scoreJ3;
     @FXML
     Text scoreJ4;
+    @FXML
+    AnchorPane J1Box;
+    @FXML
+    AnchorPane J2Box;
+    @FXML
+    AnchorPane J3Box;
+    @FXML
+    AnchorPane J4Box;
 
     /**
      * Is called by the main application to give a reference back to itself.
@@ -88,12 +100,6 @@ public class MainUIController {
     @FXML
     private void initialize() {
         menu.toFront();
-        board.widthProperty().addListener((InvalidationListener) observable -> {
-            board.setMinHeight(board.widthProperty().doubleValue());
-            board.setMaxHeight(board.widthProperty().doubleValue());
-
-
-        });
 
         Platform.runLater(new Runnable() {
             @Override
@@ -108,9 +114,72 @@ public class MainUIController {
                 //scoreJ3.textProperty().bind(mainApp.getScrabble().getJoueur(2).nbPointsProperty().asString());
                 //scoreJ4.textProperty().bind(mainApp.getScrabble().getJoueur(3).nbPointsProperty().asString());
                 showHand();
+                initScoreBoard();
+                mainApp.getScrabble().currentPlayerPropertyProperty().addListener(new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                        System.out.println("OLD " + oldValue);
+                        System.out.println("NEW " + newValue);
+
+                        highlightCurrentPlayerScore(newValue.intValue());
+                    }
+                });
+
             }
         });
 
+    }
+
+    public void initScoreBoard() {
+        if (mainApp.getScrabble().getJoueurs().size() == 2) {
+            J1Box.setVisible(true);
+            J2Box.setVisible(true);
+
+            scoreJ1.textProperty().bind(mainApp.getScrabble().getJoueur(0).nbPointsProperty().asString());
+            scoreJ2.textProperty().bind(mainApp.getScrabble().getJoueur(1).nbPointsProperty().asString());
+        } else {
+            J1Box.setVisible(true);
+            J2Box.setVisible(true);
+            J3Box.setVisible(true);
+            J4Box.setVisible(true);
+
+            scoreJ1.textProperty().bind(mainApp.getScrabble().getJoueur(0).nbPointsProperty().asString());
+            scoreJ2.textProperty().bind(mainApp.getScrabble().getJoueur(1).nbPointsProperty().asString());
+            scoreJ3.textProperty().bind(mainApp.getScrabble().getJoueur(2).nbPointsProperty().asString());
+            scoreJ4.textProperty().bind(mainApp.getScrabble().getJoueur(3).nbPointsProperty().asString());
+        }
+        J1Box.getStyleClass().add("scoreBoardHighlight");
+
+    }
+
+    public void highlightCurrentPlayerScore(int currentPlayer) {
+        switch (currentPlayer) {
+            case 0:
+                J1Box.getStyleClass().add("scoreBoardHighlight");
+                J2Box.getStyleClass().remove("scoreBoardHighlight");
+                J3Box.getStyleClass().remove("scoreBoardHighlight");
+                J4Box.getStyleClass().remove("scoreBoardHighlight");
+                break;
+            case 1:
+                J1Box.getStyleClass().remove("scoreBoardHighlight");
+                J2Box.getStyleClass().add("scoreBoardHighlight");
+                J3Box.getStyleClass().remove("scoreBoardHighlight");
+                J4Box.getStyleClass().remove("scoreBoardHighlight");
+
+                break;
+            case 2:
+                J1Box.getStyleClass().remove("scoreBoardHighlight");
+                J2Box.getStyleClass().remove("scoreBoardHighlight");
+                J3Box.getStyleClass().add("scoreBoardHighlight");
+                J4Box.getStyleClass().remove("scoreBoardHighlight");
+                break;
+            case 3:
+                J1Box.getStyleClass().remove("scoreBoardHighlight");
+                J2Box.getStyleClass().remove("scoreBoardHighlight");
+                J3Box.getStyleClass().remove("scoreBoardHighlight");
+                J4Box.getStyleClass().add("scoreBoardHighlight");
+                break;
+        }
     }
 
 

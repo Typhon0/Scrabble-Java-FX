@@ -1,5 +1,7 @@
 package com.scrabble.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -15,6 +17,8 @@ public class Scrabble {
     private ArrayList<Joueur> joueurs;
     private Dictionnaire dictionnaire;
     private int courantPlayer;
+    private IntegerProperty currentPlayerProperty;
+
     private int nbPlayer;
 
     public Scrabble() {
@@ -25,6 +29,7 @@ public class Scrabble {
         nbPlayer=4;
         courantPlayer=0;
         initDictionnaire();
+        currentPlayerProperty = new SimpleIntegerProperty();
 
     }
 
@@ -119,12 +124,33 @@ public class Scrabble {
 
     public void changementTour(){
         if(courantPlayer==nbPlayer-1)
-            courantPlayer=0;
+            setCourantPlayer(0);
         else
-            courantPlayer++;
+            setCourantPlayer(courantPlayer++);
+    }
+
+    public void setCourantPlayer(int courantPlayer) {
+        this.courantPlayer = courantPlayer;
+        setCurrentPlayerProperty(courantPlayer);
     }
 
     public int getCourantPlayer() {
         return courantPlayer;
+    }
+
+    public ArrayList<Joueur> getJoueurs() {
+        return joueurs;
+    }
+
+    public int getCurrentPlayerProperty() {
+        return currentPlayerProperty.get();
+    }
+
+    public IntegerProperty currentPlayerPropertyProperty() {
+        return currentPlayerProperty;
+    }
+
+    public void setCurrentPlayerProperty(int currentPlayerProperty) {
+        this.currentPlayerProperty.set(currentPlayerProperty);
     }
 }
