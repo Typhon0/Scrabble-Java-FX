@@ -104,7 +104,7 @@ public class MainUIController {
         menu.toFront();
 
 
-        });
+
         swapRecallBtn.getStyleClass().add("swapImg");
         lettrePlaceesCetteManche = new ArrayList<>();
         piecePlaceesCetteManche = new ArrayList<>();

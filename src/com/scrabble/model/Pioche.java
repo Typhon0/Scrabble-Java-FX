@@ -60,12 +60,17 @@ public class Pioche {
 	//add the piece P in the bag
 	public void addInBag(Piece p) {
 		bag.add(p);
-	}
+        nbPiece.set(nbPiece.getValue()+1);
+
+    }
+
 	//add all the piece contain in remise in the bag
 	public void addInBag(ArrayList<Piece> remise) {
 		for (Piece p : remise) {
 			bag.add(p);
-		}
+            nbPiece.set(nbPiece.getValue()+1);
+
+        }
 	}
 	//take the number of "count" letter in the bag
 	public ArrayList<Piece> takeLetterInBag(int count) {
