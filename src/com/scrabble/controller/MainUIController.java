@@ -6,6 +6,8 @@ import com.scrabble.model.*;
 import com.scrabble.util.Animations;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -13,18 +15,20 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.util.Pair;
 
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class MainUIController {
 
@@ -102,13 +106,13 @@ public class MainUIController {
     @FXML
     private void initialize() {
         menu.toFront();
-
-
-
         swapRecallBtn.getStyleClass().add("swapImg");
         lettrePlaceesCetteManche = new ArrayList<>();
         piecePlaceesCetteManche = new ArrayList<>();
 
+    }
+
+    public void initGame() {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -124,18 +128,17 @@ public class MainUIController {
                 mainApp.getScrabble().currentPlayerPropertyProperty().addListener(new ChangeListener<Number>() {
                     @Override
                     public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                        System.out.println("OLD " + oldValue);
-                        System.out.println("NEW " + newValue);
-
                         highlightCurrentPlayerScore(newValue.intValue());
                     }
                 });
 
             }
         });
-
     }
 
+    /**
+     * Initialise et bind la scoreboard avec le modele
+     */
     public void initScoreBoard() {
         if (mainApp.getScrabble().getJoueurs().size() == 2) {
             J1Box.setVisible(true);
@@ -156,8 +159,13 @@ public class MainUIController {
         }
         J1Box.getStyleClass().add("scoreBoardHighlight");
 
+        //TODO get pseudo and display
+
     }
 
+    /**
+     * Permet de colorer les contour du scoreboard selon le joueur actuelle
+     */
     public void highlightCurrentPlayerScore(int currentPlayer) {
         switch (currentPlayer) {
             case 0:
@@ -207,8 +215,23 @@ public class MainUIController {
      */
     @FXML
     public void HandleNewGame(ActionEvent actionEvent) {
-        Animations.SlideOutToLeft(menu, 500, mainApp.getPrimaryStage().getWidth());
-        menu.toFront();
+        int nbj = chooseNbPlayer();
+        if (nbj != -1) {
+            ArrayList<Boolean> ias = chooseIAPlayer(nbj);
+            if (ias != null) {
+                Animations.SlideOutToLeft(menu, 500, mainApp.getPrimaryStage().getWidth());
+                menu.toFront();
+                if (nbj == 2) {
+                   //TODO init 2 joueurs
+
+
+                } else {
+                //TODO init 4 joueurs
+                }
+                initGame();
+                System.out.println(mainApp.getScrabble().getJoueurs().toString());
+            }
+        }
     }
 
     /**
@@ -379,7 +402,7 @@ public class MainUIController {
     public void swapHand(Button b) {
         int numeroLettreDansMain = Integer.parseInt(LetterWaiting.getId().replace("B", ""));
         int destination = Integer.parseInt(b.getId().replace("B", ""));
-        mainApp.getScrabble().getJoueur(0).swap(numeroLettreDansMain,destination);
+        mainApp.getScrabble().getJoueur(0).swap(numeroLettreDansMain, destination);
         LetterWaiting = null;
         showHand();
     }
@@ -419,10 +442,10 @@ public class MainUIController {
         return new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
-                if(LetterWaiting != null){
+                if (LetterWaiting != null) {
                     Button b = (Button) event.getSource();
                     swapHand(b);
-                }else {
+                } else {
                     Button b = (Button) event.getSource();
                     LetterWaiting = b;
                     //System.out.println(b);
@@ -488,4 +511,129 @@ public class MainUIController {
             }
         }
     }
+
+    /**
+     * Affiche la fenêtre de dialogue pour choisir le nombre de joueur
+     *
+     * @return
+     */
+    public int chooseNbPlayer() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog with Custom Actions");
+        alert.setHeaderText("Look, a Confirmation Dialog with Custom Actions");
+        alert.setContentText("Choose your option.");
+
+        ButtonType buttonTypeOne = new ButtonType("2");
+        ButtonType buttonTypeTwo = new ButtonType("4");
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeOne) {
+            return 2;
+        } else if (result.get() == buttonTypeTwo) {
+            return 4;
+        } else if (result.get() == buttonTypeCancel) {
+            return -1;
+        }
+        return -1;
+    }
+
+    /**
+     * Fenetre de dialogue permettant de choisir IA ou non
+     *
+     * @param nbJ
+     * @return ArrayList<Boolean> true si IA sinon false
+     */
+    public ArrayList<Boolean> chooseIAPlayer(int nbJ) {
+        // Create the custom dialog.
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Choose IA or Player");
+        dialog.setHeaderText("Choose IA or Player");
+
+        // Set the button types.
+        ButtonType loginButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+
+        ArrayList<ComboBox<String>> comboBoxes = new ArrayList<>();
+        ComboBox<String> comboBoxJ1 = new ComboBox<>();
+        ComboBox<String> comboBoxJ2 = new ComboBox<>();
+        ComboBox<String> comboBoxJ3 = new ComboBox<>();
+        ComboBox<String> comboBoxJ4 = new ComboBox<>();
+        if (nbJ == 2) { // Si 2 joueurs
+
+            grid.add(comboBoxJ1, 0, 0);
+            grid.add(comboBoxJ2, 0, 1);
+            comboBoxes.add(comboBoxJ1);
+            comboBoxes.add(comboBoxJ2);
+
+
+        } else { //Sinon 4 joueurs
+
+            grid.add(comboBoxJ1, 0, 0);
+            grid.add(comboBoxJ2, 0, 1);
+            grid.add(comboBoxJ3, 0, 2);
+            grid.add(comboBoxJ4, 0, 3);
+            comboBoxes.add(comboBoxJ1);
+            comboBoxes.add(comboBoxJ2);
+            comboBoxes.add(comboBoxJ3);
+            comboBoxes.add(comboBoxJ4);
+
+
+        }
+        //Initialise les valeurs des combobox
+        for (ComboBox<String> cb : comboBoxes) {
+            cb.getItems().addAll("IA", "Humain");
+
+        }
+
+        // Vérifie que les combobox on etait remplie
+        Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
+        loginButton.setDisable(true);
+        if (nbJ == 4) {
+            loginButton.disableProperty().bind(
+                    Bindings.isNull(comboBoxJ1.getSelectionModel().selectedItemProperty())
+                            .or(Bindings.isNull(comboBoxJ2.getSelectionModel().selectedItemProperty()))
+                            .or(Bindings.isNull(comboBoxJ3.getSelectionModel().selectedItemProperty()))
+                            .or(Bindings.isNull(comboBoxJ4.getSelectionModel().selectedItemProperty()))
+            );
+        } else if (nbJ == 2) {
+            loginButton.disableProperty().bind(
+                    Bindings.isNull(comboBoxJ1.getSelectionModel().selectedItemProperty())
+                            .or(Bindings.isNull(comboBoxJ2.getSelectionModel().selectedItemProperty()))
+            );
+        }
+
+
+        dialog.getDialogPane().setContent(grid);
+        Optional<ButtonType> result = dialog.showAndWait();
+
+        //convertie les valeur des comboboxes en arraylist de boolean
+        ArrayList<Boolean> ia = new ArrayList<>();
+        if (result.get() == loginButtonType) {
+
+            for (ComboBox<String> cb : comboBoxes) {
+                if (cb.getSelectionModel().getSelectedItem().equals("IA")) {
+                    ia.add(true);
+                } else {
+                    ia.add(false);
+                }
+            }
+            System.out.println(ia.toString());
+            return ia;
+        } else if (result.get() == ButtonType.CANCEL) { //IF cancel
+            return null;
+        } else {
+            return null;
+        }
+
+    }
+
 }
