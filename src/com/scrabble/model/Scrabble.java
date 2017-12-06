@@ -47,7 +47,7 @@ public class Scrabble implements Serializable {
             if (Boolean.valueOf(Boolean.valueOf(ias.get(i)) == true)) { // Si IA
                 getJoueurs().add(new Joueur());
             } else {
-                getJoueurs().add(new Joueur(ias.get(ias.size() / 2)));
+                getJoueurs().add(new Joueur(ias.get(i+ias.size() / 2)));
 
             }
         }

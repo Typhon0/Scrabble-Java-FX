@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -53,6 +54,8 @@ public class MainUIController {
     private AnchorPane board;
     @FXML
     private AnchorPane menu;
+    @FXML
+    private AnchorPane baseAnchor;
     @FXML
     private ImageView logo;
     @FXML
@@ -133,6 +136,7 @@ public class MainUIController {
      * Initialise le visuel du jeu
      */
     public void initGame() {
+        drawboard(baseAnchor);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -347,6 +351,90 @@ public class MainUIController {
             }
         }
     }
+
+    public void drawboard(AnchorPane boardview) {
+        AnchorPane paneBoard = (AnchorPane) boardview.lookup("#board");
+        GridPane boardGrid = new GridPane();
+        // espace inter colonne et ligne
+        boardGrid.setVgap(2);
+        boardGrid.setHgap(2);
+        // pourcentage egale des cases (resizable)
+        int numColsRows = 15;
+        for (int i = 0; i < numColsRows; i++) {
+            ColumnConstraints colConst = new ColumnConstraints();
+            colConst.setPercentWidth(100.0 / numColsRows);
+            boardGrid.getColumnConstraints().add(colConst);
+        }
+        for (int i = 0; i < numColsRows; i++) {
+            RowConstraints rowConst = new RowConstraints();
+            rowConst.setPercentHeight(100.0 / numColsRows);
+            boardGrid.getRowConstraints().add(rowConst);
+        }
+        // ajout des cases (Pane)
+        int cpt=0;
+        for (int i = 0; i < numColsRows; i++) {
+            for (int j = 0; j < numColsRows; j++) {
+                StackPane p = new StackPane();
+                p.setId("S" + cpt);
+                cpt++;
+                p.setAlignment(Pos.CENTER);
+                //p.setStyle("-fx-background-color:#126B40");
+                //p.getStyleClass().add("gradiantGeneral");
+                boardGrid.add(p, i, j);
+            }
+        }
+        //boardGrid.getStyleClass().add("gradiantGeneral");
+        setColor(boardGrid);
+        //boardGrid.setGridLinesVisible(true);
+
+        boardGrid.setPadding(new Insets(5));
+        // fit parent
+        AnchorPane.setLeftAnchor(boardGrid, 0.0);
+        AnchorPane.setRightAnchor(boardGrid, 0.0);
+        AnchorPane.setTopAnchor(boardGrid, 0.0);
+        AnchorPane.setBottomAnchor(boardGrid, 0.0);
+
+        paneBoard.getChildren().add(boardGrid);
+
+    }
+
+    private void setColor(GridPane board) {
+        Case[][] plateau = mainApp.getScrabble().getBoard();
+        StackPane sp = new StackPane();
+        for (int i = 0; i < 225; i++) {
+            switch (plateau[i / 15][i % 15].getBonus()) {
+                case MT:
+                    sp = (StackPane) board.getChildren().get(i);
+                    sp.getStyleClass().add("gradiantMT");
+                    sp.getChildren().add(new Label("MT"));
+                    break;
+                case MD:
+                    sp = (StackPane) board.getChildren().get(i);
+                    sp.getStyleClass().add("gradiantMD");
+                    sp.getChildren().add(new Label("MD"));
+                    break;
+                case LT:
+                    sp = (StackPane) board.getChildren().get(i);
+                    sp.getStyleClass().add("gradiantLT");
+                    sp.getChildren().add(new Label("LT"));
+                    break;
+                case LD:
+                    sp = (StackPane) board.getChildren().get(i);
+                    sp.getStyleClass().add("gradiantLD");
+                    sp.getChildren().add(new Label("LD"));
+                    break;
+                case Vide:
+                    board.getChildren().get(i).getStyleClass().add("gradiantGeneral");
+                    break;
+            }
+
+        }
+        //etoile
+        sp = (StackPane) board.getChildren().get(112);
+        sp.getChildren().clear();
+        sp.getStyleClass().add("gradiantMD");
+        sp.getChildren().add(new Label("\u2605"));
+    }
     //endregion
 
     //region Handler
@@ -369,10 +457,14 @@ public class MainUIController {
      */
     @FXML
     public void HandleNewGame(ActionEvent actionEvent) {
+
         int nbj = chooseNbPlayer();
         if (nbj != -1) {
             ArrayList<String> ias = chooseIAPlayer(nbj); // [false,false,true,true,"jean","gsd",null,null]
             if (ias != null) {
+                //Create game
+                mainApp.setScrabble(new Scrabble());
+
                 Animations.SlideOutToLeft(menu, 500, mainApp.getPrimaryStage().getWidth());
                 menu.toFront();
                 mainApp.getScrabble().initPlayer(ias);

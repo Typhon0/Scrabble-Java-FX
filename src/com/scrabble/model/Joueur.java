@@ -19,7 +19,7 @@ public class Joueur implements Serializable {
     // Pseudo du joueur
     private String pseudo;
     // Nombre de points du joueur
-    private StringProperty pseudoProperty;
+    private transient StringProperty pseudoProperty;
     //property du pseudo
     private int nbPoints;
     //Property du nombre de point
@@ -40,13 +40,13 @@ public class Joueur implements Serializable {
 
     // Constructeur IA
     public Joueur() {
-        this.pseudo = "";
+        this.pseudo = "IA";
         this.nbPoints = 0;
         this.main = new ArrayList<Piece>();
         this.essaiMot = new ArrayList<Piece>();
         this.motPose = new ArrayList<Piece>();
         this.nbPointsProperty = new SimpleIntegerProperty();
-        this.pseudoProperty = new SimpleStringProperty();
+        this.pseudoProperty = new SimpleStringProperty("IA");
         setNbPointsProperty(0);
         IA = true;
     }
@@ -59,6 +59,7 @@ public class Joueur implements Serializable {
         this.essaiMot = new ArrayList<Piece>();
         this.motPose = new ArrayList<Piece>();
         this.nbPointsProperty = new SimpleIntegerProperty();
+        this.pseudoProperty = new SimpleStringProperty(pseudo);
         setNbPointsProperty(0);
         IA = false;
     }
