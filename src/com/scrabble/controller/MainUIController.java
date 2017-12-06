@@ -27,20 +27,25 @@ import javafx.util.Pair;
 
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeListener;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class MainUIController {
 
-
+    //region Constructor
     public MainUIController() {
 
     }
+    //endregion
 
+    //region Variable
     public MainApp mainApp;
     public Button LetterWaiting = null;
 
     private GridPane boardGrid;
+
 
     @FXML
     Button pioche;
@@ -79,6 +84,14 @@ public class MainUIController {
     @FXML
     Text scoreJ4;
     @FXML
+    Text pseudoTextJ1;
+    @FXML
+    Text pseudoTextJ2;
+    @FXML
+    Text pseudoTextJ3;
+    @FXML
+    Text pseudoTextJ4;
+    @FXML
     AnchorPane J1Box;
     @FXML
     AnchorPane J2Box;
@@ -87,8 +100,12 @@ public class MainUIController {
     @FXML
     AnchorPane J4Box;
 
+
     private ArrayList<Button> lettrePlaceesCetteManche; //Graphique
     private ArrayList<Piece> piecePlaceesCetteManche;   //model
+    //endregion±
+
+    //region Function
 
     /**
      * Is called by the main application to give a reference back to itself.
@@ -112,6 +129,9 @@ public class MainUIController {
 
     }
 
+    /**
+     * Initialise le visuel du jeu
+     */
     public void initGame() {
         Platform.runLater(new Runnable() {
             @Override
@@ -124,16 +144,26 @@ public class MainUIController {
 
                 showHand();
                 initScoreBoard();
-                pioche.textProperty().bind(mainApp.getScrabble().getPioche().nbPieceProperty().asString());
-                mainApp.getScrabble().currentPlayerPropertyProperty().addListener(new ChangeListener<Number>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                        highlightCurrentPlayerScore(newValue.intValue());
-                    }
-                });
+                bindProperty();
 
             }
         });
+    }
+
+    /**
+     * Bind les textes de l'UI avec le model
+     */
+    public void bindProperty() {
+        pioche.textProperty().bind(mainApp.getScrabble().getPioche().nbPiecePropertyProperty().asString());
+        mainApp.getScrabble().currentPlayerPropertyProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                highlightCurrentPlayerScore(newValue.intValue());
+            }
+        });
+
+        //initScoreBoard();
+
     }
 
     /**
@@ -146,6 +176,10 @@ public class MainUIController {
 
             scoreJ1.textProperty().bind(mainApp.getScrabble().getJoueur(0).nbPointsProperty().asString());
             scoreJ2.textProperty().bind(mainApp.getScrabble().getJoueur(1).nbPointsProperty().asString());
+            pseudoTextJ1.textProperty().bind(mainApp.getScrabble().getJoueur(0).pseudoPropertyProperty());
+            pseudoTextJ2.textProperty().bind(mainApp.getScrabble().getJoueur(1).pseudoPropertyProperty());
+
+
         } else {
             J1Box.setVisible(true);
             J2Box.setVisible(true);
@@ -156,6 +190,11 @@ public class MainUIController {
             scoreJ2.textProperty().bind(mainApp.getScrabble().getJoueur(1).nbPointsProperty().asString());
             scoreJ3.textProperty().bind(mainApp.getScrabble().getJoueur(2).nbPointsProperty().asString());
             scoreJ4.textProperty().bind(mainApp.getScrabble().getJoueur(3).nbPointsProperty().asString());
+            pseudoTextJ1.textProperty().bind(mainApp.getScrabble().getJoueur(0).pseudoPropertyProperty());
+            pseudoTextJ2.textProperty().bind(mainApp.getScrabble().getJoueur(1).pseudoPropertyProperty());
+            pseudoTextJ3.textProperty().bind(mainApp.getScrabble().getJoueur(2).pseudoPropertyProperty());
+            pseudoTextJ4.textProperty().bind(mainApp.getScrabble().getJoueur(3).pseudoPropertyProperty());
+
         }
         J1Box.getStyleClass().add("scoreBoardHighlight");
 
@@ -197,208 +236,6 @@ public class MainUIController {
     }
 
 
-    /**
-     * Action event handler for the go to menu button
-     *
-     * @param actionEvent
-     */
-    @FXML
-    public void HandleMenuButton(ActionEvent actionEvent) {
-        Animations.SlideInFromLeft(menu, 500, mainApp.getPrimaryStage().getWidth(), 0);
-        menu.toFront();
-    }
-
-    /**
-     * Action event handler for the New Game button on the menu
-     *
-     * @param actionEvent
-     */
-    @FXML
-    public void HandleNewGame(ActionEvent actionEvent) {
-        int nbj = chooseNbPlayer();
-        if (nbj != -1) {
-            ArrayList<Boolean> ias = chooseIAPlayer(nbj);
-            if (ias != null) {
-                Animations.SlideOutToLeft(menu, 500, mainApp.getPrimaryStage().getWidth());
-                menu.toFront();
-                if (nbj == 2) {
-                   //TODO init 2 joueurs
-
-
-                } else {
-                //TODO init 4 joueurs
-                }
-                initGame();
-                System.out.println(mainApp.getScrabble().getJoueurs().toString());
-            }
-        }
-    }
-
-    /**
-     * Action event handler for the Load Game button on the menu
-     *
-     * @param actionEvent
-     */
-    @FXML
-    public void HandleLoadGame(ActionEvent actionEvent) {
-
-    }
-
-    /**
-     * Action event handler for the Exit button on the menu
-     *
-     * @param actionEvent
-     */
-    @FXML
-    public void HandleQuitGame(ActionEvent actionEvent) {
-
-        mainApp.getPrimaryStage().close();
-    }
-
-    @FXML
-    public void HandlePopupButton(ActionEvent actionEvent) {
-        showConfirmationDialog("Title", "test de message");
-    }
-
-    /**
-     * Action event handler for the OK button of the dialog
-     *
-     * @param actionEvent
-     */
-    @FXML
-    public void handlebuttonOkPopup(ActionEvent actionEvent) {
-
-        Animations.BounceOutTransition(dialogContent, true);
-
-    }
-
-    /**
-     * Action event handler for the No button of the dialog
-     *
-     * @param actionEvent
-     */
-    @FXML
-    public void handlebuttonNonPopup(ActionEvent actionEvent) {
-
-        Animations.BounceOutTransition(dialogContent, true);
-
-
-    }
-
-    /**
-     * Action event handler for the yes button of the dialog
-     *
-     * @param actionEvent
-     */
-    @FXML
-    public void handlebuttonOuiPopup(ActionEvent actionEvent) {
-        Animations.BounceOutTransition(dialogContent, true);
-
-
-    }
-
-    @FXML
-    public void HandlePiocheButton(ActionEvent actionEvent) {
-        mainApp.getScrabble().getPioche().takeLetterInBag(1);
-    }
-
-    /**
-     * Show information dialog with a button to click OK
-     *
-     * @param title
-     * @param message
-     */
-    public void showInfoDialog(String title, String message) {
-        buttonOkPopup.setVisible(true);
-        buttonOuiPopup.setVisible(false);
-        buttonNonPopup.setVisible(false);
-        this.title.setText(title);
-        this.message.setText(message);
-        dialog.toFront();
-        dialog.setVisible(true);
-        dialogContent.setVisible(true);
-        Animations.BounceInTransition(dialogContent);
-
-    }
-
-    /**
-     * Handle shuffle button
-     *
-     * @param actionEvent
-     */
-    @FXML
-    public void HandleShuffle(ActionEvent actionEvent) {
-        mainApp.getScrabble().getJoueur(0).melanger();
-        showHand();
-    }
-
-    /**
-     * Handle Swap or Recall button
-     *
-     * @param actionEvent
-     */
-    @FXML
-    public void HandleSwapRecall(ActionEvent actionEvent) {
-        //si il s'agit du swap
-        if (swapRecallBtn.getStyleClass().get(0).equals("swapImg")) {
-
-            //si il s'agit du recall
-        } else {
-            int x = 0;
-            for (Button b : lettrePlaceesCetteManche) {
-                StackPane sp = (StackPane) b.getParent();
-                int numeroDeCase = Integer.parseInt(sp.getId().replace("S", ""));
-                //retirer dans le modele du board
-                Case c = mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15];
-                mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15] = new Case(c.getBonus(), c.getX(), c.getY());
-                //ajouter à la main
-                mainApp.getScrabble().getJoueur(0).getMain().add(piecePlaceesCetteManche.get(x));
-                //retirer graphiquement
-                sp.getChildren().remove(b);
-                resetBonusLabel(sp, numeroDeCase);
-                x++;
-            }
-            lettrePlaceesCetteManche.clear();
-            piecePlaceesCetteManche.clear();
-            swapRecallBtn.getStyleClass().removeAll("recallImg");
-            swapRecallBtn.getStyleClass().add("swapImg");
-
-            showHand();
-        }
-    }
-
-    /**
-     * Handle Jouer or Passer tour button
-     *
-     * @param actionEvent
-     */
-    @FXML
-    public void HandleSJouerPasserTour(ActionEvent actionEvent) {
-    }
-
-    /**
-     * Show a confirmation dialog with  Yes and No buttons
-     *
-     * @param title
-     * @param message
-     */
-    public void showConfirmationDialog(String title, String message) {
-        //  ImageButton b = (ImageButton) actionEvent.getSource();
-        buttonOkPopup.setVisible(false);
-        buttonOuiPopup.setVisible(true);
-        buttonNonPopup.setVisible(true);
-        this.title.setText(title);
-        this.message.setText(message);
-        dialog.toFront();
-        dialog.setVisible(true);
-        dialogContent.setVisible(true);
-
-        Animations.BounceInTransition(dialogContent);
-
-        mainApp.getScrabble().getJoueur(0).addNbPoints(5);
-    }
-
-    //TODO
     public void swapHand(Button b) {
         int numeroLettreDansMain = Integer.parseInt(LetterWaiting.getId().replace("B", ""));
         int destination = Integer.parseInt(b.getId().replace("B", ""));
@@ -448,7 +285,6 @@ public class MainUIController {
                 } else {
                     Button b = (Button) event.getSource();
                     LetterWaiting = b;
-                    //System.out.println(b);
                 }
             }
         };
@@ -511,6 +347,214 @@ public class MainUIController {
             }
         }
     }
+    //endregion
+
+    //region Handler
+
+    /**
+     * Action event handler for the go to menu button
+     *
+     * @param actionEvent
+     */
+    @FXML
+    public void HandleMenuButton(ActionEvent actionEvent) throws IOException, ClassNotFoundException {
+        Animations.SlideInFromLeft(menu, 500, mainApp.getPrimaryStage().getWidth(), 0);
+        menu.toFront();
+    }
+
+    /**
+     * Action event handler for the New Game button on the menu
+     *
+     * @param actionEvent
+     */
+    @FXML
+    public void HandleNewGame(ActionEvent actionEvent) {
+        int nbj = chooseNbPlayer();
+        if (nbj != -1) {
+            ArrayList<String> ias = chooseIAPlayer(nbj); // [false,false,true,true,"jean","gsd",null,null]
+            if (ias != null) {
+                Animations.SlideOutToLeft(menu, 500, mainApp.getPrimaryStage().getWidth());
+                menu.toFront();
+                mainApp.getScrabble().initPlayer(ias);
+
+
+                initGame();
+            }
+        }
+    }
+
+    /**
+     * Action event handler for the Load Game button on the menu
+     *
+     * @param actionEvent
+     */
+    @FXML
+    public void HandleLoadGame(ActionEvent actionEvent) {
+        // Now to read the object from file
+        // save the object to file
+        FileInputStream fis = null;
+        ObjectInputStream in = null;
+
+        try {
+            fis = new FileInputStream("ScrabbleSave.ser");
+            in = new ObjectInputStream(fis);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scrabble e = null;
+        try {
+            e = (Scrabble) in.readObject();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        } catch (ClassNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        try {
+            in.close();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        mainApp.setScrabble(e);
+        initGame();
+        Animations.SlideOutToLeft(menu, 500, mainApp.getPrimaryStage().getWidth());
+        menu.toFront();
+
+
+    }
+
+    /**
+     * Action event handler for the Exit button on the menu
+     *
+     * @param actionEvent
+     */
+    @FXML
+    public void HandleQuitGame(ActionEvent actionEvent) {
+
+        mainApp.getPrimaryStage().close();
+    }
+
+    @FXML
+    public void HandlePopupButton(ActionEvent actionEvent) {
+        showConfirmationDialog("Title", "test de message");
+    }
+
+    /**
+     * Action event handler for the OK button of the dialog
+     *
+     * @param actionEvent
+     */
+    @FXML
+    public void handlebuttonOkPopup(ActionEvent actionEvent) {
+
+        Animations.BounceOutTransition(dialogContent, true);
+
+    }
+
+    /**
+     * Action event handler for the No button of the dialog
+     *
+     * @param actionEvent
+     */
+    @FXML
+    public void handlebuttonNonPopup(ActionEvent actionEvent) {
+
+        Animations.BounceOutTransition(dialogContent, true);
+
+
+    }
+
+    /**
+     * Action event handler for the yes button of the dialog
+     *
+     * @param actionEvent
+     */
+    @FXML
+    public void handlebuttonOuiPopup(ActionEvent actionEvent) {
+        Animations.BounceOutTransition(dialogContent, true);
+
+
+    }
+
+    @FXML
+    public void HandlePiocheButton(ActionEvent actionEvent) {
+        mainApp.getScrabble().getPioche().takeLetterInBag(1);
+    }
+
+    /**
+     * Handle shuffle button
+     *
+     * @param actionEvent
+     */
+    @FXML
+    public void HandleShuffle(ActionEvent actionEvent) {
+        mainApp.getScrabble().getJoueur(0).melanger();
+        showHand();
+    }
+
+    /**
+     * Handle Swap or Recall button
+     *
+     * @param actionEvent
+     */
+    @FXML
+    public void HandleSwapRecall(ActionEvent actionEvent) {
+        //si il s'agit du swap
+        if (swapRecallBtn.getStyleClass().get(0).equals("swapImg")) {
+
+            //si il s'agit du recall
+        } else {
+            int x = 0;
+            for (Button b : lettrePlaceesCetteManche) {
+                StackPane sp = (StackPane) b.getParent();
+                int numeroDeCase = Integer.parseInt(sp.getId().replace("S", ""));
+                //retirer dans le modele du board
+                Case c = mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15];
+                mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15] = new Case(c.getBonus(), c.getX(), c.getY());
+                //ajouter à la main
+                mainApp.getScrabble().getJoueur(0).getMain().add(piecePlaceesCetteManche.get(x));
+                //retirer graphiquement
+                sp.getChildren().remove(b);
+                resetBonusLabel(sp, numeroDeCase);
+                x++;
+            }
+            lettrePlaceesCetteManche.clear();
+            piecePlaceesCetteManche.clear();
+            swapRecallBtn.getStyleClass().removeAll("recallImg");
+            swapRecallBtn.getStyleClass().add("swapImg");
+
+            showHand();
+        }
+    }
+
+    /**
+     * Handle Jouer or Passer tour button
+     *
+     * @param actionEvent
+     */
+    @FXML
+    public void HandleSJouerPasserTour(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void HandleSaveButton(ActionEvent actionEvent) {
+        try (
+                FileOutputStream fout = new FileOutputStream("ScrabbleSave.ser");
+                ObjectOutputStream oos = new ObjectOutputStream(fout);
+        ) {
+            oos.writeObject(mainApp.getScrabble());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        //TODO Save successful
+    }
+
+
+    //endregion
+
+    //region Dialog
 
     /**
      * Affiche la fenêtre de dialogue pour choisir le nombre de joueur
@@ -546,7 +590,7 @@ public class MainUIController {
      * @param nbJ
      * @return ArrayList<Boolean> true si IA sinon false
      */
-    public ArrayList<Boolean> chooseIAPlayer(int nbJ) {
+    public ArrayList<String> chooseIAPlayer(int nbJ) {
         // Create the custom dialog.
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Choose IA or Player");
@@ -567,10 +611,23 @@ public class MainUIController {
         ComboBox<String> comboBoxJ2 = new ComboBox<>();
         ComboBox<String> comboBoxJ3 = new ComboBox<>();
         ComboBox<String> comboBoxJ4 = new ComboBox<>();
+        ArrayList<TextField> textFields = new ArrayList<>();
+        TextField pseudoJ1 = new TextField();
+        TextField pseudoJ2 = new TextField();
+        TextField pseudoJ3 = new TextField();
+        TextField pseudoJ4 = new TextField();
+
+
         if (nbJ == 2) { // Si 2 joueurs
 
             grid.add(comboBoxJ1, 0, 0);
             grid.add(comboBoxJ2, 0, 1);
+            grid.add(pseudoJ1, 1, 0);
+            grid.add(pseudoJ2, 1, 1);
+
+            textFields.add(pseudoJ1);
+            textFields.add(pseudoJ2);
+
             comboBoxes.add(comboBoxJ1);
             comboBoxes.add(comboBoxJ2);
 
@@ -581,6 +638,17 @@ public class MainUIController {
             grid.add(comboBoxJ2, 0, 1);
             grid.add(comboBoxJ3, 0, 2);
             grid.add(comboBoxJ4, 0, 3);
+            grid.add(pseudoJ1, 1, 0);
+            grid.add(pseudoJ2, 1, 1);
+            grid.add(pseudoJ3, 1, 2);
+            grid.add(pseudoJ4, 1, 3);
+
+            textFields.add(pseudoJ1);
+            textFields.add(pseudoJ2);
+            textFields.add(pseudoJ3);
+            textFields.add(pseudoJ4);
+
+
             comboBoxes.add(comboBoxJ1);
             comboBoxes.add(comboBoxJ2);
             comboBoxes.add(comboBoxJ3);
@@ -598,6 +666,7 @@ public class MainUIController {
         Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
         loginButton.setDisable(true);
         if (nbJ == 4) {
+
             loginButton.disableProperty().bind(
                     Bindings.isNull(comboBoxJ1.getSelectionModel().selectedItemProperty())
                             .or(Bindings.isNull(comboBoxJ2.getSelectionModel().selectedItemProperty()))
@@ -610,23 +679,35 @@ public class MainUIController {
                             .or(Bindings.isNull(comboBoxJ2.getSelectionModel().selectedItemProperty()))
             );
         }
+        pseudoJ1.disableProperty().bind(comboBoxJ1.getSelectionModel().selectedItemProperty().isEqualTo("IA"));
+        pseudoJ2.disableProperty().bind(comboBoxJ2.getSelectionModel().selectedItemProperty().isEqualTo("IA"));
+        pseudoJ3.disableProperty().bind(comboBoxJ3.getSelectionModel().selectedItemProperty().isEqualTo("IA"));
+        pseudoJ4.disableProperty().bind(comboBoxJ4.getSelectionModel().selectedItemProperty().isEqualTo("IA"));
 
 
         dialog.getDialogPane().setContent(grid);
         Optional<ButtonType> result = dialog.showAndWait();
 
-        //convertie les valeur des comboboxes en arraylist de boolean
-        ArrayList<Boolean> ia = new ArrayList<>();
-        if (result.get() == loginButtonType) {
+        //Récupération des données
+        ArrayList<String> ia = new ArrayList<>();
 
+        if (result.get() == loginButtonType) {
+            //met la valeur des combobox dans l'arraylist
             for (ComboBox<String> cb : comboBoxes) {
                 if (cb.getSelectionModel().getSelectedItem().equals("IA")) {
-                    ia.add(true);
+                    ia.add("true");
                 } else {
-                    ia.add(false);
+                    ia.add("false");
                 }
             }
-            System.out.println(ia.toString());
+            //met les pseudo dans l'arraylist
+            for (TextField textField : textFields) {
+                if (textField.isDisabled() == true) {
+                    ia.add(null);
+                } else {
+                    ia.add(textField.getText());
+                }
+            }
             return ia;
         } else if (result.get() == ButtonType.CANCEL) { //IF cancel
             return null;
@@ -635,5 +716,48 @@ public class MainUIController {
         }
 
     }
+
+    /**
+     * Show information dialog with a button to click OK
+     *
+     * @param title
+     * @param message
+     */
+    public void showInfoDialog(String title, String message) {
+        buttonOkPopup.setVisible(true);
+        buttonOuiPopup.setVisible(false);
+        buttonNonPopup.setVisible(false);
+        this.title.setText(title);
+        this.message.setText(message);
+        dialog.toFront();
+        dialog.setVisible(true);
+        dialogContent.setVisible(true);
+        Animations.BounceInTransition(dialogContent);
+
+    }
+
+    /**
+     * Show a confirmation dialog with  Yes and No buttons
+     *
+     * @param title
+     * @param message
+     */
+    public void showConfirmationDialog(String title, String message) {
+        //  ImageButton b = (ImageButton) actionEvent.getSource();
+        buttonOkPopup.setVisible(false);
+        buttonOuiPopup.setVisible(true);
+        buttonNonPopup.setVisible(true);
+        this.title.setText(title);
+        this.message.setText(message);
+        dialog.toFront();
+        dialog.setVisible(true);
+        dialogContent.setVisible(true);
+
+        Animations.BounceInTransition(dialogContent);
+
+        mainApp.getScrabble().getJoueur(0).addNbPoints(5);
+    }
+    //endregion
+
 
 }

@@ -80,29 +80,30 @@
                         </StackPane>
                   <AnchorPane fx:id="J4Box" layoutX="25.0" layoutY="395.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" styleClass="scoreBoard" visible="false">
                      <children>
-                        <Text layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueur 4" />
+                        <Text fx:id="pseudoTextJ4" layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueur 4" />
                         <Text fx:id="scoreJ4" layoutX="231.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="11.338753297024255" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="J3Box" layoutX="25.0" layoutY="326.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" styleClass="scoreBoard" visible="false">
                      <children>
-                        <Text layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueur 3" />
+                        <Text fx:id="pseudoTextJ3" layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueur 3" />
                         <Text fx:id="scoreJ3" layoutX="232.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="J2Box" layoutX="25.0" layoutY="263.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" styleClass="scoreBoard" visible="false">
                      <children>
-                        <Text layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueur 2" />
+                        <Text fx:id="pseudoTextJ2" layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueur 2" />
                         <Text fx:id="scoreJ2" layoutX="231.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="J1Box" layoutX="25.0" layoutY="196.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" styleClass="scoreBoard" visible="false">
                      <children>
-                        <Text layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueur 1" />
+                        <Text fx:id="pseudoTextJ1" layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueur 1" />
                         <Text fx:id="scoreJ1" layoutX="231.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="9.63571739278973" />
                      </children>
                   </AnchorPane>
                   <Button fx:id="MenuBtn" layoutX="118.0" layoutY="117.0" mnemonicParsing="false" onAction="#HandleMenuButton" styleClass="GreenButton" text="Menu" />
+                  <Button fx:id="SaveBtn" layoutX="118.0" layoutY="153.0" mnemonicParsing="false" onAction="#HandleSaveButton" styleClass="GreenButton" text="Save" />
                </children>
             </AnchorPane>
             <AnchorPane layoutY="625.0" maxHeight="200.0" maxWidth="925.0" prefHeight="200.0" prefWidth="925.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="625.0">

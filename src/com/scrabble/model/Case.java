@@ -1,15 +1,22 @@
 package com.scrabble.model;
 
+import java.io.Serializable;
+
 /**
  * Created by loic on 18/09/2017.
  */
-public class Case {
+public class Case implements Serializable {
 
+    //region Variables
     private Piece piece;
     private BonusCase bonus;
     private boolean libre;
     private int x; // coordonne x de la case sur le plateau
     private int y; // coordonnee y de la case sur le plateau
+
+    //endregion
+
+    //region Constructor
 
     public Case(BonusCase _bonus, int i, int j) {
         libre = true;
@@ -17,15 +24,17 @@ public class Case {
         this.x = j;
         this.y = i;
     }
-    
-    public int getX()
-    {
-    	return x;
+
+    //endregion
+
+    //region Getters Setters
+
+    public int getX() {
+        return x;
     }
-    
-    public int getY()
-    {
-    	return y;
+
+    public int getY() {
+        return y;
     }
 
     public Piece getPiece() {
@@ -45,11 +54,13 @@ public class Case {
     public void setBonus(BonusCase bonus) {
         this.bonus = bonus;
     }
-    
+
     public boolean estLibre() // Renvoie vrai si la case est libre
     {
-    	return this.libre;
+        return this.libre;
     }
+
+    //endregion
 
 
 }

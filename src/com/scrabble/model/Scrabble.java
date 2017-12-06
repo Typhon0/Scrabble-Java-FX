@@ -5,32 +5,55 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by loic on 18/09/2017.
  */
-public class Scrabble {
+public class Scrabble implements Serializable {
 
+    //region Variables
+    private static final long serialVersionUID = 1L;
     private Case[][] board;
     private Pioche pioche;
     private ArrayList<Joueur> joueurs;
-    private Dictionnaire dictionnaire;
+    private transient Dictionnaire dictionnaire;
     private int courantPlayer;
-    private IntegerProperty currentPlayerProperty;
-
+    private transient IntegerProperty currentPlayerProperty;
     private int nbPlayer;
+    //endregion
 
+    //region Constructor
     public Scrabble() {
         board = new Case[15][15];
         initTab();
         initBag();
-        initJoueurs();
-        nbPlayer=4;
-        courantPlayer=0;
+        this.joueurs = new ArrayList<>();
+        nbPlayer = 4;
+        courantPlayer = 0;
         initDictionnaire();
         currentPlayerProperty = new SimpleIntegerProperty();
 
+    }
+    //endregion
+
+    //region Functions
+
+    public void initPlayer(ArrayList<String> ias) {
+        //ias length = 4 || 2
+        for (int i = 0; i < ias.size() / 2; i++) {
+            if (Boolean.valueOf(Boolean.valueOf(ias.get(i)) == true)) { // Si IA
+                getJoueurs().add(new Joueur());
+            } else {
+                getJoueurs().add(new Joueur(ias.get(ias.size() / 2)));
+
+            }
+        }
+
+        nbPlayer = ias.size() / 2;
+        setCourantPlayer(0); // met le joueur 1 en joueur actuelle
     }
 
     public void initTab() {
@@ -75,27 +98,31 @@ public class Scrabble {
     public void initBag() {
         pioche = new Pioche();
     }
-    
-    public Dictionnaire getDico()
-    {
-    	return this.dictionnaire;
-    }
 
-
-    public void initJoueurs() {
-        joueurs = new ArrayList<>();
-        joueurs.add(new Joueur("Utilisateur", pioche));
-        joueurs.add(new Joueur("IA", pioche));
-    }
-
-    public Case[][] getBoard() {
-        return board;
+    private void readObject(java.io.ObjectInputStream in)
+            throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        currentPlayerProperty = new SimpleIntegerProperty(courantPlayer);
     }
 
     public void initDictionnaire() {
         Dictionnaire dico = new Dictionnaire();
         this.dictionnaire = dico;
     }
+
+    //endregion
+
+    //region Getters Setters
+
+    public Dictionnaire getDico() {
+        return this.dictionnaire;
+    }
+
+
+    public Case[][] getBoard() {
+        return board;
+    }
+
 
     public void setBoard(Case[][] board) {
         this.board = board;
@@ -109,21 +136,19 @@ public class Scrabble {
         }
     }
 
-    public boolean finDuJeu(Joueur j)
-    {
-    	boolean fin = false;
-    	
-    	if(pioche.isEmpty() && j.getMain().isEmpty())
-    	{
-    		fin = true;
-    	}
-    	
-    	return fin;
+    public boolean finDuJeu(Joueur j) {
+        boolean fin = false;
+
+        if (pioche.isEmpty() && j.getMain().isEmpty()) {
+            fin = true;
+        }
+
+        return fin;
     }
 
 
-    public void changementTour(){
-        if(courantPlayer==nbPlayer-1)
+    public void changementTour() {
+        if (courantPlayer == nbPlayer - 1)
             setCourantPlayer(0);
         else
             setCourantPlayer(courantPlayer++);
@@ -157,4 +182,7 @@ public class Scrabble {
     public Pioche getPioche() {
         return pioche;
     }
+
+
+    //endregion
 }

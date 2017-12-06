@@ -2,26 +2,15 @@ package com.scrabble;
 
 import com.scrabble.controller.MainUIController;
 import com.scrabble.model.Case;
-import javafx.animation.ScaleTransition;
-import javafx.animation.TranslateTransition;
+import com.scrabble.model.Scrabble;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
-import com.scrabble.model.Scrabble;
-import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -64,6 +53,25 @@ public class MainApp extends Application {
         }
     }
 
+    public void reloadFXML(Stage primaryStage) {
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/board.fxml"));
+            rootLayout = (AnchorPane) loader.load();
+            drawboard(rootLayout);
+            // Give the controller access to the main app.
+            MainUIController controller = loader.getController();
+            controller.setMainApp(this);
+            Scene scene = new Scene(rootLayout);
+            scene.getStylesheets().add(getClass().getResource("ressources/Styles/style.css").toExternalForm());
+primaryStage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public void drawboard(AnchorPane boardview) {
         AnchorPane paneBoard = (AnchorPane) boardview.lookup("#board");
@@ -160,6 +168,11 @@ public class MainApp extends Application {
     }
 
     public Scrabble getScrabble(){return this.scrabble;}
+
+    public void setScrabble(Scrabble scrabble) {
+        this.scrabble = scrabble;
+
+    }
 
     public static void main(String[] args) {
         launch(args);
