@@ -1,36 +1,32 @@
 package com.scrabble.controller;
 
 import com.scrabble.MainApp;
-import com.scrabble.control.ImageButton;
-import com.scrabble.model.*;
+import com.scrabble.model.BonusCase;
+import com.scrabble.model.Case;
+import com.scrabble.model.Piece;
+import com.scrabble.model.Scrabble;
 import com.scrabble.util.Animations;
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import javafx.util.Pair;
 
-import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeListener;
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 public class MainUIController {
@@ -50,6 +46,10 @@ public class MainUIController {
 
     @FXML
     Button pioche;
+    @FXML
+    Button jouerBtn;
+    @FXML
+    Button passerBtn;
     @FXML
     private AnchorPane board;
     @FXML
@@ -105,7 +105,7 @@ public class MainUIController {
 
 
     private ArrayList<Button> lettrePlaceesCetteManche; //Graphique
-    private ArrayList<Piece> piecePlaceesCetteManche;   //model
+    private ObservableList<Piece> piecePlaceesCetteManche;   //model
     //endregion±
 
     //region Function
@@ -128,7 +128,7 @@ public class MainUIController {
         menu.toFront();
         swapRecallBtn.getStyleClass().add("swapImg");
         lettrePlaceesCetteManche = new ArrayList<>();
-        piecePlaceesCetteManche = new ArrayList<>();
+        piecePlaceesCetteManche = FXCollections.observableArrayList();
 
     }
 
@@ -146,7 +146,7 @@ public class MainUIController {
                     n.setOnMouseClicked(onBoardClicked());
                 }
 
-                showHand();
+                showHand(mainApp.getScrabble().getCourantPlayer());
                 initScoreBoard();
                 bindProperty();
 
@@ -166,7 +166,19 @@ public class MainUIController {
             }
         });
 
-        //initScoreBoard();
+        piecePlaceesCetteManche.addListener(new ListChangeListener<Piece>() {
+            @Override
+            public void onChanged(Change<? extends Piece> c) {
+                if (piecePlaceesCetteManche.size() == 0) {
+                    passerBtn.setVisible(true);
+                    jouerBtn.setVisible(false);
+                } else {
+                    passerBtn.setVisible(false);
+                    jouerBtn.setVisible(true);
+                }
+            }
+        });
+
 
     }
 
@@ -243,9 +255,9 @@ public class MainUIController {
     public void swapHand(Button b) {
         int numeroLettreDansMain = Integer.parseInt(LetterWaiting.getId().replace("B", ""));
         int destination = Integer.parseInt(b.getId().replace("B", ""));
-        mainApp.getScrabble().getJoueur(0).swap(numeroLettreDansMain, destination);
+        mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).swap(numeroLettreDansMain, destination);
         LetterWaiting = null;
-        showHand();
+        showHand(mainApp.getScrabble().getCourantPlayer());
     }
 
     public Button generateButtonFromLetter(char ch) {
@@ -262,8 +274,8 @@ public class MainUIController {
         return btn;
     }
 
-    public void showHand() {
-        ArrayList<Piece> main = mainApp.getScrabble().getJoueur(0).getMain();
+    public void showHand(int j) {
+        ArrayList<Piece> main = mainApp.getScrabble().getJoueur(j).getMain();
         ArrayList<Button> listePiece = new ArrayList<Button>();
         mainJoueur.getChildren().clear();
         for (Piece p : main) {
@@ -313,16 +325,16 @@ public class MainUIController {
                     int numeroLettreDansMain = Integer.parseInt(LetterWaiting.getId().replace("B", ""));
                     int numeroDeCase = Integer.parseInt(sp.getId().replace("S", ""));
                     //put in board
-                    mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15].setPiece(mainApp.getScrabble().getJoueur(0).getMain().get(numeroLettreDansMain));
+                    mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15].setPiece(mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).getMain().get(numeroLettreDansMain));
                     //remove in hand
-                    piecePlaceesCetteManche.add(mainApp.getScrabble().getJoueur(0).getMain().get(numeroLettreDansMain));
-                    mainApp.getScrabble().getJoueur(0).getMain().remove(numeroLettreDansMain);
+                    piecePlaceesCetteManche.add(mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).getMain().get(numeroLettreDansMain));
+                    mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).getMain().remove(numeroLettreDansMain);
 
                     lettrePlaceesCetteManche.add(LetterWaiting);
                     LetterWaiting = null;
                     swapRecallBtn.getStyleClass().removeAll("swapImg");
                     swapRecallBtn.getStyleClass().add("recallImg");
-                    showHand();
+                    showHand(mainApp.getScrabble().getCourantPlayer());
                 }
             }
         };
@@ -371,7 +383,7 @@ public class MainUIController {
             boardGrid.getRowConstraints().add(rowConst);
         }
         // ajout des cases (Pane)
-        int cpt=0;
+        int cpt = 0;
         for (int i = 0; i < numColsRows; i++) {
             for (int j = 0; j < numColsRows; j++) {
                 StackPane p = new StackPane();
@@ -457,22 +469,48 @@ public class MainUIController {
      */
     @FXML
     public void HandleNewGame(ActionEvent actionEvent) {
+        boolean ecrase = false;
 
-        int nbj = chooseNbPlayer();
-        if (nbj != -1) {
-            ArrayList<String> ias = chooseIAPlayer(nbj); // [false,false,true,true,"jean","gsd",null,null]
-            if (ias != null) {
-                //Create game
-                mainApp.setScrabble(new Scrabble());
+        if (mainApp.fileExist("ScrabbleSave.ser")) {
+            ecrase = saveExistDialog();
 
-                Animations.SlideOutToLeft(menu, 500, mainApp.getPrimaryStage().getWidth());
-                menu.toFront();
-                mainApp.getScrabble().initPlayer(ias);
+            if (ecrase == true) {
+                int nbj = chooseNbPlayer();
+                if (nbj != -1) {
+                    ArrayList<String> ias = chooseIAPlayer(nbj); // [false,false,true,true,"jean","gsd",null,null]
+                    if (ias != null) {
+                        //Create game
+                        mainApp.setScrabble(new Scrabble());
+
+                        Animations.SlideOutToLeft(menu, 500, mainApp.getPrimaryStage().getWidth());
+                        menu.toFront();
+                        mainApp.getScrabble().initPlayer(ias);
 
 
-                initGame();
+                        initGame();
+                    }
+                }
+            }
+
+
+        } else {
+            int nbj = chooseNbPlayer();
+            if (nbj != -1) {
+                ArrayList<String> ias = chooseIAPlayer(nbj);
+                if (ias != null) {
+                    //Create game
+                    mainApp.setScrabble(new Scrabble());
+
+                    Animations.SlideOutToLeft(menu, 500, mainApp.getPrimaryStage().getWidth());
+                    menu.toFront();
+                    mainApp.getScrabble().initPlayer(ias);
+
+
+                    initGame();
+                }
             }
         }
+
     }
 
     /**
@@ -482,37 +520,46 @@ public class MainUIController {
      */
     @FXML
     public void HandleLoadGame(ActionEvent actionEvent) {
-        // Now to read the object from file
-        // save the object to file
-        FileInputStream fis = null;
-        ObjectInputStream in = null;
 
-        try {
-            fis = new FileInputStream("ScrabbleSave.ser");
-            in = new ObjectInputStream(fis);
+        if (mainApp.fileExist("ScrabbleSave.ser")) {
+            // Now to read the object from file
+            // save the object to file
+            FileInputStream fis = null;
+            ObjectInputStream in = null;
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Scrabble e = null;
-        try {
-            e = (Scrabble) in.readObject();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        } catch (ClassNotFoundException e1) {
-            e1.printStackTrace();
-        }
-        try {
-            in.close();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-        mainApp.setScrabble(e);
-        initGame();
-        Animations.SlideOutToLeft(menu, 500, mainApp.getPrimaryStage().getWidth());
-        menu.toFront();
+            try {
+                fis = new FileInputStream("ScrabbleSave.ser");
+                in = new ObjectInputStream(fis);
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Scrabble e = null;
+            try {
+                e = (Scrabble) in.readObject();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } catch (ClassNotFoundException e1) {
+                e1.printStackTrace();
+            }
+            try {
+                in.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            mainApp.setScrabble(e);
+            initGame();
+            Animations.SlideOutToLeft(menu, 500, mainApp.getPrimaryStage().getWidth());
+            menu.toFront();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information");
+            alert.setHeaderText("Aucune partie sauvegardée");
+            alert.setContentText("Aucune partie sauvegardée trouver ");
+
+            alert.showAndWait();        }
 
 
     }
@@ -582,8 +629,8 @@ public class MainUIController {
      */
     @FXML
     public void HandleShuffle(ActionEvent actionEvent) {
-        mainApp.getScrabble().getJoueur(0).melanger();
-        showHand();
+        mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).melanger();
+        showHand(mainApp.getScrabble().getCourantPlayer());
     }
 
     /**
@@ -596,8 +643,8 @@ public class MainUIController {
         //si il s'agit du swap
         if (swapRecallBtn.getStyleClass().get(0).equals("swapImg")) {
 
-            //si il s'agit du recall
-        } else {
+
+        } else {//si il s'agit du recall
             int x = 0;
             for (Button b : lettrePlaceesCetteManche) {
                 StackPane sp = (StackPane) b.getParent();
@@ -617,17 +664,26 @@ public class MainUIController {
             swapRecallBtn.getStyleClass().removeAll("recallImg");
             swapRecallBtn.getStyleClass().add("swapImg");
 
-            showHand();
+            showHand(mainApp.getScrabble().getCourantPlayer());
         }
     }
 
     /**
-     * Handle Jouer or Passer tour button
+     * Handle du bouton jouer
      *
      * @param actionEvent
      */
     @FXML
-    public void HandleSJouerPasserTour(ActionEvent actionEvent) {
+    public void HandleJouerTour(ActionEvent actionEvent) {
+    }
+
+    /**
+     * Handle du bouton passer tour
+     *
+     * @param actionEvent
+     */
+    @FXML
+    public void HandlePasserTour(ActionEvent actionEvent) {
     }
 
     @FXML
@@ -647,6 +703,20 @@ public class MainUIController {
     //endregion
 
     //region Dialog
+
+    public boolean saveExistDialog() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Ecrasez la partie ?");
+        alert.setHeaderText("Une partie précédente existe.");
+        alert.setContentText("Voulez-vous ecrasez la partie précédente ?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * Affiche la fenêtre de dialogue pour choisir le nombre de joueur
@@ -849,6 +919,8 @@ public class MainUIController {
 
         mainApp.getScrabble().getJoueur(0).addNbPoints(5);
     }
+
+
     //endregion
 
 

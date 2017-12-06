@@ -39,10 +39,12 @@ public class Joueur implements Serializable {
     //region Constructor
 
     // Constructeur IA
-    public Joueur() {
+    public Joueur(Pioche pioche) {
         this.pseudo = "IA";
         this.nbPoints = 0;
         this.main = new ArrayList<Piece>();
+        main = pioche.takeLetterInBag(7);
+
         this.essaiMot = new ArrayList<Piece>();
         this.motPose = new ArrayList<Piece>();
         this.nbPointsProperty = new SimpleIntegerProperty();
@@ -52,10 +54,12 @@ public class Joueur implements Serializable {
     }
 
     // Constructeur Joueur pseudo
-    public Joueur(String pseudo) {
+    public Joueur(String pseudo,Pioche pioche) {
         this.pseudo = pseudo;
         this.nbPoints = 0;
         this.main = new ArrayList<Piece>();
+        main = pioche.takeLetterInBag(7);
+
         this.essaiMot = new ArrayList<Piece>();
         this.motPose = new ArrayList<Piece>();
         this.nbPointsProperty = new SimpleIntegerProperty();
@@ -64,21 +68,6 @@ public class Joueur implements Serializable {
         IA = false;
     }
 
-
-    /* Constructeur du joueur
-     * pseudo = Pseudo du joueur
-     * pioche = Les 7 premières pièces de la main
-     */
-    public Joueur(String pseudo, Pioche pioche) {
-        this.pseudo = pseudo;
-        this.nbPoints = 0;
-        this.main = new ArrayList<Piece>();
-        main = pioche.takeLetterInBag(7);
-        this.essaiMot = new ArrayList<Piece>();
-        this.motPose = new ArrayList<Piece>();
-        this.nbPointsProperty = new SimpleIntegerProperty();
-        setNbPointsProperty(0);
-    }
 
     //endregion
 
@@ -476,32 +465,6 @@ public class Joueur implements Serializable {
     }
 
 
-    public static void main(String[] args) {
-        Scrabble scrab = new Scrabble();
-
-        Joueur j = new Joueur();
-
-
-        scrab.getBoard()[6][6].setPiece(new Piece('A', 1));
-        scrab.getBoard()[7][6].setPiece(new Piece('B', 3));
-        scrab.getBoard()[8][6].setPiece(new Piece('A', 1));
-
-        scrab.getBoard()[12][6].setPiece(new Piece('A', 1));
-
-
-        j.main.add(new Piece('I', 1));
-        j.main.add(new Piece('?', 0));
-        j.main.add(new Piece('S', 1));
-
-
-        j.poserUnePiece(j.main.get(0), scrab.getBoard()[9][6]);
-        j.poserUnePiece(j.main.get(1), scrab.getBoard()[10][6]);
-        j.poserUnePiece(j.main.get(2), scrab.getBoard()[11][6]);
-
-
-        System.out.println(j.motValide(scrab.getBoard(), scrab.getDico()) + " " + j.compterPoints(scrab.getBoard()));
-
-    }
 
 
     public ArrayList<Case> trouverLettre(char c, Case[][] board) {
@@ -523,6 +486,7 @@ public class Joueur implements Serializable {
             throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         nbPointsProperty = new SimpleIntegerProperty(nbPoints);
+        pseudoProperty = new SimpleStringProperty(pseudo);
     }
     //endregion
 

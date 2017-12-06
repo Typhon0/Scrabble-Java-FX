@@ -45,9 +45,9 @@ public class Scrabble implements Serializable {
         //ias length = 4 || 2
         for (int i = 0; i < ias.size() / 2; i++) {
             if (Boolean.valueOf(Boolean.valueOf(ias.get(i)) == true)) { // Si IA
-                getJoueurs().add(new Joueur());
+                getJoueurs().add(new Joueur(pioche));
             } else {
-                getJoueurs().add(new Joueur(ias.get(i+ias.size() / 2)));
+                getJoueurs().add(new Joueur(ias.get(i+ias.size() / 2),pioche));
 
             }
         }
@@ -103,6 +103,7 @@ public class Scrabble implements Serializable {
             throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         currentPlayerProperty = new SimpleIntegerProperty(courantPlayer);
+
     }
 
     public void initDictionnaire() {

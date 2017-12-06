@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class MainApp extends Application {
@@ -43,7 +44,7 @@ public class MainApp extends Application {
             primaryStage.setHeight(825);
             primaryStage.setWidth(925);
             primaryStage.setResizable(false);
-           // primaryStage.setMinHeight(570);
+            // primaryStage.setMinHeight(570);
             //primaryStage.setMinWidth(670);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -52,7 +53,13 @@ public class MainApp extends Application {
         }
     }
 
-
+    public boolean fileExist(String filename) {
+        File f = new File(filename);
+        if(f.exists() && !f.isDirectory()) {
+            return true;
+        }
+        return false;
+    }
 
 
     /**
@@ -64,7 +71,9 @@ public class MainApp extends Application {
         return primaryStage;
     }
 
-    public Scrabble getScrabble(){return this.scrabble;}
+    public Scrabble getScrabble() {
+        return this.scrabble;
+    }
 
     public void setScrabble(Scrabble scrabble) {
         this.scrabble = scrabble;
