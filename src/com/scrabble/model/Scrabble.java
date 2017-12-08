@@ -171,7 +171,10 @@ public class Scrabble implements Serializable {
 
 
     public void changementTour() {
-    	setPremierMot(false);
+    	if(this.premierMot && this.getJoueur(courantPlayer).getAJoue())
+    	{
+    		this.setPremierMot(false);
+    	}
         if (courantPlayer == nbPlayer - 1)
             setCourantPlayer(0);
         else

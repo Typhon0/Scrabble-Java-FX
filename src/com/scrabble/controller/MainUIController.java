@@ -7,7 +7,6 @@ import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,7 +21,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
-import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -105,17 +103,11 @@ public class MainUIController {
     private ArrayList<Button> lettrePlaceesCetteManche; //Graphique
     private ArrayList<Button> lettreAEchanger;
 
+    //endregion
+
     //region Function
 
-    /**
-     * Is called by the main application to give a reference back to itself.
-     *
-     * @param mainApp
-     */
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
 
-    }
 
     /**
      * This method is automatically called after the fxml file has been loaded.
@@ -735,8 +727,9 @@ public class MainUIController {
         if (valid) {
             if (mainApp.getScrabble().finDuJeu(j) == false) {
                 mainApp.getScrabble().changementTour();
-                System.out.println(mainApp.getScrabble().getCourantPlayer());
                 showHand(mainApp.getScrabble().getCourantPlayer());
+                swapRecallBtn.getStyleClass().removeAll("recallImg");
+                swapRecallBtn.getStyleClass().add("swapImg");
                 bindJouerButton();
             }
             //TODO popup Fini;
@@ -1009,5 +1002,16 @@ public class MainUIController {
 
     //endregion
 
+    //region Getters Setters
+    /**
+     * Is called by the main application to give a reference back to itself.
+     *
+     * @param mainApp
+     */
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
 
+    }
+
+    //endregion
 }
