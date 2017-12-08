@@ -656,10 +656,12 @@ public class MainUIController {
             swapON = !swapON;
             ObservableList<Node> array = mainJoueur.getChildren();
             if (swapON) {
+                swapRecallBtn.getStyleClass().add("overlayEchanger");
                 for (Node n : array) {
                     n.setOnMouseClicked(onSwapHand());
                 }
             } else {
+                swapRecallBtn.getStyleClass().removeAll("overlayEchanger");
                 ArrayList<Piece> listeDePiece = new ArrayList<>();
                 int idpiece;
                 for (Node n : array) {
@@ -672,8 +674,7 @@ public class MainUIController {
                     n.getStyleClass().removeAll("overlayPiece");
                     n.setOnMouseClicked(onMainClicked());
                 }
-                System.out.println(listeDePiece);
-                mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).piocher(listeDePiece,mainApp.getScrabble().getPioche());
+                mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).echanger(listeDePiece,mainApp.getScrabble().getPioche());
                 showHand(mainApp.getScrabble().getCourantPlayer());
             }
         } else {//si il s'agit du recall
@@ -727,7 +728,8 @@ public class MainUIController {
     @FXML
     public void HandleJouerTour(ActionEvent actionEvent) {
         Joueur j = mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer());
-        boolean valid = j.jouerMot(mainApp.getScrabble().getBoard(), mainApp.getScrabble().getDico());
+        //boolean valid = j.jouerMot(mainApp.getScrabble().getBoard(), mainApp.getScrabble().getDico());
+        boolean valid = true;
         if (valid) {
             if (mainApp.getScrabble().finDuJeu(j) == false) {
                 mainApp.getScrabble().changementTour();

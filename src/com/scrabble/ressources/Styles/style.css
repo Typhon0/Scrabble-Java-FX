@@ -196,3 +196,8 @@
 .overlayPiece{
     -fx-blend-mode: color-dodge;
 }
+
+.overlayEchanger{
+    -fx-scale-x: 0.8;
+    -fx-scale-y: 0.8;
+}
