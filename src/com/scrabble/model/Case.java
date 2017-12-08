@@ -48,6 +48,12 @@ public class Case implements Serializable {
         }
         this.libre = false;
     }
+    
+    public void libererCase()
+    {
+    	this.libre = true;
+    	this.piece = null;
+    }
 
     public BonusCase getBonus() {
         return bonus;

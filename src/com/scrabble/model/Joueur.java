@@ -112,11 +112,11 @@ public class Joueur implements Serializable {
     }
     
     
-    public boolean jouerMot(Case[][] board, Dictionnaire dico)
+    public boolean jouerMot(Scrabble scrab)
     {
-    	if(motValide(board,dico)) 
+    	if(!(essaiMot.isEmpty()) && checkPremierMot(scrab.isPremierMot()) && motValide(scrab.getBoard(),scrab.getDico())) 
     	{
-    		this.addNbPoints(compterPoints(board)); // ajoute les points
+    		this.addNbPoints(compterPoints(scrab.getBoard())); // ajoute les points
     		retirerLettresDuMot(); // retire les lettres posees de la main du joueur
     		viderEssaiMot(); // vide la tentative de mot pose
     		
@@ -127,13 +127,33 @@ public class Joueur implements Serializable {
     		for(Piece p : essaiMot) // libere les cases 
     		{
     			Case c = p.getCasePiece();
-    			p.setCasePiece(null);
-    			c.setPiece(null);
+    			p.libererPiece();
+    			c.libererCase();
     		}
     		viderEssaiMot(); // vide la tentative de mot pose
     		
     		return false;
     	}
+    }
+    
+    public boolean checkPremierMot(boolean premierMot)
+    {
+    	boolean flag = false;
+    	if(!(premierMot))
+    	{
+    		return true;
+    	}
+    	else
+    	{
+    		for(Piece p : essaiMot)
+    		{
+    			if(p.getCasePiece().getX() == 7 && p.getCasePiece().getY() == 7)
+    			{
+    				flag = true;
+    			}
+    		}
+    	}
+    	return flag;
     }
 
 

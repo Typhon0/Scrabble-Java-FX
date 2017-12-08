@@ -23,6 +23,7 @@ public class Scrabble implements Serializable {
     private int courantPlayer;
     private transient IntegerProperty currentPlayerProperty;
     private int nbPlayer;
+    private boolean premierMot;
     //endregion
 
     //region Constructor
@@ -35,6 +36,7 @@ public class Scrabble implements Serializable {
         courantPlayer = 0;
         initDictionnaire();
         currentPlayerProperty = new SimpleIntegerProperty();
+        premierMot = true;
 
     }
     //endregion
@@ -169,11 +171,13 @@ public class Scrabble implements Serializable {
 
 
     public void changementTour() {
+    	setPremierMot(false);
         if (courantPlayer == nbPlayer - 1)
             setCourantPlayer(0);
         else
             setCourantPlayer(courantPlayer++);
     }
+
 
     public void setCourantPlayer(int courantPlayer) {
         this.courantPlayer = courantPlayer;
@@ -204,6 +208,15 @@ public class Scrabble implements Serializable {
         return pioche;
     }
 
+    public boolean isPremierMot()
+    {
+    	return premierMot;
+    }
+    
+    public void setPremierMot(boolean pm)
+    {
+    	premierMot = pm;
+    }
 
     //endregion
 }
