@@ -235,9 +235,9 @@ public class MainUIController {
         }
     }
 
-    public void initAllToolTips() {
-        //TODO easy
-
+    public void initAllToolTips(){
+        shuffleBtn.setTooltip(new Tooltip("Melanger"));
+        swapRecallBtn.setTooltip(new Tooltip("Echanger des lettres"));
     }
 
     public void swapHand(Button b) {
@@ -286,9 +286,11 @@ public class MainUIController {
                 if (LetterWaiting != null) {
                     Button b = (Button) event.getSource();
                     swapHand(b);
+                    b.getStyleClass().removeAll("lowOpacity");
                 } else {
                     Button b = (Button) event.getSource();
                     LetterWaiting = b;
+                    b.getStyleClass().add("lowOpacity");
                 }
             }
         };
@@ -299,8 +301,10 @@ public class MainUIController {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
                 if (event.getSource() instanceof StackPane && LetterWaiting != null) {
+                    swapRecallBtn.setTooltip(new Tooltip("Rappeler les lettres"));
                     StackPane sp = (StackPane) event.getSource();
                     sp.getChildren().clear();
+                    LetterWaiting.getStyleClass().removeAll("lowOpacity");
                     LetterWaiting.setOnMouseClicked(null);
                     LetterWaiting.setMinSize(sp.getWidth(), sp.getHeight());
                     LetterWaiting.setMaxSize(sp.getWidth(), sp.getHeight());
@@ -656,7 +660,7 @@ public class MainUIController {
                 Case c = mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15];
                 mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15] = new Case(c.getBonus(), c.getX(), c.getY());
                 //ajouter à la main
-                mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).getMain().add(mainApp.getScrabble().getCourantJoueur().getEssaiMot().get(x));
+                mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).getMain().add(piecePlaceesCetteManche.get(x));
                 //retirer graphiquement
                 sp.getChildren().remove(b);
                 resetBonusLabel(sp, numeroDeCase);
@@ -666,7 +670,7 @@ public class MainUIController {
             piecePlaceesCetteManche.clear();
             swapRecallBtn.getStyleClass().removeAll("recallImg");
             swapRecallBtn.getStyleClass().add("swapImg");
-
+            swapRecallBtn.setTooltip(new Tooltip("Echanger des lettres"));
             showHand(mainApp.getScrabble().getCourantPlayer());
         }
     }
@@ -697,6 +701,7 @@ public class MainUIController {
      */
     @FXML
     public void HandlePasserTour(ActionEvent actionEvent) {
+
     }
 
     @FXML
@@ -930,7 +935,7 @@ public class MainUIController {
 
         Animations.BounceInTransition(dialogContent);
 
-        mainApp.getScrabble().getJoueur(0).addNbPoints(5);
+        mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).addNbPoints(5);
     }
 
 

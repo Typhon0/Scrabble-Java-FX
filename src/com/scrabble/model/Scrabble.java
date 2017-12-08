@@ -151,6 +151,22 @@ public class Scrabble implements Serializable {
         return fin;
     }
 
+    public void reglesDeFin(){
+        int pl = courantPlayer;
+        int i;
+        if(pl==nbPlayer-1)
+            i = 0;
+        else
+            i=nbPlayer+1;
+        while (i!=pl){
+            int j=0;
+            while (this.getJoueur(i).getMain().get(j)!=null) {
+                this.getJoueur(pl).setNbPoints(this.getJoueur(i).getMain().get(j).getValue());
+                this.getJoueur(i).setNbPoints(- this.getJoueur(i).getMain().get(j++).getValue());
+            }
+        }
+    }
+
 
     public void changementTour() {
         if (courantPlayer == nbPlayer - 1)

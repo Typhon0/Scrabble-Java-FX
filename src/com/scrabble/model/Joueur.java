@@ -614,4 +614,7 @@ public class Joueur implements Serializable {
     //endregion
 
 
+    public void setNbPoints(int nbPoints) {
+        this.nbPoints = nbPoints;
+    }
 }
