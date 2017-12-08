@@ -105,6 +105,11 @@ public class Joueur implements Serializable {
     	}
     }
     
+    public void piocher(Pioche pioche)
+    {
+    	this.main.addAll(pioche.takeLetterInBag(essaiMot.size()-1));
+    }
+    
     
     public void viderEssaiMot()
     {
@@ -118,6 +123,7 @@ public class Joueur implements Serializable {
     	{
     		this.addNbPoints(compterPoints(scrab.getBoard())); // ajoute les points
     		retirerLettresDuMot(); // retire les lettres posees de la main du joueur
+    		piocher(scrab.getPioche());
     		viderEssaiMot(); // vide la tentative de mot pose
     		
     		return true;
@@ -515,7 +521,7 @@ public class Joueur implements Serializable {
     }
 
 
-    public void piocher(ArrayList<Piece> lettres, Pioche pioche) { // pioche des lettres
+    public void echanger(ArrayList<Piece> lettres, Pioche pioche) { // pioche des lettres
         for (int i = 0; i < lettres.size(); i++) {
             for (int j = 0; j < main.size(); j++) {
                 if (lettres.get(i).getLettre() == main.get(j).getLettre()) {
