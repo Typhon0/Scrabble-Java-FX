@@ -31,7 +31,7 @@ public class Joueur implements Serializable {
     private ArrayList<Piece> main;
 
     // Tentative de creation d'un mot sur le tour
-    private ObservableList<Piece> essaiMot;
+    private transient ObservableList<Piece> essaiMot;
 
     private ArrayList<Piece> motPose;
 
@@ -530,6 +530,7 @@ public class Joueur implements Serializable {
         in.defaultReadObject();
         nbPointsProperty = new SimpleIntegerProperty(nbPoints);
         pseudoProperty = new SimpleStringProperty(pseudo);
+        essaiMot = FXCollections.observableArrayList();
     }
     //endregion
 
