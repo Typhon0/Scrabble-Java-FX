@@ -39,8 +39,6 @@ public class Dictionnaire {
     public boolean motExistant(String prefixe, String suffixe, int index, int length) {
         for (String mot : this.dico) {
             if (mot.length() == length) {
-                System.out.println(mot.substring(0, index));
-                System.out.println(mot.substring(index + 1, mot.length()));
                 if (mot.substring(0, index).equalsIgnoreCase(prefixe) && mot.substring(index + 1, mot.length()).equalsIgnoreCase(suffixe)) {
                     return true;
                 }
@@ -48,6 +46,31 @@ public class Dictionnaire {
         }
 
         return false;
+    }
+    
+    public ArrayList<String> motsPossibles(ArrayList<Integer> index, ArrayList<Character> lettre)
+    {
+    	ArrayList<String> mots = new ArrayList<String>();
+    	
+    	for(String mot : dico)
+    	{
+    		boolean correct = true;
+
+    			for(int i=0; i<index.size(); i++)
+    			{
+    				if(i>=mot.length() || mot.charAt(index.get(i))!=lettre.get(i))
+    				{
+    					correct = false;
+    				}
+    			}
+    			if(correct && !(mots.contains(mot)))
+    			{
+    				mots.add(mot);
+    			}
+    	}
+
+
+    	return mots;
     }
 
     //endregion
