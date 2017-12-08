@@ -54,6 +54,12 @@ public class Piece implements Serializable {
             return new Case(BonusCase.Vide, -1, -1);
         }
     }
+    
+    public void libererPiece()
+    {
+    	this.casePiece = null;
+    	this.posee = false;
+    }
 
     // Retourne de la lettre de la pièce
     public char getLettre() {

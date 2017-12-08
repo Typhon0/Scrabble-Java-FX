@@ -4,6 +4,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -29,7 +31,7 @@ public class Joueur implements Serializable {
     private ArrayList<Piece> main;
 
     // Tentative de creation d'un mot sur le tour
-    private ArrayList<Piece> essaiMot;
+    private transient ObservableList<Piece> essaiMot;
 
     private ArrayList<Piece> motPose;
 
@@ -46,7 +48,7 @@ public class Joueur implements Serializable {
         this.main = new ArrayList<Piece>();
         main = pioche.takeLetterInBag(7);
 
-        this.essaiMot = new ArrayList<Piece>();
+        this.essaiMot = FXCollections.observableArrayList();
         this.motPose = new ArrayList<Piece>();
         this.nbPointsProperty = new SimpleIntegerProperty();
         this.pseudoProperty = new SimpleStringProperty("IA");
@@ -61,7 +63,7 @@ public class Joueur implements Serializable {
         this.main = new ArrayList<Piece>();
         main = pioche.takeLetterInBag(7);
 
-        this.essaiMot = new ArrayList<Piece>();
+        this.essaiMot = FXCollections.observableArrayList();
         this.motPose = new ArrayList<Piece>();
         this.nbPointsProperty = new SimpleIntegerProperty();
         this.pseudoProperty = new SimpleStringProperty(pseudo);
@@ -103,6 +105,11 @@ public class Joueur implements Serializable {
     	}
     }
     
+    public void piocher(Pioche pioche)
+    {
+    	this.main.addAll(pioche.takeLetterInBag(essaiMot.size()-1));
+    }
+    
     
     public void viderEssaiMot()
     {
@@ -110,12 +117,13 @@ public class Joueur implements Serializable {
     }
     
     
-    public boolean jouerMot(Case[][] board, Dictionnaire dico)
+    public boolean jouerMot(Scrabble scrab)
     {
-    	if(motValide(board,dico)) 
+    	if(!(essaiMot.isEmpty()) && checkPremierMot(scrab.isPremierMot()) && motValide(scrab.getBoard(),scrab.getDico())) 
     	{
-    		this.addNbPoints(compterPoints(board)); // ajoute les points
+    		this.addNbPoints(compterPoints(scrab.getBoard())); // ajoute les points
     		retirerLettresDuMot(); // retire les lettres posees de la main du joueur
+    		piocher(scrab.getPioche());
     		viderEssaiMot(); // vide la tentative de mot pose
     		
     		return true;
@@ -125,13 +133,33 @@ public class Joueur implements Serializable {
     		for(Piece p : essaiMot) // libere les cases 
     		{
     			Case c = p.getCasePiece();
-    			p.setCasePiece(null);
-    			c.setPiece(null);
+    			p.libererPiece();
+    			c.libererCase();
     		}
     		viderEssaiMot(); // vide la tentative de mot pose
     		
     		return false;
     	}
+    }
+    
+    public boolean checkPremierMot(boolean premierMot)
+    {
+    	boolean flag = false;
+    	if(!(premierMot))
+    	{
+    		return true;
+    	}
+    	else
+    	{
+    		for(Piece p : essaiMot)
+    		{
+    			if(p.getCasePiece().getX() == 7 && p.getCasePiece().getY() == 7)
+    			{
+    				flag = true;
+    			}
+    		}
+    	}
+    	return flag;
     }
 
 
@@ -493,7 +521,7 @@ public class Joueur implements Serializable {
     }
 
 
-    public void piocher(ArrayList<Piece> lettres, Pioche pioche) { // pioche des lettres
+    public void echanger(ArrayList<Piece> lettres, Pioche pioche) { // pioche des lettres
         for (int i = 0; i < lettres.size(); i++) {
             for (int j = 0; j < main.size(); j++) {
                 if (lettres.get(i).getLettre() == main.get(j).getLettre()) {
@@ -528,6 +556,7 @@ public class Joueur implements Serializable {
         in.defaultReadObject();
         nbPointsProperty = new SimpleIntegerProperty(nbPoints);
         pseudoProperty = new SimpleStringProperty(pseudo);
+        essaiMot = FXCollections.observableArrayList();
     }
     //endregion
 
@@ -589,11 +618,11 @@ public class Joueur implements Serializable {
         return this.main.contains(p);
     }
 
-    public ArrayList<Piece> getEssaiMot() {
+    public ObservableList<Piece> getEssaiMot() {
         return essaiMot;
     }
 
-    public void setEssaiMot(ArrayList<Piece> essaiMot) {
+    public void setEssaiMot(ObservableList<Piece> essaiMot) {
         this.essaiMot = essaiMot;
     }
     
@@ -606,6 +635,8 @@ public class Joueur implements Serializable {
     {
     	this.IA = ia;
     }
+
+
 
     //endregion
 
