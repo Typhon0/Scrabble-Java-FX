@@ -152,17 +152,6 @@
     -fx-smooth: true;
 }
 
-.resizingPiece {
-
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center center;
-    -fx-background-size: 22px;
-    -fx-focus-color: transparent;
-    -fx-background-color: transparent;
-    -fx-smooth: true;
-
-}
-
 .scoreBoard {
     -fx-background-radius: 10 10 10 10;
     -fx-border-radius: 10 10 10 10;

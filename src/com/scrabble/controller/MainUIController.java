@@ -75,7 +75,7 @@ public class MainUIController {
     @FXML
     private Button buttonOuiPopup;
     @FXML
-    private Button buttonNonPopup, swapRecallBtn;
+    private Button buttonNonPopup, swapRecallBtn, shuffleBtn;
     @FXML
     private HBox mainJoueur;
     @FXML
@@ -129,7 +129,7 @@ public class MainUIController {
         swapRecallBtn.getStyleClass().add("swapImg");
         lettrePlaceesCetteManche = new ArrayList<>();
         piecePlaceesCetteManche = FXCollections.observableArrayList();
-
+        initAllToolTips();
     }
 
     /**
@@ -251,6 +251,10 @@ public class MainUIController {
         }
     }
 
+    public void initAllToolTips(){
+        //TODO easy
+
+    }
 
     public void swapHand(Button b) {
         int numeroLettreDansMain = Integer.parseInt(LetterWaiting.getId().replace("B", ""));
@@ -316,8 +320,6 @@ public class MainUIController {
                     LetterWaiting.setOnMouseClicked(null);
                     LetterWaiting.setMinSize(sp.getWidth(), sp.getHeight());
                     LetterWaiting.setMaxSize(sp.getWidth(), sp.getHeight());
-                    LetterWaiting.getStyleClass().removeAll("buttonLetter");
-                    LetterWaiting.getStyleClass().add("resizingPiece");
                     sp.getChildren().add(LetterWaiting);
                     StackPane.setAlignment(LetterWaiting, Pos.CENTER);
 
@@ -725,9 +727,9 @@ public class MainUIController {
      */
     public int chooseNbPlayer() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog with Custom Actions");
-        alert.setHeaderText("Look, a Confirmation Dialog with Custom Actions");
-        alert.setContentText("Choose your option.");
+        alert.setTitle("Scrabble");
+        alert.setHeaderText("Nouvelle partie !");
+        alert.setContentText("Choisissez le nombre de joueurs.");
 
         ButtonType buttonTypeOne = new ButtonType("2");
         ButtonType buttonTypeTwo = new ButtonType("4");
