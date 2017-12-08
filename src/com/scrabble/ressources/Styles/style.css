@@ -170,3 +170,7 @@
     -fx-fill: white;
     -fx-font-size: 24px;
 }
+
+.lowOpacity{
+    -fx-blend-mode: color-dodge;
+}
