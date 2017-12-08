@@ -33,7 +33,7 @@ public class Joueur implements Serializable {
     // Tentative de creation d'un mot sur le tour
     private transient ObservableList<Piece> essaiMot;
 
-    private ArrayList<Piece> motPose;
+    private boolean aJoue;
 
     private boolean IA;
 
@@ -49,7 +49,7 @@ public class Joueur implements Serializable {
         main = pioche.takeLetterInBag(7);
 
         this.essaiMot = FXCollections.observableArrayList();
-        this.motPose = new ArrayList<Piece>();
+        this.aJoue = false;
         this.nbPointsProperty = new SimpleIntegerProperty();
         this.pseudoProperty = new SimpleStringProperty("IA");
         setNbPointsProperty(0);
@@ -64,7 +64,7 @@ public class Joueur implements Serializable {
         main = pioche.takeLetterInBag(7);
 
         this.essaiMot = FXCollections.observableArrayList();
-        this.motPose = new ArrayList<Piece>();
+        this.aJoue = false;
         this.nbPointsProperty = new SimpleIntegerProperty();
         this.pseudoProperty = new SimpleStringProperty(pseudo);
         setNbPointsProperty(0);
@@ -125,13 +125,14 @@ public class Joueur implements Serializable {
     		retirerLettresDuMot(); // retire les lettres posees de la main du joueur
     		piocher(scrab.getPioche());
     		viderEssaiMot(); // vide la tentative de mot pose
-    		
+    		aJoue = true;
     		return true;
     	}
     	else
     	{
     		for(Piece p : essaiMot) // libere les cases 
     		{
+    			this.main.add(p); // on lui rend sa piece
     			Case c = p.getCasePiece();
     			p.libererPiece();
     			c.libererCase();
@@ -640,6 +641,11 @@ public class Joueur implements Serializable {
     	this.IA = ia;
     }
 
+    
+    public boolean getAJoue()
+    {
+    	return aJoue;
+    }
 
 
     //endregion
