@@ -4,6 +4,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -29,7 +31,7 @@ public class Joueur implements Serializable {
     private ArrayList<Piece> main;
 
     // Tentative de creation d'un mot sur le tour
-    private ArrayList<Piece> essaiMot;
+    private ObservableList<Piece> essaiMot;
 
     private ArrayList<Piece> motPose;
 
@@ -46,7 +48,7 @@ public class Joueur implements Serializable {
         this.main = new ArrayList<Piece>();
         main = pioche.takeLetterInBag(7);
 
-        this.essaiMot = new ArrayList<Piece>();
+        this.essaiMot = FXCollections.observableArrayList();
         this.motPose = new ArrayList<Piece>();
         this.nbPointsProperty = new SimpleIntegerProperty();
         this.pseudoProperty = new SimpleStringProperty("IA");
@@ -61,7 +63,7 @@ public class Joueur implements Serializable {
         this.main = new ArrayList<Piece>();
         main = pioche.takeLetterInBag(7);
 
-        this.essaiMot = new ArrayList<Piece>();
+        this.essaiMot = FXCollections.observableArrayList();
         this.motPose = new ArrayList<Piece>();
         this.nbPointsProperty = new SimpleIntegerProperty();
         this.pseudoProperty = new SimpleStringProperty(pseudo);
@@ -589,11 +591,11 @@ public class Joueur implements Serializable {
         return this.main.contains(p);
     }
 
-    public ArrayList<Piece> getEssaiMot() {
+    public ObservableList<Piece> getEssaiMot() {
         return essaiMot;
     }
 
-    public void setEssaiMot(ArrayList<Piece> essaiMot) {
+    public void setEssaiMot(ObservableList<Piece> essaiMot) {
         this.essaiMot = essaiMot;
     }
     
@@ -606,6 +608,8 @@ public class Joueur implements Serializable {
     {
     	this.IA = ia;
     }
+
+
 
     //endregion
 

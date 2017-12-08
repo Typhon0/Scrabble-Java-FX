@@ -1,10 +1,7 @@
 package com.scrabble.controller;
 
 import com.scrabble.MainApp;
-import com.scrabble.model.BonusCase;
-import com.scrabble.model.Case;
-import com.scrabble.model.Piece;
-import com.scrabble.model.Scrabble;
+import com.scrabble.model.*;
 import com.scrabble.util.Animations;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -165,20 +162,7 @@ public class MainUIController {
                 highlightCurrentPlayerScore(newValue.intValue());
             }
         });
-
-        piecePlaceesCetteManche.addListener(new ListChangeListener<Piece>() {
-            @Override
-            public void onChanged(Change<? extends Piece> c) {
-                if (piecePlaceesCetteManche.size() == 0) {
-                    passerBtn.setVisible(true);
-                    jouerBtn.setVisible(false);
-                } else {
-                    passerBtn.setVisible(false);
-                    jouerBtn.setVisible(true);
-                }
-            }
-        });
-
+        bindJouerButton();
 
     }
 
@@ -251,7 +235,7 @@ public class MainUIController {
         }
     }
 
-    public void initAllToolTips(){
+    public void initAllToolTips() {
         //TODO easy
 
     }
@@ -329,7 +313,7 @@ public class MainUIController {
                     //put in board
                     mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15].setPiece(mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).getMain().get(numeroLettreDansMain));
                     //remove in hand
-                    piecePlaceesCetteManche.add(mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).getMain().get(numeroLettreDansMain));
+                    mainApp.getScrabble().getJoueurs().get(mainApp.getScrabble().getCourantPlayer()).getEssaiMot().add(mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).getMain().get(numeroLettreDansMain));
                     mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).getMain().remove(numeroLettreDansMain);
 
                     lettrePlaceesCetteManche.add(LetterWaiting);
@@ -449,6 +433,22 @@ public class MainUIController {
         sp.getStyleClass().add("gradiantMD");
         sp.getChildren().add(new Label("\u2605"));
     }
+
+    private void bindJouerButton() {
+
+        mainApp.getScrabble().getCourantJoueur().getEssaiMot().addListener(new ListChangeListener<Piece>() {
+            @Override
+            public void onChanged(Change<? extends Piece> c) {
+                if (mainApp.getScrabble().getCourantJoueur().getEssaiMot().size() == 0) {
+                    passerBtn.setVisible(true);
+                    jouerBtn.setVisible(false);
+                } else {
+                    passerBtn.setVisible(false);
+                    jouerBtn.setVisible(true);
+                }
+            }
+        });
+    }
     //endregion
 
     //region Handler
@@ -561,7 +561,8 @@ public class MainUIController {
             alert.setHeaderText("Aucune partie sauvegardée");
             alert.setContentText("Aucune partie sauvegardée trouver ");
 
-            alert.showAndWait();        }
+            alert.showAndWait();
+        }
 
 
     }
@@ -655,7 +656,7 @@ public class MainUIController {
                 Case c = mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15];
                 mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15] = new Case(c.getBonus(), c.getX(), c.getY());
                 //ajouter à la main
-                mainApp.getScrabble().getJoueur(0).getMain().add(piecePlaceesCetteManche.get(x));
+                mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).getMain().add(mainApp.getScrabble().getCourantJoueur().getEssaiMot().get(x));
                 //retirer graphiquement
                 sp.getChildren().remove(b);
                 resetBonusLabel(sp, numeroDeCase);
@@ -677,6 +678,16 @@ public class MainUIController {
      */
     @FXML
     public void HandleJouerTour(ActionEvent actionEvent) {
+        Joueur j = mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer());
+        boolean valid = j.jouerMot(mainApp.getScrabble().getBoard(), mainApp.getScrabble().getDico());
+        if (valid) {
+            if (mainApp.getScrabble().finDuJeu(j) == false) {
+                mainApp.getScrabble().changementTour();
+                bindJouerButton();
+            }
+            //TODO popup Fini;
+        }
+
     }
 
     /**

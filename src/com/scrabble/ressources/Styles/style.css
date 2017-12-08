@@ -27,6 +27,28 @@
     -fx-background-color: radial-gradient(focus-distance 0%, center 50% 50%, radius 65%, #BAEEF9, #6CDAE7);
 }
 
+/*Hover case*/
+.gradiantGeneral:hover {
+    -fx-background-color: radial-gradient(focus-distance 0%, center 50% 50%, radius 65%, #27765b, #125740);
+}
+
+.gradiantMT:hover{
+    -fx-background-color: radial-gradient(focus-distance 0%, center 50% 50%, radius 65%, #e95b78, #b3031e);
+}
+/*-20*/
+.gradiantLT:hover {
+    -fx-background-color: radial-gradient(focus-distance 0%, center 50% 50%, radius 65%, #93ccd6, #6093bd);
+}
+
+.gradiantMD:hover {
+    -fx-background-color: radial-gradient(focus-distance 0%, center 50% 50%, radius 65%, #e8a5b3, #d9989e);
+}
+
+.gradiantLD :hover{
+    -fx-background-color: radial-gradient(focus-distance 0%, center 50% 50%, radius 65%, #baeee5, #6cdad3);
+}
+
+
 *.label {
     -fx-text-fill: #25272C;
 }

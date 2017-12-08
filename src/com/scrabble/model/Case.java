@@ -43,7 +43,9 @@ public class Case implements Serializable {
 
     public void setPiece(Piece piece) {
         this.piece = piece;
-        this.piece.setCasePiece(this);
+        if (this.piece != null) {
+            this.piece.setCasePiece(this);
+        }
         this.libre = false;
     }
 

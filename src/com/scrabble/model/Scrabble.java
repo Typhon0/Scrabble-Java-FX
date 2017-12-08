@@ -115,6 +115,10 @@ public class Scrabble implements Serializable {
 
     //region Getters Setters
 
+    public Joueur getCourantJoueur(){
+        return joueurs.get(courantPlayer);
+    }
+
     public Dictionnaire getDico() {
         return this.dictionnaire;
     }
