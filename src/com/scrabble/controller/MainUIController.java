@@ -132,8 +132,10 @@ public class MainUIController {
     /**
      * Initialise le visuel du jeu
      */
-    public void initGame() {
-        drawboard(baseAnchor);
+    public void initGame(boolean yes) {
+        if(yes){
+            drawboard(baseAnchor);
+        }
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -249,7 +251,6 @@ public class MainUIController {
     }
 
     public Button generateButtonFromLetter(char ch) {
-        //TODO
         Button btn = new Button();
         btn.getStyleClass().add("buttonLetter");
         if (ch == '?') {
@@ -493,7 +494,7 @@ public class MainUIController {
                         mainApp.getScrabble().initPlayer(ias);
 
 
-                        initGame();
+                        initGame(true);
                     }
                 }
             }
@@ -512,7 +513,7 @@ public class MainUIController {
                     mainApp.getScrabble().initPlayer(ias);
 
 
-                    initGame();
+                    initGame(true);
                 }
             }
         }
@@ -556,7 +557,13 @@ public class MainUIController {
                 e1.printStackTrace();
             }
             mainApp.setScrabble(e);
-            initGame();
+            try{
+                boardGrid = (GridPane) board.getChildren().get(0);
+                initGame(false);
+            }catch (Exception ex){
+                initGame(true);
+            }
+            afficheBoard();
             Animations.SlideOutToLeft(menu, 500, mainApp.getPrimaryStage().getWidth());
             menu.toFront();
         } else {
@@ -985,6 +992,20 @@ public class MainUIController {
         mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).addNbPoints(5);
     }
 
+    public void afficheBoard(){
+        Case[][] boardModel = mainApp.getScrabble().getBoard();
+        for(int i=0;i<15;i++){
+            for(int j=0;j<15;j++){
+                if(boardModel[i][j].getPiece() != null){
+                    Button b = generateButtonFromLetter(boardModel[i][j].getPiece().getLettre());
+                    b.setOnMouseClicked(null);
+                    StackPane sp = (StackPane) board.lookup("#S" + (i+(j*15)));
+                    sp.getChildren().clear();
+                    sp.getChildren().add(b);
+                }
+            }
+        }
+    }
 
     //endregion
 
