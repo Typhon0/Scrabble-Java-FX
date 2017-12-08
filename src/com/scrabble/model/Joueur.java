@@ -8,6 +8,7 @@ import javafx.beans.property.StringProperty;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 
 /**
@@ -91,6 +92,46 @@ public class Joueur implements Serializable {
                 System.out.println("Case deja prise");
             }
         }
+    }
+    
+    
+    public void retirerLettresDuMot()
+    {
+    	for(Piece p : this.essaiMot)
+    	{
+    		if(possede(p)) { this.main.remove(p); }
+    	}
+    }
+    
+    
+    public void viderEssaiMot()
+    {
+    	essaiMot.clear();
+    }
+    
+    
+    public boolean jouerMot(Case[][] board, Dictionnaire dico)
+    {
+    	if(motValide(board,dico)) 
+    	{
+    		this.addNbPoints(compterPoints(board)); // ajoute les points
+    		retirerLettresDuMot(); // retire les lettres posees de la main du joueur
+    		viderEssaiMot(); // vide la tentative de mot pose
+    		
+    		return true;
+    	}
+    	else
+    	{
+    		for(Piece p : essaiMot) // libere les cases 
+    		{
+    			Case c = p.getCasePiece();
+    			p.setCasePiece(null);
+    			c.setPiece(null);
+    		}
+    		viderEssaiMot(); // vide la tentative de mot pose
+    		
+    		return false;
+    	}
     }
 
 
@@ -555,8 +596,21 @@ public class Joueur implements Serializable {
     public void setEssaiMot(ArrayList<Piece> essaiMot) {
         this.essaiMot = essaiMot;
     }
+    
+    public boolean getIA()
+    {
+    	return this.IA;
+    }
+    
+    public void setIA(boolean ia)
+    {
+    	this.IA = ia;
+    }
 
     //endregion
 
 
+    public void setNbPoints(int nbPoints) {
+        this.nbPoints = nbPoints;
+    }
 }
