@@ -125,7 +125,6 @@ public class MainUIController {
         menu.toFront();
         swapRecallBtn.getStyleClass().add("swapImg");
         lettrePlaceesCetteManche = new ArrayList<>();
-        piecePlaceesCetteManche = FXCollections.observableArrayList();
         lettreAEchanger = new ArrayList<>();
         initAllToolTips();
     }
