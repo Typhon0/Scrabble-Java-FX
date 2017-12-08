@@ -18,6 +18,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
@@ -39,7 +40,7 @@ public class MainUIController {
     public Button LetterWaiting = null;
 
     private GridPane boardGrid;
-
+    private boolean swapON = false;
 
     @FXML
     Button pioche;
@@ -102,7 +103,7 @@ public class MainUIController {
 
 
     private ArrayList<Button> lettrePlaceesCetteManche; //Graphique
-    //endregion
+    private ArrayList<Button> lettreAEchanger;
 
     //region Function
 
@@ -124,6 +125,8 @@ public class MainUIController {
         menu.toFront();
         swapRecallBtn.getStyleClass().add("swapImg");
         lettrePlaceesCetteManche = new ArrayList<>();
+        piecePlaceesCetteManche = FXCollections.observableArrayList();
+        lettreAEchanger = new ArrayList<>();
         initAllToolTips();
     }
 
@@ -233,7 +236,7 @@ public class MainUIController {
         }
     }
 
-    public void initAllToolTips(){
+    public void initAllToolTips() {
         shuffleBtn.setTooltip(new Tooltip("Melanger"));
         swapRecallBtn.setTooltip(new Tooltip("Echanger des lettres"));
     }
@@ -284,11 +287,11 @@ public class MainUIController {
                 if (LetterWaiting != null) {
                     Button b = (Button) event.getSource();
                     swapHand(b);
-                    b.getStyleClass().removeAll("lowOpacity");
+                    b.getStyleClass().removeAll("overlayPiece");
                 } else {
                     Button b = (Button) event.getSource();
                     LetterWaiting = b;
-                    b.getStyleClass().add("lowOpacity");
+                    b.getStyleClass().add("overlayPiece");
                 }
             }
         };
@@ -302,7 +305,7 @@ public class MainUIController {
                     swapRecallBtn.setTooltip(new Tooltip("Rappeler les lettres"));
                     StackPane sp = (StackPane) event.getSource();
                     sp.getChildren().clear();
-                    LetterWaiting.getStyleClass().removeAll("lowOpacity");
+                    LetterWaiting.getStyleClass().removeAll("overlayPiece");
                     LetterWaiting.setOnMouseClicked(null);
                     LetterWaiting.setMinSize(sp.getWidth(), sp.getHeight());
                     LetterWaiting.setMaxSize(sp.getWidth(), sp.getHeight());
@@ -644,10 +647,31 @@ public class MainUIController {
      */
     @FXML
     public void HandleSwapRecall(ActionEvent actionEvent) {
-        //si il s'agit du swap
-        if (swapRecallBtn.getStyleClass().get(0).equals("swapImg")) {
-
-
+        if (swapRecallBtn.getStyleClass().get(1).equals("swapImg")) {
+            //si il s'agit du swap
+            swapON = !swapON;
+            ObservableList<Node> array = mainJoueur.getChildren();
+            if (swapON) {
+                for (Node n : array) {
+                    n.setOnMouseClicked(onSwapHand());
+                }
+            } else {
+                ArrayList<Piece> listeDePiece = new ArrayList<>();
+                int idpiece;
+                for (Node n : array) {
+                    if (n.getStyleClass().toString().contains("overlayPiece")) {
+                        idpiece = Integer.parseInt(n.getId().replace("B", ""));
+                        listeDePiece.add(mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).getMain().get(idpiece));
+                    }
+                }
+                for (Node n : array) {
+                    n.getStyleClass().removeAll("overlayPiece");
+                    n.setOnMouseClicked(onMainClicked());
+                }
+                System.out.println(listeDePiece);
+                mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).piocher(listeDePiece,mainApp.getScrabble().getPioche());
+                showHand(mainApp.getScrabble().getCourantPlayer());
+            }
         } else {//si il s'agit du recall
             int x = 0;
             for (Button b : lettrePlaceesCetteManche) {
@@ -670,6 +694,25 @@ public class MainUIController {
             swapRecallBtn.setTooltip(new Tooltip("Echanger des lettres"));
             showHand(mainApp.getScrabble().getCourantPlayer());
         }
+    }
+
+
+    public EventHandler<javafx.scene.input.MouseEvent> onSwapHand() {
+        return new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.getSource() instanceof Button) {
+                    Button b = (Button) event.getSource();
+                    if (lettreAEchanger.contains(b)) {
+                        b.getStyleClass().removeAll("overlayPiece");
+                        lettreAEchanger.remove(b);
+                    } else {
+                        b.getStyleClass().add("overlayPiece");
+                        lettreAEchanger.add(b);
+                    }
+                }
+            }
+        };
     }
 
     /**
