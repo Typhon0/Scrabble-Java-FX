@@ -171,6 +171,6 @@
     -fx-font-size: 24px;
 }
 
-.lowOpacity{
+.overlayPiece{
     -fx-blend-mode: color-dodge;
 }
