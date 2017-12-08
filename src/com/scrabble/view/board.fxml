@@ -104,23 +104,23 @@
                   </AnchorPane>
                   <Button fx:id="MenuBtn" layoutX="118.0" layoutY="117.0" mnemonicParsing="false" onAction="#HandleMenuButton" styleClass="GreenButton" text="Menu" />
                   <Button fx:id="SaveBtn" layoutX="118.0" layoutY="153.0" mnemonicParsing="false" onAction="#HandleSaveButton" styleClass="GreenButton" text="Save" />
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutY="625.0" maxHeight="200.0" maxWidth="925.0" prefHeight="200.0" prefWidth="925.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="625.0">
-               <children>
-                  <HBox fx:id="mainJoueur" layoutX="410.0" layoutY="49.0" prefHeight="75.0" prefWidth="331.0" />
-                   <Button fx:id="shuffleBtn" layoutX="22.0" layoutY="36.0" mnemonicParsing="false" onAction="#HandleShuffle" prefHeight="100" prefWidth="100" />
-                  <Button fx:id="jouerBtn" text="Jouer" visible="false" layoutX="793.0" layoutY="36.0" mnemonicParsing="false" onAction="#HandleJouerTour" prefHeight="100" prefWidth="100" />
-                   <Button fx:id="passerBtn" text="Passer" layoutX="793.0" layoutY="36.0" mnemonicParsing="false" onAction="#HandlePasserTour" prefHeight="100" prefWidth="100" />
 
-                   <Button fx:id="pioche" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" layoutX="146.0" layoutY="36.0" mnemonicParsing="false" onAction="#HandlePiocheButton" prefHeight="100" prefWidth="100" text="28" textAlignment="CENTER">
+                   <Button fx:id="pioche" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" layoutX="100.0" layoutY="474.0" mnemonicParsing="false" onAction="#HandlePiocheButton" prefHeight="100" prefWidth="100" text="28" textAlignment="CENTER">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                      <font>
                         <Font size="24.0" />
                      </font></Button>
-                  <Button fx:id="swapRecallBtn" layoutX="271.0" layoutY="36.0" mnemonicParsing="false" onAction="#HandleSwapRecall" prefHeight="100" prefWidth="100" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutY="625.0" maxHeight="200.0" maxWidth="925.0" prefHeight="200.0" prefWidth="925.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="625.0">
+               <children>
+                  <HBox fx:id="mainJoueur" layoutX="410.0" layoutY="49.0" prefHeight="75.0" prefWidth="331.0" />
+                   <Button fx:id="shuffleBtn" layoutX="41.0" layoutY="37.0" mnemonicParsing="false" onAction="#HandleShuffle" prefHeight="100" prefWidth="100" />
+                  <Button fx:id="jouerBtn" layoutX="793.0" layoutY="36.0" mnemonicParsing="false" onAction="#HandleJouerTour" prefHeight="100" prefWidth="100" text="Jouer" visible="false" />
+                   <Button fx:id="passerBtn" layoutX="793.0" layoutY="36.0" mnemonicParsing="false" onAction="#HandlePasserTour" prefHeight="100" prefWidth="100" text="Passer" />
+                  <Button fx:id="swapRecallBtn" layoutX="185.0" layoutY="36.0" mnemonicParsing="false" onAction="#HandleSwapRecall" prefHeight="100" prefWidth="100" />
                </children>
             </AnchorPane>
          </children>

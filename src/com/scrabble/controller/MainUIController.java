@@ -102,8 +102,7 @@ public class MainUIController {
 
 
     private ArrayList<Button> lettrePlaceesCetteManche; //Graphique
-    private ObservableList<Piece> piecePlaceesCetteManche;   //model
-    //endregion±
+    //endregion
 
     //region Function
 
@@ -125,7 +124,6 @@ public class MainUIController {
         menu.toFront();
         swapRecallBtn.getStyleClass().add("swapImg");
         lettrePlaceesCetteManche = new ArrayList<>();
-        piecePlaceesCetteManche = FXCollections.observableArrayList();
         initAllToolTips();
     }
 
@@ -626,7 +624,6 @@ public class MainUIController {
 
     @FXML
     public void HandlePiocheButton(ActionEvent actionEvent) {
-        mainApp.getScrabble().getPioche().takeLetterInBag(1);
     }
 
     /**
@@ -660,14 +657,14 @@ public class MainUIController {
                 Case c = mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15];
                 mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15] = new Case(c.getBonus(), c.getX(), c.getY());
                 //ajouter à la main
-                mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).getMain().add(piecePlaceesCetteManche.get(x));
+                mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).getMain().add(mainApp.getScrabble().getCourantJoueur().getEssaiMot().get(x));
                 //retirer graphiquement
                 sp.getChildren().remove(b);
                 resetBonusLabel(sp, numeroDeCase);
                 x++;
             }
             lettrePlaceesCetteManche.clear();
-            piecePlaceesCetteManche.clear();
+            mainApp.getScrabble().getCourantJoueur().getEssaiMot().clear();
             swapRecallBtn.getStyleClass().removeAll("recallImg");
             swapRecallBtn.getStyleClass().add("swapImg");
             swapRecallBtn.setTooltip(new Tooltip("Echanger des lettres"));
@@ -682,14 +679,21 @@ public class MainUIController {
      */
     @FXML
     public void HandleJouerTour(ActionEvent actionEvent) {
+        System.out.println(mainApp.getScrabble().getCourantPlayer());
         Joueur j = mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer());
-        boolean valid = j.jouerMot(mainApp.getScrabble().getBoard(), mainApp.getScrabble().getDico());
+        boolean valid = j.jouerMot(mainApp.getScrabble());
         if (valid) {
             if (mainApp.getScrabble().finDuJeu(j) == false) {
                 mainApp.getScrabble().changementTour();
+                System.out.println(mainApp.getScrabble().getCourantPlayer());
+                showHand(mainApp.getScrabble().getCourantPlayer());
                 bindJouerButton();
             }
             //TODO popup Fini;
+        }
+        else {
+
+            System.out.println("FALSE");
         }
 
     }
