@@ -107,7 +107,7 @@ public class Joueur implements Serializable {
     
     public void piocher(Pioche pioche)
     {
-    	this.main.addAll(pioche.takeLetterInBag(essaiMot.size()-1));
+    	this.main.addAll(pioche.takeLetterInBag(essaiMot.size()));
     }
     
     
@@ -136,8 +136,7 @@ public class Joueur implements Serializable {
     			p.libererPiece();
     			c.libererCase();
     		}
-    		viderEssaiMot(); // vide la tentative de mot pose
-    		
+
     		return false;
     	}
     }
@@ -426,7 +425,7 @@ public class Joueur implements Serializable {
         while (!caseMoins.estLibre()) {
             nbP += caseMoins.getPiece().getValue();
             caseMoins = board[--xm][y];
-            System.out.println(xm);
+            //System.out.println(xm);
         }
         return nbP;
     }
@@ -553,6 +552,7 @@ public class Joueur implements Serializable {
     private void readObject(java.io.ObjectInputStream in)
             throws IOException, ClassNotFoundException {
         in.defaultReadObject();
+
         nbPointsProperty = new SimpleIntegerProperty(nbPoints);
         pseudoProperty = new SimpleStringProperty(pseudo);
         essaiMot = FXCollections.observableArrayList();
@@ -560,6 +560,11 @@ public class Joueur implements Serializable {
     //endregion
 
     //region Getters Setters
+
+    public void setNbPoints(int nbPoints) {
+        this.nbPoints = nbPoints;
+    }
+
     // Retourne du nom du joueur
     public String getNom() {
         return this.pseudo;
@@ -640,7 +645,4 @@ public class Joueur implements Serializable {
     //endregion
 
 
-    public void setNbPoints(int nbPoints) {
-        this.nbPoints = nbPoints;
-    }
 }

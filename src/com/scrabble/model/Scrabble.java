@@ -175,7 +175,7 @@ public class Scrabble implements Serializable {
         if (courantPlayer == nbPlayer - 1)
             setCourantPlayer(0);
         else
-            setCourantPlayer(courantPlayer++);
+            setCourantPlayer(courantPlayer+1);
     }
 
 
