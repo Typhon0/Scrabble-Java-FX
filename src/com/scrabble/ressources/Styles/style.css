@@ -168,7 +168,7 @@
 .buttonLetter {
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
-    -fx-background-size: 35px;
+    -fx-background-size: contain;
     -fx-focus-color: transparent;
     -fx-background-color: transparent;
     -fx-smooth: true;

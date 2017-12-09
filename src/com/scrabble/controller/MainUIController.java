@@ -253,12 +253,12 @@ public class MainUIController {
         Button btn = new Button();
         btn.getStyleClass().add("buttonLetter");
         if (ch == '?') {
-            btn.setStyle("-fx-background-image: url('/com/scrabble/ressources/Piece/letter.png')");
+            btn.setStyle("-fx-background-image: url('/com/scrabble/ressources/Piece/letter.png');");
         } else {
-            btn.setStyle("-fx-background-image: url('/com/scrabble/ressources/Piece/letter_" + ch + ".png')");
+            btn.setStyle("-fx-background-image: url('/com/scrabble/ressources/Piece/letter_" + ch + ".png');");
         }
-        btn.setMinHeight(40);
-        btn.setMinWidth(40);
+        btn.setMinHeight(50);
+        btn.setMinWidth(50);
         return btn;
     }
 
@@ -305,6 +305,8 @@ public class MainUIController {
                     StackPane sp = (StackPane) event.getSource();
                     sp.getChildren().clear();
                     LetterWaiting.getStyleClass().removeAll("overlayPiece");
+                    int taille = (int) sp.getHeight();
+                    LetterWaiting.setMinSize(taille,taille);
                     LetterWaiting.setOnMouseClicked(null);
                     LetterWaiting.setMinSize(sp.getWidth(), sp.getHeight());
                     LetterWaiting.setMaxSize(sp.getWidth(), sp.getHeight());
