@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="baseAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scrabble.controller.MainUIController">
+<AnchorPane fx:id="baseAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scrabble.controller.MainUIController">
     <children>
         <AnchorPane fx:id="menu" layoutX="10.0" layoutY="10.0" prefHeight="480.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -93,7 +93,7 @@
                                                 <Text fx:id="scoreJ1" layoutX="231.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="9.63571739278973" />
                                             </children>
                                             <StackPane.margin>
-                                                <Insets top="210.0" />
+                                                <Insets top="220.0" />
                                             </StackPane.margin>
                                         </AnchorPane>
                                         <AnchorPane fx:id="J2Box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" styleClass="scoreBoard" visible="false">
@@ -102,7 +102,7 @@
                                                 <Text fx:id="scoreJ2" layoutX="231.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                             </children>
                                             <StackPane.margin>
-                                                <Insets top="270.0" />
+                                                <Insets top="280.0" />
                                             </StackPane.margin>
                                         </AnchorPane>
                                         <AnchorPane fx:id="J3Box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" styleClass="scoreBoard" visible="false">
@@ -111,7 +111,7 @@
                                                 <Text fx:id="scoreJ3" layoutX="232.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                             </children>
                                             <StackPane.margin>
-                                                <Insets top="330.0" />
+                                                <Insets top="340.0" />
                                             </StackPane.margin>
                                         </AnchorPane>
                                         <AnchorPane fx:id="J4Box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" styleClass="scoreBoard" visible="false">
@@ -120,7 +120,7 @@
                                                 <Text fx:id="scoreJ4" layoutX="231.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="11.338753297024255" />
                                             </children>
                                             <StackPane.margin>
-                                                <Insets top="390.0" />
+                                                <Insets top="400.0" />
                                             </StackPane.margin>
                                         </AnchorPane>
                                         <Button fx:id="pioche" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#HandlePiocheButton" prefHeight="100" prefWidth="100" text="28" textAlignment="CENTER" StackPane.alignment="BOTTOM_CENTER">
@@ -139,31 +139,31 @@
                         </HBox>
                         <StackPane prefHeight="150.0" prefWidth="200.0">
                             <children>
-                                <Button fx:id="shuffleBtn" mnemonicParsing="false" onAction="#HandleShuffle" prefHeight="100" prefWidth="100" StackPane.alignment="CENTER_LEFT">
+                                <Button fx:id="shuffleBtn" mnemonicParsing="false" onAction="#HandleShuffle" prefHeight="100" prefWidth="100" StackPane.alignment="CENTER_RIGHT">
                                     <StackPane.margin>
-                                        <Insets left="20.0" />
+                                        <Insets right="690.0" />
                                     </StackPane.margin>
                                 </Button>
-                                <Button fx:id="swapRecallBtn" mnemonicParsing="false" onAction="#HandleSwapRecall" prefHeight="100" prefWidth="100" StackPane.alignment="CENTER_LEFT">
+                                <Button fx:id="swapRecallBtn" mnemonicParsing="false" onAction="#HandleSwapRecall" prefHeight="100" prefWidth="100" StackPane.alignment="CENTER_RIGHT">
                                     <StackPane.margin>
-                                        <Insets left="140.0" />
-                                    </StackPane.margin>
-                                </Button>
-                                <Button fx:id="jouerBtn" mnemonicParsing="false" onAction="#HandleJouerTour" prefHeight="100" prefWidth="100" text="Jouer" visible="false" StackPane.alignment="CENTER_RIGHT">
-                                    <StackPane.margin>
-                                        <Insets right="20.0" />
-                                    </StackPane.margin>
-                                </Button>
-                                <Button fx:id="passerBtn" mnemonicParsing="false" onAction="#HandlePasserTour" prefHeight="100" prefWidth="100" text="Passer" StackPane.alignment="CENTER_RIGHT">
-                                    <StackPane.margin>
-                                        <Insets right="20.0" />
+                                        <Insets right="560.0" />
                                     </StackPane.margin>
                                 </Button>
                                 <HBox fx:id="mainJoueur" alignment="CENTER_LEFT" fillHeight="false" maxHeight="100.0" maxWidth="350.0" prefHeight="100.0" prefWidth="200.0" StackPane.alignment="CENTER_RIGHT">
                                     <StackPane.margin>
-                                        <Insets right="150.0" />
+                                        <Insets right="180.0" />
                                     </StackPane.margin>
                                 </HBox>
+                                <Button fx:id="jouerBtn" mnemonicParsing="false" onAction="#HandleJouerTour" prefHeight="100" prefWidth="100" text="Jouer" visible="false" StackPane.alignment="CENTER_RIGHT">
+                                    <StackPane.margin>
+                                        <Insets right="50.0" />
+                                    </StackPane.margin>
+                                </Button>
+                                <Button fx:id="passerBtn" mnemonicParsing="false" onAction="#HandlePasserTour" prefHeight="100" prefWidth="100" text="Passer" StackPane.alignment="CENTER_RIGHT">
+                                    <StackPane.margin>
+                                        <Insets right="50.0" />
+                                    </StackPane.margin>
+                                </Button>
                             </children>
                         </StackPane>
                     </children>
