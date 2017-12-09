@@ -8,48 +8,49 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="baseAnchor" prefHeight="825.0" prefWidth="925.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scrabble.controller.MainUIController">
+<AnchorPane fx:id="baseAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scrabble.controller.MainUIController">
     <children>
-        <AnchorPane fx:id="menu" prefHeight="615.0" prefWidth="725.0" translateX="0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane fx:id="menu" layoutX="10.0" layoutY="10.0" prefHeight="480.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-            <StackPane layoutX="244.0" layoutY="54.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                      <ImageView fitHeight="48.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_CENTER">
-                          <image>
-                              <Image url="@../ressources/title_scrabble.png" />
-                          </image>
-                     <StackPane.margin>
-                        <Insets top="30.0" />
-                     </StackPane.margin>
-                      </ImageView>
-                      <Button fx:id="NewGameBtn" mnemonicParsing="false" onAction="#HandleNewGame" styleClass="GreenButton" text="Nouvelle Partie" StackPane.alignment="CENTER" />
-                      <Button fx:id="LoadGameBtn" mnemonicParsing="false" onAction="#HandleLoadGame" styleClass="GreenButton" text="Charger Partie" StackPane.alignment="CENTER">
-                     <StackPane.margin>
-                        <Insets top="100.0" />
-                     </StackPane.margin>
-                  </Button>
-                      <Button fx:id="QuitGameBtn" mnemonicParsing="false" onAction="#HandleQuitGame" styleClass="GreenButton" text="Quitter" StackPane.alignment="CENTER">
-                     <StackPane.margin>
-                        <Insets top="200.0" />
-                     </StackPane.margin>
-                  </Button>
-                  <Text fill="#bdc3c7" strokeType="OUTSIDE" strokeWidth="0.0" text="Scrabble Java FX - © 2017" StackPane.alignment="BOTTOM_CENTER">
-                     <StackPane.margin>
-                        <Insets bottom="30.0" />
-                     </StackPane.margin>
-                  </Text>
-               </children>
-            </StackPane>
+                <StackPane layoutX="244.0" layoutY="54.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <ImageView fitHeight="48.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_CENTER">
+                            <image>
+                                <Image url="@../ressources/title_scrabble.png" />
+                            </image>
+                            <StackPane.margin>
+                                <Insets top="60.0" />
+                            </StackPane.margin>
+                        </ImageView>
+                        <Button fx:id="NewGameBtn" mnemonicParsing="false" onAction="#HandleNewGame" styleClass="GreenButton" text="Nouvelle Partie" StackPane.alignment="CENTER" />
+                        <Button fx:id="LoadGameBtn" mnemonicParsing="false" onAction="#HandleLoadGame" styleClass="GreenButton" text="Charger Partie" StackPane.alignment="CENTER">
+                            <StackPane.margin>
+                                <Insets top="100.0" />
+                            </StackPane.margin>
+                        </Button>
+                        <Button fx:id="QuitGameBtn" mnemonicParsing="false" onAction="#HandleQuitGame" styleClass="GreenButton" text="Quitter" StackPane.alignment="CENTER">
+                            <StackPane.margin>
+                                <Insets top="200.0" />
+                            </StackPane.margin>
+                        </Button>
+                        <Text fill="#bdc3c7" strokeType="OUTSIDE" strokeWidth="0.0" text="Scrabble Java FX - © 2017" StackPane.alignment="BOTTOM_CENTER">
+                            <StackPane.margin>
+                                <Insets bottom="30.0" />
+                            </StackPane.margin>
+                        </Text>
+                    </children>
+                </StackPane>
             </children>
         </AnchorPane>
-        <StackPane fx:id="dialog" layoutX="362.5" layoutY="307.5" prefHeight="615.0" prefWidth="725.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <StackPane fx:id="dialog" layoutX="372.5" layoutY="317.5" prefHeight="615.0" prefWidth="725.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <AnchorPane fx:id="dialogContent" maxHeight="200.0" maxWidth="400.0" minHeight="250.0" minWidth="450.0" prefHeight="200.0" prefWidth="400.0" scaleX="0.0" scaleY="0.0" visible="false" StackPane.alignment="CENTER">
+                <AnchorPane fx:id="dialogContent" minHeight="250.0" minWidth="450.0" scaleX="0.0" scaleY="0.0" visible="false" StackPane.alignment="CENTER">
                     <children>
                         <Button fx:id="buttonOkPopup" layoutX="128.0" layoutY="185.0" maxHeight="49.0" maxWidth="195.0" minHeight="49.0" minWidth="195.0" mnemonicParsing="false" onAction="#handlebuttonOkPopup" prefHeight="49.0" prefWidth="195.0" scaleX="0.8" scaleY="0.8" styleClass="GreenButton" text="Ok" visible="false" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="128.0" AnchorPane.rightAnchor="127.0" AnchorPane.topAnchor="185.0" />
                         <Button fx:id="buttonOuiPopup" layoutX="261.0" layoutY="192.0" maxHeight="49.0" maxWidth="195.0" minHeight="49.0" minWidth="195.0" mnemonicParsing="false" onAction="#handlebuttonOuiPopup" prefHeight="49.0" prefWidth="195.0" scaleX="0.8" scaleY="0.8" styleClass="GreenButton" text="Oui" visible="false" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="261.0" AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="192.0" />
@@ -60,70 +61,114 @@
                 </AnchorPane>
             </children>
         </StackPane>
-      <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <AnchorPane layoutX="1.0">
-               <children>
-                      <VBox alignment="TOP_RIGHT" layoutX="299.0" prefHeight="200.0" prefWidth="100.0">
-                          <children>
-                              <AnchorPane fx:id="board" minHeight="625" minWidth="625" styleClass="mainBoard" stylesheets="@../ressources/Styles/style.css" />
-                          </children>
-                      </VBox>
-                        <StackPane fx:id="logoContainer" prefHeight="96.0" prefWidth="300.0">
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <HBox fx:id="topContainer" prefHeight="400.0" prefWidth="400.0">
                             <children>
-                                <ImageView fx:id="logo" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../ressources/title_scrabble.png" />
-                                    </image>
-                                </ImageView>
+                                <StackPane fx:id="logoContainer" alignment="TOP_CENTER" prefHeight="96.0" prefWidth="300.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <ImageView fx:id="logo" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../ressources/title_scrabble.png" />
+                                            </image>
+                                            <StackPane.margin>
+                                                <Insets top="30.0" />
+                                            </StackPane.margin>
+                                        </ImageView>
+                                        <Button fx:id="MenuBtn" mnemonicParsing="false" onAction="#HandleMenuButton" styleClass="GreenButton" text="Menu">
+                                            <StackPane.margin>
+                                                <Insets top="90.0" />
+                                            </StackPane.margin>
+                                        </Button>
+                                        <Button fx:id="SaveBtn" mnemonicParsing="false" onAction="#HandleSaveButton" styleClass="GreenButton" text="Save">
+                                            <StackPane.margin>
+                                                <Insets top="150.0" />
+                                            </StackPane.margin>
+                                        </Button>
+                                        <AnchorPane fx:id="J1Box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" styleClass="scoreBoard" visible="false">
+                                            <children>
+                                                <Text fx:id="pseudoTextJ1" layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueur 1" />
+                                                <Text fx:id="scoreJ1" layoutX="231.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="9.63571739278973" />
+                                            </children>
+                                            <StackPane.margin>
+                                                <Insets top="210.0" />
+                                            </StackPane.margin>
+                                        </AnchorPane>
+                                        <AnchorPane fx:id="J2Box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" styleClass="scoreBoard" visible="false">
+                                            <children>
+                                                <Text fx:id="pseudoTextJ2" layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueur 2" />
+                                                <Text fx:id="scoreJ2" layoutX="231.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                            </children>
+                                            <StackPane.margin>
+                                                <Insets top="270.0" />
+                                            </StackPane.margin>
+                                        </AnchorPane>
+                                        <AnchorPane fx:id="J3Box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" styleClass="scoreBoard" visible="false">
+                                            <children>
+                                                <Text fx:id="pseudoTextJ3" layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueur 3" />
+                                                <Text fx:id="scoreJ3" layoutX="232.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                            </children>
+                                            <StackPane.margin>
+                                                <Insets top="330.0" />
+                                            </StackPane.margin>
+                                        </AnchorPane>
+                                        <AnchorPane fx:id="J4Box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" styleClass="scoreBoard" visible="false">
+                                            <children>
+                                                <Text fx:id="pseudoTextJ4" layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueur 4" />
+                                                <Text fx:id="scoreJ4" layoutX="231.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="11.338753297024255" />
+                                            </children>
+                                            <StackPane.margin>
+                                                <Insets top="390.0" />
+                                            </StackPane.margin>
+                                        </AnchorPane>
+                                        <Button fx:id="pioche" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#HandlePiocheButton" prefHeight="100" prefWidth="100" text="28" textAlignment="CENTER" StackPane.alignment="BOTTOM_CENTER">
+                                            <opaqueInsets>
+                                                <Insets />
+                                            </opaqueInsets>
+                                            <font>
+                                                <Font size="24.0" />
+                                            </font>
+                                        </Button>
+                                    </children>
+                                </StackPane>
+                                <AnchorPane fx:id="board" maxHeight="600.0" maxWidth="600.0" prefHeight="600.0" prefWidth="600.0" styleClass="mainBoard" stylesheets="@../ressources/Styles/style.css" />
+                        <Pane minWidth="50.0" />
+                            </children>
+                        </HBox>
+                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                            <children>
+                                <Button fx:id="shuffleBtn" mnemonicParsing="false" onAction="#HandleShuffle" prefHeight="100" prefWidth="100" StackPane.alignment="CENTER_LEFT">
+                                    <StackPane.margin>
+                                        <Insets left="20.0" />
+                                    </StackPane.margin>
+                                </Button>
+                                <Button fx:id="swapRecallBtn" mnemonicParsing="false" onAction="#HandleSwapRecall" prefHeight="100" prefWidth="100" StackPane.alignment="CENTER_LEFT">
+                                    <StackPane.margin>
+                                        <Insets left="140.0" />
+                                    </StackPane.margin>
+                                </Button>
+                                <Button fx:id="jouerBtn" mnemonicParsing="false" onAction="#HandleJouerTour" prefHeight="100" prefWidth="100" text="Jouer" visible="false" StackPane.alignment="CENTER_RIGHT">
+                                    <StackPane.margin>
+                                        <Insets right="20.0" />
+                                    </StackPane.margin>
+                                </Button>
+                                <Button fx:id="passerBtn" mnemonicParsing="false" onAction="#HandlePasserTour" prefHeight="100" prefWidth="100" text="Passer" StackPane.alignment="CENTER_RIGHT">
+                                    <StackPane.margin>
+                                        <Insets right="20.0" />
+                                    </StackPane.margin>
+                                </Button>
+                                <HBox fx:id="mainJoueur" alignment="CENTER_LEFT" fillHeight="false" maxHeight="100.0" maxWidth="350.0" prefHeight="100.0" prefWidth="200.0" StackPane.alignment="CENTER_RIGHT">
+                                    <StackPane.margin>
+                                        <Insets right="150.0" />
+                                    </StackPane.margin>
+                                </HBox>
                             </children>
                         </StackPane>
-                  <AnchorPane fx:id="J4Box" layoutX="25.0" layoutY="395.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" styleClass="scoreBoard" visible="false">
-                     <children>
-                        <Text fx:id="pseudoTextJ4" layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueur 4" />
-                        <Text fx:id="scoreJ4" layoutX="231.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="11.338753297024255" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane fx:id="J3Box" layoutX="25.0" layoutY="326.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" styleClass="scoreBoard" visible="false">
-                     <children>
-                        <Text fx:id="pseudoTextJ3" layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueur 3" />
-                        <Text fx:id="scoreJ3" layoutX="232.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane fx:id="J2Box" layoutX="25.0" layoutY="263.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" styleClass="scoreBoard" visible="false">
-                     <children>
-                        <Text fx:id="pseudoTextJ2" layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueur 2" />
-                        <Text fx:id="scoreJ2" layoutX="231.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane fx:id="J1Box" layoutX="25.0" layoutY="196.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" styleClass="scoreBoard" visible="false">
-                     <children>
-                        <Text fx:id="pseudoTextJ1" layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueur 1" />
-                        <Text fx:id="scoreJ1" layoutX="231.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="9.63571739278973" />
-                     </children>
-                  </AnchorPane>
-                  <Button fx:id="MenuBtn" layoutX="118.0" layoutY="117.0" mnemonicParsing="false" onAction="#HandleMenuButton" styleClass="GreenButton" text="Menu" />
-                  <Button fx:id="SaveBtn" layoutX="118.0" layoutY="153.0" mnemonicParsing="false" onAction="#HandleSaveButton" styleClass="GreenButton" text="Save" />
-
-                   <Button fx:id="pioche" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" layoutX="100.0" layoutY="474.0" mnemonicParsing="false" onAction="#HandlePiocheButton" prefHeight="100" prefWidth="100" text="28" textAlignment="CENTER">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <font>
-                        <Font size="24.0" />
-                     </font></Button>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutY="625.0" maxHeight="200.0" maxWidth="925.0" prefHeight="200.0" prefWidth="925.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="625.0">
-               <children>
-                  <HBox fx:id="mainJoueur" layoutX="410.0" layoutY="49.0" prefHeight="75.0" prefWidth="331.0" />
-                   <Button fx:id="shuffleBtn" layoutX="41.0" layoutY="37.0" mnemonicParsing="false" onAction="#HandleShuffle" prefHeight="100" prefWidth="100" />
-                  <Button fx:id="jouerBtn" layoutX="793.0" layoutY="36.0" mnemonicParsing="false" onAction="#HandleJouerTour" prefHeight="100" prefWidth="100" text="Jouer" visible="false" />
-                   <Button fx:id="passerBtn" layoutX="793.0" layoutY="36.0" mnemonicParsing="false" onAction="#HandlePasserTour" prefHeight="100" prefWidth="100" text="Passer" />
-                  <Button fx:id="swapRecallBtn" layoutX="185.0" layoutY="36.0" mnemonicParsing="false" onAction="#HandleSwapRecall" prefHeight="100" prefWidth="100" />
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
     </children>
 </AnchorPane>

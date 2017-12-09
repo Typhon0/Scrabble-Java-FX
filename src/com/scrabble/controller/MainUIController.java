@@ -73,7 +73,7 @@ public class MainUIController {
     @FXML
     private Button buttonNonPopup, swapRecallBtn, shuffleBtn;
     @FXML
-    private HBox mainJoueur;
+    private HBox mainJoueur, topContainer;
     @FXML
     Text scoreJ1;
     @FXML
@@ -121,16 +121,23 @@ public class MainUIController {
         initAllToolTips();
     }
 
+    public void initBoardSize(){
+        double stageHeight = baseAnchor.getHeight();
+        stageHeight -= 150.0;
+        board.setMaxSize(stageHeight,stageHeight);
+        board.setPrefSize(stageHeight,stageHeight);
+        topContainer.setPrefHeight(stageHeight);
+    }
+
     /**
      * Initialise le visuel du jeu
      */
-    public void initGame(boolean yes) {
-        if(yes){
-            drawboard(baseAnchor);
-        }
+    public void initGame() {
+        drawboard(baseAnchor);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+                initBoardSize();
                 boardGrid = (GridPane) board.getChildren().get(0);
                 ObservableList<Node> list = boardGrid.getChildren();
                 for (Node n : list) {
@@ -349,6 +356,7 @@ public class MainUIController {
 
     public void drawboard(AnchorPane boardview) {
         AnchorPane paneBoard = (AnchorPane) boardview.lookup("#board");
+        paneBoard.getChildren().clear();
         GridPane boardGrid = new GridPane();
         // espace inter colonne et ligne
         boardGrid.setVgap(2);
@@ -486,7 +494,7 @@ public class MainUIController {
                         mainApp.getScrabble().initPlayer(ias);
 
 
-                        initGame(true);
+                        initGame();
                     }
                 }
             }
@@ -505,7 +513,7 @@ public class MainUIController {
                     mainApp.getScrabble().initPlayer(ias);
 
 
-                    initGame(true);
+                    initGame();
                 }
             }
         }
@@ -549,12 +557,7 @@ public class MainUIController {
                 e1.printStackTrace();
             }
             mainApp.setScrabble(e);
-            try{
-                boardGrid = (GridPane) board.getChildren().get(0);
-                initGame(false);
-            }catch (Exception ex){
-                initGame(true);
-            }
+            initGame();
             afficheBoard();
             Animations.SlideOutToLeft(menu, 500, mainApp.getPrimaryStage().getWidth());
             menu.toFront();

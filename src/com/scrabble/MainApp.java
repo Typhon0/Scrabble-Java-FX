@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,11 +42,9 @@ public class MainApp extends Application {
             controller.setMainApp(this);
             Scene scene = new Scene(rootLayout);
             scene.getStylesheets().add(getClass().getResource("ressources/Styles/style.css").toExternalForm());
-            primaryStage.setHeight(825);
-            primaryStage.setWidth(925);
+            primaryStage.initStyle(StageStyle.UNDECORATED);
             primaryStage.setResizable(false);
-            // primaryStage.setMinHeight(570);
-            //primaryStage.setMinWidth(670);
+            primaryStage.setMaximized(true);
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
