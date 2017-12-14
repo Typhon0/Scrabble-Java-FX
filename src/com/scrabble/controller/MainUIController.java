@@ -108,7 +108,6 @@ public class MainUIController {
     //region Function
 
 
-
     /**
      * This method is automatically called after the fxml file has been loaded.
      */
@@ -121,11 +120,11 @@ public class MainUIController {
         initAllToolTips();
     }
 
-    public void initBoardSize(){
+    public void initBoardSize() {
         double stageHeight = baseAnchor.getHeight();
         stageHeight -= 150.0;
-        board.setMaxSize(stageHeight,stageHeight);
-        board.setPrefSize(stageHeight,stageHeight);
+        board.setMaxSize(stageHeight, stageHeight);
+        board.setPrefSize(stageHeight, stageHeight);
         topContainer.setPrefHeight(stageHeight);
     }
 
@@ -306,7 +305,7 @@ public class MainUIController {
                     sp.getChildren().clear();
                     LetterWaiting.getStyleClass().removeAll("overlayPiece");
                     int taille = (int) sp.getHeight();
-                    LetterWaiting.setMinSize(taille,taille);
+                    LetterWaiting.setMinSize(taille, taille);
                     LetterWaiting.setOnMouseClicked(null);
                     LetterWaiting.setMinSize(sp.getWidth(), sp.getHeight());
                     LetterWaiting.setMaxSize(sp.getWidth(), sp.getHeight());
@@ -673,7 +672,7 @@ public class MainUIController {
                     n.getStyleClass().removeAll("overlayPiece");
                     n.setOnMouseClicked(onMainClicked());
                 }
-                mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).echanger(listeDePiece,mainApp.getScrabble().getPioche());
+                mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).echanger(listeDePiece, mainApp.getScrabble().getPioche());
                 showHand(mainApp.getScrabble().getCourantPlayer());
             }
         } else {//si il s'agit du recall
@@ -685,7 +684,7 @@ public class MainUIController {
                 Case c = mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15];
                 mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15] = new Case(c.getBonus(), c.getX(), c.getY());
                 //ajouter à la main
-                mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).getMain().add(mainApp.getScrabble().getCourantJoueur().getEssaiMot().get(x));
+                mainApp.getScrabble().getCourantJoueur().getMain().add(mainApp.getScrabble().getCourantJoueur().getEssaiMot().get(x));
                 //retirer graphiquement
                 sp.getChildren().remove(b);
                 resetBonusLabel(sp, numeroDeCase);
@@ -726,8 +725,8 @@ public class MainUIController {
      */
     @FXML
     public void HandleJouerTour(ActionEvent actionEvent) {
-        System.out.println(mainApp.getScrabble().getCourantPlayer());
-        Joueur j = mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer());
+        System.out.println(mainApp.getScrabble().getCourantJoueur().getPseudo());
+        Joueur j = mainApp.getScrabble().getCourantJoueur();
         boolean valid = j.jouerMot(mainApp.getScrabble());
         if (valid) {
             if (mainApp.getScrabble().finDuJeu(j) == false) {
@@ -738,8 +737,7 @@ public class MainUIController {
                 bindJouerButton();
             }
             //TODO popup Fini;
-        }
-        else {
+        } else {
 
             System.out.println("FALSE");
         }
@@ -990,14 +988,14 @@ public class MainUIController {
         mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).addNbPoints(5);
     }
 
-    public void afficheBoard(){
+    public void afficheBoard() {
         Case[][] boardModel = mainApp.getScrabble().getBoard();
-        for(int i=0;i<15;i++){
-            for(int j=0;j<15;j++){
-                if(boardModel[i][j].getPiece() != null){
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                if (boardModel[i][j].getPiece() != null) {
                     Button b = generateButtonFromLetter(boardModel[i][j].getPiece().getLettre());
                     b.setOnMouseClicked(null);
-                    StackPane sp = (StackPane) board.lookup("#S" + (i+(j*15)));
+                    StackPane sp = (StackPane) board.lookup("#S" + (i + (j * 15)));
                     sp.getChildren().clear();
                     sp.getChildren().add(b);
                 }
@@ -1008,6 +1006,7 @@ public class MainUIController {
     //endregion
 
     //region Getters Setters
+
     /**
      * Is called by the main application to give a reference back to itself.
      *

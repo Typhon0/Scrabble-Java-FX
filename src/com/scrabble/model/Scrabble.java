@@ -105,6 +105,7 @@ public class Scrabble implements Serializable {
             throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         currentPlayerProperty = new SimpleIntegerProperty(courantPlayer);
+        initDictionnaire();
 
     }
 
