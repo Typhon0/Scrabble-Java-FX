@@ -331,7 +331,7 @@ public class MainUIController {
         };
     }
 
-    public void resetBonusLabel(StackPane sp, int numero) {
+    private void resetBonusLabel(StackPane sp, int numero) {
         BonusCase bonus = mainApp.getScrabble().getBoard()[numero % 15][numero / 15].getBonus();
         if (((numero % 15) == 7) && ((numero / 15) == 7)) {
             sp.getChildren().add(new Label("\u2605"));
@@ -764,13 +764,38 @@ public class MainUIController {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        //TODO Save successful
+
+        if (mainApp.fileExist("ScrabbleSave.ser")) {
+            showInformationDialog("Partie sauvegardé", "La partie a été sauvegarder avec succès !");
+        } else {
+            showErrorDialog("Erreur lors de la sauvegarde", "Erreur la partie n'a pas été sauvegarder");
+
+        }
+
     }
 
 
     //endregion
 
     //region Dialog
+
+    public void showInformationDialog(String title, String contentText) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(contentText);
+
+        alert.showAndWait();
+    }
+
+    public void showErrorDialog(String title, String contentText) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(contentText);
+
+        alert.showAndWait();
+    }
 
     public boolean saveExistDialog() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
