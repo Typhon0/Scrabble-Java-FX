@@ -563,12 +563,7 @@ public class MainUIController {
             Animations.SlideOutToLeft(menu, 500, mainApp.getPrimaryStage().getWidth());
             menu.toFront();
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information");
-            alert.setHeaderText("Aucune partie sauvegardée");
-            alert.setContentText("Aucune partie sauvegardée trouver ");
-
-            alert.showAndWait();
+            showInformationDialog("Aucune partie sauvegardée", "Aucune partie sauvegardée trouver");
         }
 
 
@@ -583,11 +578,6 @@ public class MainUIController {
     public void HandleQuitGame(ActionEvent actionEvent) {
 
         mainApp.getPrimaryStage().close();
-    }
-
-    @FXML
-    public void HandlePopupButton(ActionEvent actionEvent) {
-        showConfirmationDialog("Title", "test de message");
     }
 
     /**
@@ -730,6 +720,7 @@ public class MainUIController {
         boolean valid = j.jouerMot(mainApp.getScrabble());
         if (valid) {
             if (mainApp.getScrabble().finDuJeu(j) == false) {
+                lettrePlaceesCetteManche.clear();
                 mainApp.getScrabble().changementTour();
                 showHand(mainApp.getScrabble().getCourantPlayer());
                 swapRecallBtn.getStyleClass().removeAll("recallImg");
@@ -739,7 +730,7 @@ public class MainUIController {
             //TODO popup Fini;
         } else {
 
-            System.out.println("FALSE");
+            showInformationDialog("Mot invalide", "Le mot n'est pas valide !");
         }
 
     }
@@ -781,6 +772,7 @@ public class MainUIController {
 
     public void showInformationDialog(String title, String contentText) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initOwner(mainApp.getPrimaryStage());
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(contentText);
@@ -790,6 +782,7 @@ public class MainUIController {
 
     public void showErrorDialog(String title, String contentText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.initOwner(mainApp.getPrimaryStage());
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(contentText);
@@ -799,6 +792,7 @@ public class MainUIController {
 
     public boolean saveExistDialog() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initOwner(mainApp.getPrimaryStage());
         alert.setTitle("Ecrasez la partie ?");
         alert.setHeaderText("Une partie précédente existe.");
         alert.setContentText("Voulez-vous ecrasez la partie précédente ?");
@@ -818,6 +812,7 @@ public class MainUIController {
      */
     public int chooseNbPlayer() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initOwner(mainApp.getPrimaryStage());
         alert.setTitle("Scrabble");
         alert.setHeaderText("Nouvelle partie !");
         alert.setContentText("Choisissez le nombre de joueurs.");
@@ -850,7 +845,7 @@ public class MainUIController {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Choose IA or Player");
         dialog.setHeaderText("Choose IA or Player");
-
+        dialog.initOwner(mainApp.getPrimaryStage());
         // Set the button types.
         ButtonType loginButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);

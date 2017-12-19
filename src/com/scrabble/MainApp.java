@@ -44,9 +44,10 @@ public class MainApp extends Application {
             scene.getStylesheets().add(getClass().getResource("ressources/Styles/style.css").toExternalForm());
             primaryStage.initStyle(StageStyle.UNDECORATED);
             primaryStage.setResizable(false);
-            primaryStage.setMaximized(true);
             primaryStage.setScene(scene);
             primaryStage.show();
+            primaryStage.setFullScreen(true);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
