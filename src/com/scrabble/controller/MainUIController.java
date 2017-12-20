@@ -663,6 +663,7 @@ public class MainUIController {
                     n.setOnMouseClicked(onMainClicked());
                 }
                 mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).echanger(listeDePiece, mainApp.getScrabble().getPioche());
+                mainApp.getScrabble().changementTour();
                 showHand(mainApp.getScrabble().getCourantPlayer());
             }
         } else {//si il s'agit du recall

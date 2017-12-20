@@ -48,7 +48,7 @@ public class IA extends Joueur{
 		int caseX;
 		int caseY;
 		boolean encore = true;
-		// iterateur sur la liste des mots trouvés possédants une lettre en plus
+		// iterateur sur la liste des mots trouves possedants une lettre en plus
         while (iter.hasNext() && encore) {
         	ArrayList<Character> chars = this.letters();
             String word = iter.next();
@@ -65,13 +65,13 @@ public class IA extends Joueur{
 	        			if (map.get(i)!= null) {
 	        				// Trouver les positions d'une lettre sur le plateau
 	        				ArrayList<Case> cases = this.trouverLettre(map.get(i).getLettre(), board);
-	        				// Iterateur sur les cases correspondant à un caractere
+	        				// Iterateur sur les cases correspondant a un caractere
 	        				Iterator<Case> iterC = cases.iterator();
 	        				// 
 
 	        				while (iterC.hasNext() && encore) {
 	        					Case c = iterC.next();
-	        					// Position en x et y de la case possédant la lettre
+	        					// Position en x et y de la case possedant la lettre
 	        					caseX = c.getX();
 	        					caseY = c.getY();
 	        					// Si le mot est placable en y
@@ -102,7 +102,7 @@ public class IA extends Joueur{
 //	        }
         }
         if (encore==true) {
-        	System.out.println("Aucun résultat trouvé pour ce niveau");
+        	System.out.println("Aucun resultat trouve pour ce niveau");
         }
         aJoue = true;
     }
