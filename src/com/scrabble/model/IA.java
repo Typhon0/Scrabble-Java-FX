@@ -8,20 +8,20 @@ import java.util.HashMap;
 
 public class IA extends Joueur{
     //Niveau de l'IA
-    private int level;
+    private IADifficulties level;
 
 
-    public IA(int level, Pioche pioche){
+    public IA(IADifficulties level, Pioche pioche){
         super("IA", pioche);
         this.setIA(true);
         this.level = level;
     }
 
-    public int getLevel(){
+    public IADifficulties getLevel(){
         return this.level;
     }
 
-    public void setLevel(int newLevel){
+    public void setLevel(IADifficulties newLevel){
         this.level = newLevel;
     }
 
@@ -159,7 +159,7 @@ public class IA extends Joueur{
     	return succes;
     }
 
-    public ArrayList<String> researchWordContainsLetter (ArrayList<String> s, int level) {
+    public ArrayList<String> researchWordContainsLetter (ArrayList<String> s, IADifficulties level) {
     	int ecart = 1;
         ArrayList<String> res = new ArrayList<String>();
 //        ArrayList<String> res2 = new ArrayList<String>();
@@ -177,7 +177,7 @@ public class IA extends Joueur{
             	}
             }
         }
-        if (level == 1) return res;
+        if (level==IADifficulties.EASY) return res;
         else return (reverse(res));
     }
 
@@ -245,7 +245,7 @@ public class IA extends Joueur{
     public boolean jouerMot(Scrabble scrab){
 
     	System.out.println("-------------------------------------");
-    	ArrayList<String> str = this.researchWordContainsLetter(scrab.getDico().getDico(), 1);
+    	ArrayList<String> str = this.researchWordContainsLetter(scrab.getDico().getDico(), IADifficulties.EASY);
     	findAllWord (this.getMain(), str, scrab.getBoard());
     	
     	this.addNbPoints(compterPoints(scrab.getBoard())); // ajoute les points

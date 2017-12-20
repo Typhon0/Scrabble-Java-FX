@@ -43,14 +43,15 @@ public class Scrabble implements Serializable {
 
     //region Functions
 
-    public void initPlayer(ArrayList<String> ias) {
+    public void initPlayer(ArrayList<Object> ias) {
+
         //ias length = 4 || 2
         for (int i = 0; i < ias.size() / 2; i++) {
-            if (Boolean.valueOf(Boolean.valueOf(ias.get(i)) == true)) { // Si IA
-                getJoueurs().add(new IA(1, pioche));
-            } else {
-                getJoueurs().add(new Joueur(ias.get(i+ias.size() / 2),pioche));
 
+            if ( (Boolean) ias.get(i) == true) { // Si IA
+                getJoueurs().add(new IA((IADifficulties) ias.get(ias.size()-1), pioche));
+            } else {
+                getJoueurs().add(new Joueur((String) ias.get(i+ias.size() / 2),pioche));
             }
         }
 
@@ -176,6 +177,7 @@ public class Scrabble implements Serializable {
     	{
     		this.setPremierMot(false);
     	}
+
         if (courantPlayer == nbPlayer - 1)
             setCourantPlayer(0);
         else
@@ -187,6 +189,7 @@ public class Scrabble implements Serializable {
         this.courantPlayer = courantPlayer;
         setCurrentPlayerProperty(courantPlayer);
     }
+
 
     public int getCourantPlayer() {
         return courantPlayer;
@@ -216,7 +219,7 @@ public class Scrabble implements Serializable {
     {
     	return premierMot;
     }
-    
+
     public void setPremierMot(boolean pm)
     {
     	premierMot = pm;

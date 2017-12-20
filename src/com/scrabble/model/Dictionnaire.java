@@ -40,6 +40,11 @@ public class Dictionnaire {
         for (String mot : this.dico) {
             if (mot.length() == length) {
                 if (mot.substring(0, index).equalsIgnoreCase(prefixe) && mot.substring(index + 1, mot.length()).equalsIgnoreCase(suffixe)) {
+                    System.out.println(mot.substring(0,index));
+                    System.out.println(prefixe);
+                    System.out.println(mot.substring(index+1));
+                    System.out.println(mot.length());
+                    System.out.println(suffixe);
                     return true;
                 }
             }

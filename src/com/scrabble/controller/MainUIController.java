@@ -142,6 +142,9 @@ public class MainUIController {
                 for (Node n : list) {
                     n.setOnMouseClicked(onBoardClicked());
                 }
+                if(mainApp.getScrabble().getCourantJoueur() instanceof IA){
+                    mainApp.getScrabble();
+                }
 
                 showHand(mainApp.getScrabble().getCourantPlayer());
                 initScoreBoard();
@@ -485,7 +488,7 @@ public class MainUIController {
             if (ecrase == true) {
                 int nbj = chooseNbPlayer();
                 if (nbj != -1) {
-                    ArrayList<String> ias = chooseIAPlayer(nbj); // [false,false,true,true,"jean","gsd",null,null]
+                    ArrayList<Object> ias = chooseIAPlayer(nbj); // [false,false,true,true,"jean","gsd",null,null]
                     if (ias != null) {
                         //Create game
                         mainApp.setScrabble(new Scrabble());
@@ -504,11 +507,10 @@ public class MainUIController {
         } else {
             int nbj = chooseNbPlayer();
             if (nbj != -1) {
-                ArrayList<String> ias = chooseIAPlayer(nbj);
+                ArrayList<Object> ias = chooseIAPlayer(nbj);
                 if (ias != null) {
                     //Create game
                     mainApp.setScrabble(new Scrabble());
-
                     Animations.SlideOutToLeft(menu, 500, mainApp.getPrimaryStage().getWidth());
                     menu.toFront();
                     mainApp.getScrabble().initPlayer(ias);
@@ -859,7 +861,7 @@ public class MainUIController {
      * @param nbJ
      * @return ArrayList<Boolean> true si IA sinon false
      */
-    public ArrayList<String> chooseIAPlayer(int nbJ) {
+    public ArrayList<Object> chooseIAPlayer(int nbJ) {
         // Create the custom dialog.
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Choose IA or Player");
@@ -885,6 +887,10 @@ public class MainUIController {
         TextField pseudoJ2 = new TextField();
         TextField pseudoJ3 = new TextField();
         TextField pseudoJ4 = new TextField();
+        ComboBox<IADifficulties> IAlevel = new ComboBox<>();
+        IAlevel.getItems().add(IADifficulties.EASY);
+        IAlevel.getItems().add(IADifficulties.NORMAL);
+        IAlevel.getItems().add(IADifficulties.HARD);
 
 
         if (nbJ == 2) { // Si 2 joueurs
@@ -893,6 +899,8 @@ public class MainUIController {
             grid.add(comboBoxJ2, 0, 1);
             grid.add(pseudoJ1, 1, 0);
             grid.add(pseudoJ2, 1, 1);
+            grid.add(new Label("Niveau de difficulté de l'IA :"),0,2);
+            grid.add(IAlevel,1,2);
 
             textFields.add(pseudoJ1);
             textFields.add(pseudoJ2);
@@ -911,6 +919,8 @@ public class MainUIController {
             grid.add(pseudoJ2, 1, 1);
             grid.add(pseudoJ3, 1, 2);
             grid.add(pseudoJ4, 1, 3);
+            grid.add(IAlevel,1,4);
+            grid.add(new Label("Niveau de difficulté de l'IA :"),0,4);
 
             textFields.add(pseudoJ1);
             textFields.add(pseudoJ2);
@@ -948,6 +958,8 @@ public class MainUIController {
                             .or(Bindings.isNull(comboBoxJ2.getSelectionModel().selectedItemProperty()))
             );
         }
+
+
         pseudoJ1.disableProperty().bind(comboBoxJ1.getSelectionModel().selectedItemProperty().isEqualTo("IA"));
         pseudoJ2.disableProperty().bind(comboBoxJ2.getSelectionModel().selectedItemProperty().isEqualTo("IA"));
         pseudoJ3.disableProperty().bind(comboBoxJ3.getSelectionModel().selectedItemProperty().isEqualTo("IA"));
@@ -958,15 +970,15 @@ public class MainUIController {
         Optional<ButtonType> result = dialog.showAndWait();
 
         //Récupération des données
-        ArrayList<String> ia = new ArrayList<>();
+        ArrayList<Object> ia = new ArrayList<>();
 
         if (result.get() == loginButtonType) {
             //met la valeur des combobox dans l'arraylist
             for (ComboBox<String> cb : comboBoxes) {
                 if (cb.getSelectionModel().getSelectedItem().equals("IA")) {
-                    ia.add("true");
+                    ia.add(true);
                 } else {
-                    ia.add("false");
+                    ia.add(false);
                 }
             }
             //met les pseudo dans l'arraylist
@@ -977,6 +989,8 @@ public class MainUIController {
                     ia.add(textField.getText());
                 }
             }
+
+            ia.add(IAlevel.getSelectionModel().getSelectedItem());
             return ia;
         } else if (result.get() == ButtonType.CANCEL) { //IF cancel
             return null;
