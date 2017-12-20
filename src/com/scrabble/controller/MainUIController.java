@@ -717,22 +717,40 @@ public class MainUIController {
     @FXML
     public void HandleJouerTour(ActionEvent actionEvent) {
         System.out.println(mainApp.getScrabble().getCourantJoueur().getPseudo());
-        Joueur j = mainApp.getScrabble().getCourantJoueur();
-        boolean valid = j.jouerMot(mainApp.getScrabble());
-        if (valid) {
-            if (mainApp.getScrabble().finDuJeu(j) == false) {
-                lettrePlaceesCetteManche.clear();
-                mainApp.getScrabble().changementTour();
-                showHand(mainApp.getScrabble().getCourantPlayer());
-                swapRecallBtn.getStyleClass().removeAll("recallImg");
-                swapRecallBtn.getStyleClass().add("swapImg");
-                bindJouerButton();
-            }
-            //TODO popup Fini;
-        } else {
+        if(mainApp.getScrabble().getCourantJoueur().getIA()) {
+        	IA j = (IA) mainApp.getScrabble().getCourantJoueur();boolean valid = j.jouerMot(mainApp.getScrabble());
+            if (valid) {
+                if (mainApp.getScrabble().finDuJeu(j) == false) {
+                    lettrePlaceesCetteManche.clear();
+                    mainApp.getScrabble().changementTour();
+                    showHand(mainApp.getScrabble().getCourantPlayer());
+                    swapRecallBtn.getStyleClass().removeAll("recallImg");
+                    swapRecallBtn.getStyleClass().add("swapImg");
+                    bindJouerButton();
+                }
+                //TODO popup Fini;
+            } else {
 
-            showInformationDialog("Mot invalide", "Le mot n'est pas valide !");
+                showInformationDialog("Mot invalide", "Le mot n'est pas valide !");
+            }
+        } else {
+            Joueur j = mainApp.getScrabble().getCourantJoueur();boolean valid = j.jouerMot(mainApp.getScrabble());
+            if (valid) {
+                if (mainApp.getScrabble().finDuJeu(j) == false) {
+                    lettrePlaceesCetteManche.clear();
+                    mainApp.getScrabble().changementTour();
+                    showHand(mainApp.getScrabble().getCourantPlayer());
+                    swapRecallBtn.getStyleClass().removeAll("recallImg");
+                    swapRecallBtn.getStyleClass().add("swapImg");
+                    bindJouerButton();
+                }
+                //TODO popup Fini;
+            } else {
+
+                showInformationDialog("Mot invalide", "Le mot n'est pas valide !");
+            }
         }
+        
 
     }
 

@@ -1,6 +1,3 @@
-
-
-
 package com.scrabble.model;
 
 import java.util.ArrayList;
@@ -79,6 +76,7 @@ public class IA extends Joueur{
 	        					if ((i+caseY >= 0) && ((word.length() - i + caseY) <= 15)) {
 		        					System.out.println("-------------------------");
 	        						if(estPlacable(word, caseY, caseX, i, board, 'Y')) {
+	        							System.out.println(word);
 	        							this.placerMot(word, i, map.get(i), c, 'Y', map, board);
 	        							encore=false;
 	        						}
@@ -87,6 +85,7 @@ public class IA extends Joueur{
 
 		        					System.out.println("-------------------------");
 	        						if(estPlacable(word, caseY, caseX, i, board, 'X')) {
+	        							System.out.println(word);
 		        						this.placerMot(word, i, map.get(i), c, 'X', map, board);
 		        						System.out.println(word);
 	        							encore=false;
@@ -141,7 +140,8 @@ public class IA extends Joueur{
     		for (int j = 0; j< word.length(); j++) {
     			c = board[(casePos.getY() - i) + j][casePos.getX()];
     			if(c.getPiece().getLettre() != word.charAt(i))
-//    				poserUnePiece(map.get(j), c);
+    				poserUnePiece(map.get(j), c);
+    			
     				c.setPiece(map.get(j));
     		}
     		succes = true;
@@ -149,7 +149,7 @@ public class IA extends Joueur{
     	case 'Y' :
     		for (int j = 0; j< word.length(); j++) {
     			c = board[casePos.getY()][(casePos.getX() - i) + j];
-//    			poserUnePiece(map.get(j), c);
+    			poserUnePiece(map.get(j), c);
 				c.setPiece(map.get(j));
     		}
     		succes = true;
@@ -243,8 +243,11 @@ public class IA extends Joueur{
     
     @Override 
     public boolean jouerMot(Scrabble scrab){
+
+    	System.out.println("-------------------------------------");
     	ArrayList<String> str = this.researchWordContainsLetter(scrab.getDico().getDico(), 1);
     	findAllWord (this.getMain(), str, scrab.getBoard());
+    	
     	this.addNbPoints(compterPoints(scrab.getBoard())); // ajoute les points
 		retirerLettresDuMot(); // retire les lettres posees de la main du joueur
 		piocher(scrab.getPioche());
