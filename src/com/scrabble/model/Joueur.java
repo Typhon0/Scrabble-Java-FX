@@ -31,9 +31,9 @@ public class Joueur implements Serializable {
     private ArrayList<Piece> main;
 
     // Tentative de creation d'un mot sur le tour
-    private transient ObservableList<Piece> essaiMot;
+    protected transient ObservableList<Piece> essaiMot;
 
-    private boolean aJoue;
+    protected boolean aJoue;
 
     private boolean IA;
 
@@ -121,6 +121,7 @@ public class Joueur implements Serializable {
     {
     	if(!(essaiMot.isEmpty()) && checkPremierMot(scrab.isPremierMot()) && motValide(scrab.getBoard(),scrab.getDico())) 
     	{
+
     		this.addNbPoints(compterPoints(scrab.getBoard())); // ajoute les points
     		retirerLettresDuMot(); // retire les lettres posees de la main du joueur
     		piocher(scrab.getPioche());
@@ -130,6 +131,8 @@ public class Joueur implements Serializable {
     	}
     	else
     	{
+
+        	System.out.println("*******************************************");
     		for(Piece p : essaiMot) // libere les cases 
     		{
     			this.main.add(p); // on lui rend sa piece
@@ -538,10 +541,12 @@ public class Joueur implements Serializable {
     public ArrayList<Case> trouverLettre(char c, Case[][] board) {
         ArrayList<Case> cases = new ArrayList<Case>();
 
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 15; j++) {
-                if (!(board[i][j].estLibre()) && board[i][j].getPiece().getLettre() == c) {
-                    cases.add(board[i][j]);
+        for (int i = 0; i < 14; i++) {
+            for (int j = 0; j < 14; j++) {
+                if (!(board[i][j].estLibre())) {
+                	if (board[i][j].getPiece().getLettre() == c) {
+                		cases.add(board[i][j]);
+                	}
                 }
             }
         }
