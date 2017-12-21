@@ -729,24 +729,7 @@ public class MainUIController {
      */
     @FXML
     public void HandleJouerTour(ActionEvent actionEvent) {
-        System.out.println(mainApp.getScrabble().getCourantJoueur().getPseudo());
-        if (mainApp.getScrabble().getCourantJoueur().getIA()) {
-            IA j = (IA) mainApp.getScrabble().getCourantJoueur();
-            boolean valid = j.jouerMot(mainApp.getScrabble());
-            if (valid) {
-                if (mainApp.getScrabble().finDuJeu(j) == false) {
-                    lettrePlaceesCetteManche.clear();
-                    passerTour();
-                    swapRecallBtn.getStyleClass().removeAll("recallImg");
-                    swapRecallBtn.getStyleClass().add("swapImg");
-                    bindJouerButton();
-                }
-                //TODO popup Fini;
-            } else {
 
-                showInformationDialog("Mot invalide", "Le mot n'est pas valide !");
-            }
-        } else {
             Joueur j = mainApp.getScrabble().getCourantJoueur();
             boolean valid = j.jouerMot(mainApp.getScrabble());
             if (valid) {
@@ -762,8 +745,6 @@ public class MainUIController {
 
                 showInformationDialog("Mot invalide", "Le mot n'est pas valide !");
             }
-        }
-
 
     }
 
