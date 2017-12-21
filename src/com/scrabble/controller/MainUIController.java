@@ -748,6 +748,22 @@ public class MainUIController {
             } else {
 
                 showInformationDialog("Mot invalide", "Le mot n'est pas valide !");
+                //delete graphic piece
+                for(Button b:lettrePlaceesCetteManche){
+                    StackPane sp = (StackPane) b.getParent();
+                    int numeroDeCase = Integer.parseInt(sp.getId().replace("S", ""));
+                    //retirer dans le modele du board
+                    Case c = mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15];
+                    mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15] = new Case(c.getBonus(), c.getX(), c.getY());
+                    sp.getChildren().remove(b);  //retirer la piece
+                    resetBonusLabel(sp,Integer.parseInt(sp.getId().replace("S", "")));//remettre par defaut les cases
+                }
+                //changer le style du bouton
+                swapRecallBtn.getStyleClass().removeAll("recallImg");
+                swapRecallBtn.getStyleClass().add("swapImg");
+                mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).getEssaiMot().clear();
+                lettrePlaceesCetteManche.clear();
+                showHand(mainApp.getScrabble().getCourantPlayer()); //afficher la main du joueur
             }
 
     }
