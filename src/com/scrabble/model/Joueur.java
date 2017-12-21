@@ -386,6 +386,7 @@ public class Joueur implements Serializable {
         int verOuHor; //1 = mot d'essai en horizontal / 2 = vertical / 0 = une lettre inseree;
         if (essaiMot.size() == 1) {                        // test si il n'y a qu'une lettre de posée
             verOuHor = 0;
+            uneLettre(board);
         }
         else if (essaiMot.get(0).getCasePiece().getX() == essaiMot.get(1).getCasePiece().getX()) { // test si le mot est horizontal
             verOuHor = 1;
@@ -691,6 +692,12 @@ public class Joueur implements Serializable {
 
 
     //endregion
-
+/*
+    public void afficherTab(Scrabble scrab){
+        for (int i=0;i<15;i++)
+            for (int j=0;j<15;j++)
+                scrab.getBoard()[i][j]
+    }
+*/
 
 }
