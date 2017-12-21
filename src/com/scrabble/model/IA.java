@@ -16,7 +16,7 @@ public class IA extends Joueur implements Serializable{
     //Niveau de l'IA
     private IADifficulties level;
 
-
+    // Constructeur de l'IA
     public IA(IADifficulties level, Pioche pioche){
         super("IA", pioche);
         this.setIA(true);
@@ -31,7 +31,7 @@ public class IA extends Joueur implements Serializable{
         this.level = newLevel;
     }
 
-    /* Méthode qui renvoit un tableau de caractères */
+    /* Methode qui renvoit un tableau de caracteres */
     public ArrayList<Character> letters() {
     	ArrayList<Piece> pieces = this.getMain();
         ArrayList<Character> IALetters = new ArrayList<Character>();
@@ -44,7 +44,7 @@ public class IA extends Joueur implements Serializable{
     }
 
     
-    /* Méthode qui recherche tous les mots qui peuvent être ajoutés par l'IA sur le plateau*/
+    /* Methode qui recherche tous les mots qui peuvent etre ajoutés par l'IA sur le plateau*/
     public void findAllWord (ArrayList<Piece> pieces, ArrayList<String> str, Case[][] board){
     	ArrayList<String> str2 = this.researchWordContainsLetter(str, level);
     	Iterator<String> iter = str2.iterator();
@@ -108,6 +108,7 @@ public class IA extends Joueur implements Serializable{
         }
         if (encore==true) {
         	System.out.println("Aucun resultat trouve pour ce niveau");
+//        	this.echanger(this.getMain(), scrab.getPioche());
         }
         aJoue = true;
     }
@@ -168,6 +169,13 @@ public class IA extends Joueur implements Serializable{
     public ArrayList<String> researchWordContainsLetter (ArrayList<String> s, IADifficulties level) {
     	int ecart = 1;
         ArrayList<String> res = new ArrayList<String>();
+        ArrayList<String> res1 = new ArrayList<String>();
+        ArrayList<String> res2 = new ArrayList<String>();
+        ArrayList<String> res3 = new ArrayList<String>();
+        ArrayList<String> res4 = new ArrayList<String>();
+        ArrayList<String> res5 = new ArrayList<String>();
+        ArrayList<String> res6 = new ArrayList<String>();
+        ArrayList<String> resD = new ArrayList<String>();
 //        ArrayList<String> res2 = new ArrayList<String>();
 //        ArrayList<String> res6 = new ArrayList<String>();
         Iterator<String> iter = s.iterator();
@@ -176,15 +184,95 @@ public class IA extends Joueur implements Serializable{
             String str = iter.next();
             int ol = otherLetterNumber(str, c);
             if (ol > str.length() - (ecart +1)) {
-            	if (str.length() <=6) {
-            		res.add(str);
-            	} else {
-            		res.add(str);
+            	switch(str.length()) {
+            	case 1 :
+            		res1.add(str);
+            	break;
+            	case 2 :
+            		res2.add(str);
+            	break;
+            	case 3 :
+            		res3.add(str);
+            	break;
+            	case 4 :
+            		res4.add(str);
+            	break;
+            	case 5 :
+            		res5.add(str);
+            	break;
+            	case 6 :
+            		res6.add(str);
+            	break;
+            	default :
+            		resD.add(str);
+            	break;
             	}
+//            	if (str.length() <=6) {
+//            		res.add(str);
+//            	} else {
+//            		res.add(str);
+//            	}
             }
         }
-        if (level==IADifficulties.EASY) return res;
-        else return (reverse(res));
+        if (level==IADifficulties.NORMAL) {res.addAll(resD);
+	    	res.addAll(res3);
+	    	res.addAll(res2);
+	    	res.addAll(res1);
+	    	res.addAll(res4);
+	    	res.addAll(res5);
+	    	res.addAll(res6);
+	    	res.addAll(resD);
+    	return res;
+        } else if(level==IADifficulties.HARD){
+//        	System.out.println(res.size());
+//        	ArrayList<String> str = new ArrayList<String>();
+//        	while(!res.isEmpty()) {
+//   		     String bigger = "";
+//   		     for(String word : res) {
+//   		         if(word.length() > bigger.length()) {
+//   		             bigger = word;
+//   		         }
+//   		     }
+//   		     while(res.contains(bigger)) {
+//   		    	 str.add(bigger);
+//   		         res.remove(bigger);
+//   		     }
+//   		 	}
+//        	return str;
+	        	res.addAll(resD);
+	        	res.addAll(res6);
+	        	res.addAll(res5);
+	        	res.addAll(res4);
+	        	res.addAll(res3);
+	        	res.addAll(res2);
+	        	res.addAll(res1);
+        	return res;
+        }
+        else {
+        	res.addAll(res1);
+        	res.addAll(res2);
+        	res.addAll(res3);
+        	res.addAll(res4);
+        	res.addAll(res5);
+        	res.addAll(res6);
+        	res.addAll(resD);
+        	return res;
+//        	System.out.println(res.size());
+//        	ArrayList<String> str = new ArrayList<String>();
+//        	while(!res.isEmpty()) {
+//   		     String lower = "";
+//   		     for(String word : res) {
+//   		         if(word.length() < lower.length()) {
+//   		             lower = word;
+//   		         }
+//   		     }
+//   		     while(res.contains(lower)) {
+//   		    	 str.add(lower);
+//   		         res.remove(lower);
+//   		     }
+//   		 	}
+//        	return str;
+        }
     }
 
 
@@ -250,7 +338,7 @@ public class IA extends Joueur implements Serializable{
     @Override 
     public boolean jouerMot(Scrabble scrab){
 
-    	System.out.println("-------------------------------------");
+//    	System.out.println("-------------------------------------");
     	ArrayList<String> str = this.researchWordContainsLetter(scrab.getDico().getDico(), IADifficulties.EASY);
     	findAllWord (this.getMain(), str, scrab.getBoard());
     	
@@ -259,7 +347,7 @@ public class IA extends Joueur implements Serializable{
 		piocher(scrab.getPioche());
 		viderEssaiMot(); // vide la tentative de mot pose
 		aJoue = true;
-    	System.out.println("-------------------------------------");
+//    	System.out.println("-------------------------------------");
     	return true;
     }
 
