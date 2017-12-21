@@ -178,16 +178,29 @@ public class Scrabble implements Serializable {
     		this.setPremierMot(false);
     	}
 
-        if (courantPlayer == nbPlayer - 1)
-            setCourantPlayer(0);
-        else
-            setCourantPlayer(courantPlayer+1);
+        switchplayer();
     }
 
 
     public void setCourantPlayer(int courantPlayer) {
         this.courantPlayer = courantPlayer;
         setCurrentPlayerProperty(courantPlayer);
+    }
+
+    public void switchplayer(){
+        if(courantPlayer == nbPlayer-1){
+            setCourantPlayer(0);
+            if(getCourantJoueur() instanceof IA){
+                getCourantJoueur().jouerMot(this);
+                switchplayer();
+            }
+        }else {
+            setCourantPlayer(courantPlayer+1);
+            if(getCourantJoueur() instanceof IA){
+                getCourantJoueur().jouerMot(this);
+                switchplayer();
+            }
+        }
     }
 
 
