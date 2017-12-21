@@ -37,6 +37,8 @@ public class Joueur implements Serializable {
 
     private boolean IA;
 
+    private boolean util;
+
     //endregion
 
     //region Constructor
@@ -121,13 +123,26 @@ public class Joueur implements Serializable {
     {
     	if(!(essaiMot.isEmpty()) && checkPremierMot(scrab.isPremierMot()) && motValide(scrab.getBoard(),scrab.getDico())) 
     	{
+            int nbPointsMot=compterPoints(scrab.getBoard());
+            if ((util && !scrab.isPremierMot()) || scrab.isPremierMot()){
+                this.addNbPoints(nbPointsMot); // ajoute les points
+                util = false;
+                retirerLettresDuMot(); // retire les lettres posees de la main du joueur
+                piocher(scrab.getPioche());
+                viderEssaiMot(); // vide la tentative de mot pose
+                aJoue = true;
+    		    return true;
+            }else {
+                for(Piece p : essaiMot) // libere les cases
+                {
+                    this.main.add(p); // on lui rend sa piece
+                    Case c = p.getCasePiece();
+                    p.libererPiece();
+                    c.libererCase();
+                }
 
-    		this.addNbPoints(compterPoints(scrab.getBoard())); // ajoute les points
-    		retirerLettresDuMot(); // retire les lettres posees de la main du joueur
-    		piocher(scrab.getPioche());
-    		viderEssaiMot(); // vide la tentative de mot pose
-    		aJoue = true;
-    		return true;
+                return false;
+            }
     	}
     	else
     	{
@@ -363,13 +378,15 @@ public class Joueur implements Serializable {
 
     public int compterPoints(Case[][] board) {  // fonction qui compte les points du nouveau mot
         int nbPP = 0;            // points des lettres deja existantes
-        int nbPG = 0;            // points du mot principal ( lettres posées )
+        int nbPG = 0;// points du mot principal ( lettres posées )
+        util=false;
         int cmpLettre = 0;
         int coefMultG = 1;
         int coefMultP = 1;
         int verOuHor; //1 = mot d'essai en horizontal / 2 = vertical / 0 = une lettre inseree;
-        if (essaiMot.size() == 1)                        // test si il n'y a qu'une lettre de posée
+        if (essaiMot.size() == 1) {                        // test si il n'y a qu'une lettre de posée
             verOuHor = 0;
+        }
         else if (essaiMot.get(0).getCasePiece().getX() == essaiMot.get(1).getCasePiece().getX()) { // test si le mot est horizontal
             verOuHor = 1;
             nbPG += pointsLettresDejaPresententHorizontal(board, essaiMot.get(0).getCasePiece().getX());
@@ -403,6 +420,23 @@ public class Joueur implements Serializable {
             nbPG += 50;
         return nbPG + nbPP;
 
+    }
+
+    public void uneLettre(Case[][] board){
+        int px = essaiMot.get(0).getCasePiece().getX();
+        int py = essaiMot.get(0).getCasePiece().getY();
+        if(py+1<15)
+            if (!board[py+1][px].estLibre())
+                util=true;
+        if(px+1<15)
+            if (!board[py][px+1].estLibre())
+                util=true;
+        if(px-1>0)
+            if (!board[py][px-1].estLibre())
+                util=true;
+        if(px-1>0)
+            if (!board[py-1][px].estLibre())
+                util=true;
     }
 
     public int pointsPetitMot(int cmpLettre, Case[][] board, int versOuHor) {  // appel des fonction qui comptent les points selon la direction du mot
@@ -464,8 +498,8 @@ public class Joueur implements Serializable {
 
         while (!board[yM][ligne].estLibre() || contain(yM, tab)) {
             if (!board[yM][ligne].estLibre() && !contain(yM, tab)) {
-                //System.out.println(board[ligne][yM].getPiece().getValue());
                 point += board[yM][ligne].getPiece().getValue();
+                util=true;
             }
             yM--;
         }
@@ -473,6 +507,7 @@ public class Joueur implements Serializable {
         while (!board[yP][ligne].estLibre() || contain(yP, tab)) {
             if (!board[yP][ligne].estLibre() && !contain(yP, tab)) {
                 point += board[yP][ligne].getPiece().getValue();
+                util=true;
             }
             yP++;
         }
@@ -490,13 +525,17 @@ public class Joueur implements Serializable {
         int xM = essaiMot.get(0).getCasePiece().getX() - 1;
         int xP = essaiMot.get(0).getCasePiece().getX() + 1;
         while (!board[ligne][xM].estLibre() || contain(xM, tab)) {
-            if (!board[ligne][xM].estLibre() && contain(xM, tab))
+            if (!board[ligne][xM].estLibre() && contain(xM, tab)) {
                 point += board[ligne][xM].getPiece().getValue();
+                util=true;
+            }
             xM--;
         }
         while (!board[ligne][xP].estLibre() || contain(xP, tab)) {
-            if (!board[ligne][xP].estLibre() && !contain(xP, tab))
+            if (!board[ligne][xP].estLibre() && !contain(xP, tab)) {
                 point += board[ligne][xP].getPiece().getValue();
+                util=true;
+            }
             xP++;
         }
         return point;
