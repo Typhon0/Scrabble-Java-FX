@@ -132,7 +132,6 @@ public class Joueur implements Serializable {
     	else
     	{
 
-        	System.out.println("*******************************************");
     		for(Piece p : essaiMot) // libere les cases 
     		{
     			this.main.add(p); // on lui rend sa piece
@@ -266,6 +265,7 @@ public class Joueur implements Serializable {
 
         indices[0] = newMin;
         indices[1] = newMax;
+        
 
         return indices;
     }
@@ -313,7 +313,7 @@ public class Joueur implements Serializable {
         {
             return true;
         } else {
-            mot = construireMot(piecesMotHorizontal(board, x, jMin, jMax));
+            mot = construireMot(piecesMotHorizontal(board, y, jMin, jMax));
             return existe(mot, dico);
         }
     }
@@ -322,7 +322,7 @@ public class Joueur implements Serializable {
         ArrayList<Piece> pieces = new ArrayList<Piece>();
 
         for (int j = xMin; j <= xMax; j++) {
-            pieces.add(board[y][j].getPiece());
+                pieces.add(board[y][j].getPiece());
         }
 
         return pieces;
@@ -429,7 +429,6 @@ public class Joueur implements Serializable {
         while (!caseMoins.estLibre()) {
             nbP += caseMoins.getPiece().getValue();
             caseMoins = board[--xm][y];
-            //System.out.println(xm);
         }
         return nbP;
     }
@@ -459,7 +458,6 @@ public class Joueur implements Serializable {
         int[] tab = new int[essaiMot.size()];
         for (int j = 0; j < essaiMot.size(); j++) {
             tab[j] = essaiMot.get(j).getCasePiece().getY();
-            //System.out.println(essaiMot.get(j).getCasePiece().getY());
         }
         int yM = essaiMot.get(0).getCasePiece().getY() - 1;
         int yP = essaiMot.get(0).getCasePiece().getY() + 1;
@@ -511,7 +509,6 @@ public class Joueur implements Serializable {
 
     public boolean contain(int valeur, int[] tab) {  // teste si la lettre est déja posée
         for (int i = 0; i < tab.length; i++) {
-            //System.out.println(tab[i]);
             if (tab[i] == valeur) {
                 return true;
             }
