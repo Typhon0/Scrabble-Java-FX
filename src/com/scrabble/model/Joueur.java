@@ -446,6 +446,7 @@ public class Joueur implements Serializable {
             casePlus = board[x][++yp];
         }
         while (!caseMoins.estLibre()) {
+
             nbP += caseMoins.getPiece().getValue();
             caseMoins = board[x][--ym];
         }

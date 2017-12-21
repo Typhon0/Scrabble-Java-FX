@@ -142,13 +142,16 @@ public class MainUIController {
                 for (Node n : list) {
                     n.setOnMouseClicked(onBoardClicked());
                 }
-                if (mainApp.getScrabble().getCourantJoueur() instanceof IA) {
-                    mainApp.getScrabble();
-                }
+
+
 
                 showHand(mainApp.getScrabble().getCourantPlayer());
                 initScoreBoard();
                 bindProperty();
+                if (mainApp.getScrabble().getCourantJoueur() instanceof IA) {
+                    mainApp.getScrabble().getCourantJoueur().jouerMot(mainApp.getScrabble());
+                    passerTour();
+                }
 
             }
         });
@@ -461,6 +464,7 @@ public class MainUIController {
 
     private void passerTour() {
         mainApp.getScrabble().changementTour();
+        afficheBoard();
         showHand(mainApp.getScrabble().getCourantPlayer());
         bindJouerButton();
     }
