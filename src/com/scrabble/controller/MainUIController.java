@@ -142,7 +142,7 @@ public class MainUIController {
                 for (Node n : list) {
                     n.setOnMouseClicked(onBoardClicked());
                 }
-                if(mainApp.getScrabble().getCourantJoueur() instanceof IA){
+                if (mainApp.getScrabble().getCourantJoueur() instanceof IA) {
                     mainApp.getScrabble();
                 }
 
@@ -458,6 +458,12 @@ public class MainUIController {
             }
         });
     }
+
+    private void passerTour() {
+        mainApp.getScrabble().changementTour();
+        showHand(mainApp.getScrabble().getCourantPlayer());
+        bindJouerButton();
+    }
     //endregion
 
     //region Handler
@@ -665,8 +671,9 @@ public class MainUIController {
                     n.setOnMouseClicked(onMainClicked());
                 }
                 mainApp.getScrabble().getJoueur(mainApp.getScrabble().getCourantPlayer()).echanger(listeDePiece, mainApp.getScrabble().getPioche());
-                mainApp.getScrabble().changementTour();
-                showHand(mainApp.getScrabble().getCourantPlayer());
+                if (!(listeDePiece.isEmpty())) {
+                    passerTour();
+                }
             }
         } else {//si il s'agit du recall
             int x = 0;
@@ -719,13 +726,13 @@ public class MainUIController {
     @FXML
     public void HandleJouerTour(ActionEvent actionEvent) {
         System.out.println(mainApp.getScrabble().getCourantJoueur().getPseudo());
-        if(mainApp.getScrabble().getCourantJoueur().getIA()) {
-        	IA j = (IA) mainApp.getScrabble().getCourantJoueur();boolean valid = j.jouerMot(mainApp.getScrabble());
+        if (mainApp.getScrabble().getCourantJoueur().getIA()) {
+            IA j = (IA) mainApp.getScrabble().getCourantJoueur();
+            boolean valid = j.jouerMot(mainApp.getScrabble());
             if (valid) {
                 if (mainApp.getScrabble().finDuJeu(j) == false) {
                     lettrePlaceesCetteManche.clear();
-                    mainApp.getScrabble().changementTour();
-                    showHand(mainApp.getScrabble().getCourantPlayer());
+                    passerTour();
                     swapRecallBtn.getStyleClass().removeAll("recallImg");
                     swapRecallBtn.getStyleClass().add("swapImg");
                     bindJouerButton();
@@ -736,12 +743,12 @@ public class MainUIController {
                 showInformationDialog("Mot invalide", "Le mot n'est pas valide !");
             }
         } else {
-            Joueur j = mainApp.getScrabble().getCourantJoueur();boolean valid = j.jouerMot(mainApp.getScrabble());
+            Joueur j = mainApp.getScrabble().getCourantJoueur();
+            boolean valid = j.jouerMot(mainApp.getScrabble());
             if (valid) {
                 if (mainApp.getScrabble().finDuJeu(j) == false) {
                     lettrePlaceesCetteManche.clear();
-                    mainApp.getScrabble().changementTour();
-                    showHand(mainApp.getScrabble().getCourantPlayer());
+                    passerTour();
                     swapRecallBtn.getStyleClass().removeAll("recallImg");
                     swapRecallBtn.getStyleClass().add("swapImg");
                     bindJouerButton();
@@ -752,7 +759,7 @@ public class MainUIController {
                 showInformationDialog("Mot invalide", "Le mot n'est pas valide !");
             }
         }
-        
+
 
     }
 
@@ -763,6 +770,11 @@ public class MainUIController {
      */
     @FXML
     public void HandlePasserTour(ActionEvent actionEvent) {
+        if (showConfirmDialog("Passer tour", "Passer son tour ?", "Voulez vous vraiment passer votre tour ?")) {
+            passerTour();
+        } else {
+            //do nothing
+        }
 
     }
 
@@ -791,6 +803,7 @@ public class MainUIController {
 
     //region Dialog
 
+
     public void showInformationDialog(String title, String contentText) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initOwner(mainApp.getPrimaryStage());
@@ -809,6 +822,21 @@ public class MainUIController {
         alert.setContentText(contentText);
 
         alert.showAndWait();
+    }
+
+    public boolean showConfirmDialog(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initOwner(mainApp.getPrimaryStage());
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public boolean saveExistDialog() {
@@ -899,8 +927,8 @@ public class MainUIController {
             grid.add(comboBoxJ2, 0, 1);
             grid.add(pseudoJ1, 1, 0);
             grid.add(pseudoJ2, 1, 1);
-            grid.add(new Label("Niveau de difficulté de l'IA :"),0,2);
-            grid.add(IAlevel,1,2);
+            grid.add(new Label("Niveau de difficulté de l'IA :"), 0, 2);
+            grid.add(IAlevel, 1, 2);
 
             textFields.add(pseudoJ1);
             textFields.add(pseudoJ2);
@@ -919,8 +947,8 @@ public class MainUIController {
             grid.add(pseudoJ2, 1, 1);
             grid.add(pseudoJ3, 1, 2);
             grid.add(pseudoJ4, 1, 3);
-            grid.add(IAlevel,1,4);
-            grid.add(new Label("Niveau de difficulté de l'IA :"),0,4);
+            grid.add(IAlevel, 1, 4);
+            grid.add(new Label("Niveau de difficulté de l'IA :"), 0, 4);
 
             textFields.add(pseudoJ1);
             textFields.add(pseudoJ2);

@@ -1,12 +1,18 @@
 package com.scrabble.model;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.HashMap;
 
 
-public class IA extends Joueur{
+public class IA extends Joueur implements Serializable{
     //Niveau de l'IA
     private IADifficulties level;
 
@@ -256,4 +262,10 @@ public class IA extends Joueur{
     	System.out.println("-------------------------------------");
     	return true;
     }
+
+	private void readObject(java.io.ObjectInputStream in)
+			throws IOException, ClassNotFoundException {
+		in.defaultReadObject();
+
+	}
 }
