@@ -90,7 +90,7 @@
                                         <AnchorPane fx:id="J1Box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" styleClass="scoreBoard" visible="false">
                                             <children>
                                                 <Text fx:id="pseudoTextJ1" layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueur 1" />
-                                                <Text fx:id="scoreJ1" layoutX="231.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="9.63571739278973" />
+                                                <Text fx:id="scoreJ1" layoutX="200.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                             </children>
                                             <StackPane.margin>
                                                 <Insets top="220.0" />
@@ -99,7 +99,7 @@
                                         <AnchorPane fx:id="J2Box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" styleClass="scoreBoard" visible="false">
                                             <children>
                                                 <Text fx:id="pseudoTextJ2" layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueur 2" />
-                                                <Text fx:id="scoreJ2" layoutX="231.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                                <Text fx:id="scoreJ2" layoutX="200.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                             </children>
                                             <StackPane.margin>
                                                 <Insets top="280.0" />
@@ -108,7 +108,7 @@
                                         <AnchorPane fx:id="J3Box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" styleClass="scoreBoard" visible="false">
                                             <children>
                                                 <Text fx:id="pseudoTextJ3" layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueur 3" />
-                                                <Text fx:id="scoreJ3" layoutX="232.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                                <Text fx:id="scoreJ3" layoutX="200.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                             </children>
                                             <StackPane.margin>
                                                 <Insets top="340.0" />
@@ -117,7 +117,7 @@
                                         <AnchorPane fx:id="J4Box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" styleClass="scoreBoard" visible="false">
                                             <children>
                                                 <Text fx:id="pseudoTextJ4" layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueur 4" />
-                                                <Text fx:id="scoreJ4" layoutX="231.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="11.338753297024255" />
+                                                <Text fx:id="scoreJ4" layoutX="200.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                             </children>
                                             <StackPane.margin>
                                                 <Insets top="400.0" />
