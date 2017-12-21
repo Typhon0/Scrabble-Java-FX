@@ -125,6 +125,7 @@ public class MainUIController {
         stageHeight -= 150.0;
         board.setMaxSize(stageHeight, stageHeight);
         board.setPrefSize(stageHeight, stageHeight);
+        board.setMinSize(stageHeight, stageHeight);
         topContainer.setPrefHeight(stageHeight);
     }
 
@@ -254,7 +255,7 @@ public class MainUIController {
         showHand(mainApp.getScrabble().getCourantPlayer());
     }
 
-    public Button generateButtonFromLetter(char ch) {
+    public Button generateButtonFromLetter(char ch, boolean sizeOfContainer) {
         Button btn = new Button();
         btn.getStyleClass().add("buttonLetter");
         if (ch == '?') {
@@ -262,8 +263,13 @@ public class MainUIController {
         } else {
             btn.setStyle("-fx-background-image: url('/com/scrabble/ressources/Piece/letter_" + ch + ".png');");
         }
-        btn.setMinHeight(50);
-        btn.setMinWidth(50);
+        if(sizeOfContainer){
+            double reference = ((StackPane) boardGrid.getChildren().get(0)).getHeight();
+            btn.setMinSize(reference,reference);
+            btn.setMaxSize(reference,reference);
+        }else{
+            btn.setMinSize(50,50);
+        }
         return btn;
     }
 
@@ -272,7 +278,7 @@ public class MainUIController {
         ArrayList<Button> listePiece = new ArrayList<Button>();
         mainJoueur.getChildren().clear();
         for (Piece p : main) {
-            Button btn = generateButtonFromLetter(p.getLettre());
+            Button btn = generateButtonFromLetter(p.getLettre(),false);
             listePiece.add(btn);
         }
         int i = 0;
@@ -310,8 +316,6 @@ public class MainUIController {
                     StackPane sp = (StackPane) event.getSource();
                     sp.getChildren().clear();
                     LetterWaiting.getStyleClass().removeAll("overlayPiece");
-                    int taille = (int) sp.getHeight();
-                    LetterWaiting.setMinSize(taille, taille);
                     LetterWaiting.setOnMouseClicked(null);
                     LetterWaiting.setMinSize(sp.getWidth(), sp.getHeight());
                     LetterWaiting.setMaxSize(sp.getWidth(), sp.getHeight());
@@ -1059,14 +1063,16 @@ public class MainUIController {
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
                 if (boardModel[i][j].getPiece() != null) {
-                    Button b = generateButtonFromLetter(boardModel[i][j].getPiece().getLettre());
+                    Button b = generateButtonFromLetter(boardModel[i][j].getPiece().getLettre(),true);
                     b.setOnMouseClicked(null);
                     StackPane sp = (StackPane) board.lookup("#S" + (i + (j * 15)));
                     sp.getChildren().clear();
                     sp.getChildren().add(b);
+                    StackPane.setAlignment(b, Pos.CENTER);
                 }
             }
         }
+        initBoardSize();
     }
 
     //endregion
