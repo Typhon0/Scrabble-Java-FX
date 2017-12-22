@@ -44,30 +44,33 @@ public class IA extends Joueur implements Serializable{
     }
 
     
-    /* Methode qui recherche tous les mots qui peuvent etre ajoutés par l'IA sur le plateau*/
-    public void findAllWord (ArrayList<Piece> pieces, ArrayList<String> str, Case[][] board){
+    /* Methode qui recherche tous les mots qui peuvent etre ajoutes par l'IA sur le plateau*/
+    public boolean findAllWord (ArrayList<Piece> pieces, ArrayList<String> str, Case[][] board, Scrabble scrab){
     	ArrayList<String> str2 = this.researchWordContainsLetter(str, level);
     	Iterator<String> iter = str2.iterator();
 		int caseX;
 		int caseY;
 		boolean encore = true;
+
+		System.out.println(this.getMain().get(0).getLettre());
+		System.out.println(this.getMain().get(1).getLettre());
+		System.out.println(this.getMain().get(2).getLettre());
+		System.out.println(this.getMain().get(3).getLettre());
+		System.out.println(this.getMain().get(4).getLettre());
+		System.out.println(this.getMain().get(5).getLettre());
+		System.out.println(this.getMain().get(6).getLettre());
+		
 		// iterateur sur la liste des mots trouves possedants une lettre en plus
         while (iter.hasNext() && encore) {
         	ArrayList<Character> chars = this.letters();
             String word = iter.next();
             Map<Integer, Piece> map = this.positionLetterWord(word, chars);
-            // Switch case sur le niveau du jour 
-//	        switch (this.level){
-//	        case 1:
-//	        	if (chars.contains('?')){
-//	        		
-//	        	} else {
 
 	        		// Recherche la lettre manquante dans le mot
-	        		for (int i = 0; i< word.length(); i++) {
-	        			if (map.get(i)!= null) {
+	        		for (int i = 0; i< word.length() && encore; i++) {
+	        			if (map.get(i)== null) {
 	        				// Trouver les positions d'une lettre sur le plateau
-	        				ArrayList<Case> cases = this.trouverLettre(map.get(i).getLettre(), board);
+	        				ArrayList<Case> cases = this.trouverLettre(word.charAt(i), board);
 	        				// Iterateur sur les cases correspondant a un caractere
 	        				Iterator<Case> iterC = cases.iterator();
 	        				// 
@@ -79,64 +82,74 @@ public class IA extends Joueur implements Serializable{
 	        					caseY = c.getY();
 	        					// Si le mot est placable en y
 
-	        					if ((i+caseY >= 0) && ((word.length() - i + caseY) <= 15)) {
-		        					System.out.println("-------------------------");
-	        						if(estPlacable(word, caseY, caseX, i, board, 'Y')) {
-	        							System.out.println(word);
+	        						if(estPlacable(word, caseY, caseX, i, board, 'Y', map.get(i))) {
+//	        							System.out.println(word);
 	        							this.placerMot(word, i, map.get(i), c, 'Y', map, board);
 	        							encore=false;
-	        						}
 	        					// si le mot est placable en x
-	        					} else if((i + caseX >= 0) && (((word.length() - i) + caseX) <= 15)) {
-
-		        					System.out.println("-------------------------");
-	        						if(estPlacable(word, caseY, caseX, i, board, 'X')) {
-	        							System.out.println(word);
+	        						} else if(estPlacable(word, caseY, caseX, i, board, 'X', map.get(i))) {
+//	        							System.out.println(word);
 		        						this.placerMot(word, i, map.get(i), c, 'X', map, board);
-		        						System.out.println(word);
+//		        						System.out.println(word);
 	        							encore=false;
 	        						}
 	        					}
 	        				}
 	        			}
 	        		}
-//	        	}
-//	        break;
-//	        case 2:
-//	        	break;
-//	        }
-        }
+    
         if (encore==true) {
         	System.out.println("Aucun resultat trouve pour ce niveau");
-//        	this.echanger(this.getMain(), scrab.getPioche());
+        	this.echanger(this.getMain(), scrab.getPioche());
         }
         aJoue = true;
+        return encore;
     }
     
-    public boolean estPlacable (String word, int caseY, int caseX, int indice, Case[][] board, char axe) {
+    public boolean estPlacable (String word, int caseY, int caseX, int indice, Case[][] board, char axe, Piece p) {
+
     	boolean res = true;
-    	Case c;
-    	if(axe == 'Y') {
-	    	for(int i = 0; i<word.length(); i++) {
-	    		c = board[caseY][(caseX + indice) - i];
-	    		if (c.estLibre() || c.getPiece().getLettre() == word.charAt(i)) {
-	    			res = res && true;
-	    		} else {
-	    			res=false;
-	    		}
-	    	}
-    	} else {
-    		for(int i = 0; i<word.length(); i++) {
-	    		c = board[(caseY + indice) - i][caseX];
-	    		if (c.estLibre() || c.getPiece().getLettre() == word.charAt(i)) {
-	    			res = res && true;
-	    		} else {
-	    			res=false;
-	    		}
-	    	}
-    	}
-    	
-    	return res;
+//    	if(this.otherLetterNumber(word, this.letters()) != board[caseY][caseX].getPiece().getLettre()) {
+//    		return false;
+//    	}
+//	    	if(board[caseY][caseX].getPiece().getLettre() == p.getLettre()) {
+		    	Case c;
+		    	if(axe == 'Y') {
+			    	for(int i = 0; i<word.length(); i++) {
+			    		if( ((caseX + i) - indice) < 15 && (caseX + i) - indice >= 0) {
+				    		c = board[caseY][(caseX + i) - indice];
+				    		if (c.estLibre() || c.getPiece().getLettre() == word.charAt(i)) {
+				    			res = res && true;
+				    		} else {
+				    			res = false;
+				    		}
+			    		} else {
+			    			res = false;
+			    		}
+			    	}
+		    	} else if(axe == 'X'){
+		    		for(int i = 0; i<word.length(); i++) {
+		    			if(((caseY + i) - indice) < 15 && (caseY + i) - indice >= 0) {
+				    		c = board[(caseY + i) - indice][caseX];
+				    		if (c.estLibre() || c.getPiece().getLettre() == word.charAt(i)) {
+				    			res = res && true;
+				    		} else {
+				    			res=false;
+				    		}
+		    			} else {
+			    			res = false;
+			    		}
+			    	}
+		    	} else {
+		    		res = false;
+		    	}
+//	    	}else {
+//	    		res = false;
+//	    	}
+//    	} else {
+//    		res =false;
+//    	}
+	    	return res;
     }
     
     public boolean placerMot(String word, int i, Piece caractere, Case casePos, char axe, Map<Integer, Piece> map, Case[][] board) {
@@ -145,19 +158,34 @@ public class IA extends Joueur implements Serializable{
     	switch(axe) {
     	case 'X' :
     		for (int j = 0; j< word.length(); j++) {
-    			c = board[(casePos.getY() - i) + j][casePos.getX()];
-    			if(c.getPiece().getLettre() != word.charAt(i))
-    				poserUnePiece(map.get(j), c);
-    			
-    				c.setPiece(map.get(j));
+    			if((((casePos.getY() - i) + j) < 15) || (((casePos.getX() - i) + j) >= 0)) {
+	    			c = board[(casePos.getY() - i) + j][casePos.getX()];
+//	    			if(c.getPiece().getLettre() != word.charAt(j)) {
+
+	    			if(c.estLibre()) {
+	    				poserUnePiece(map.get(j), c);
+	//    				c.setPiece(map.get(j));
+	                    this.essaiMot.add(map.get(j));
+	    				System.out.println("x");
+	    			}
+    			}
     		}
     		succes = true;
     	break;
     	case 'Y' :
     		for (int j = 0; j< word.length(); j++) {
-    			c = board[casePos.getY()][(casePos.getX() - i) + j];
-    			poserUnePiece(map.get(j), c);
-				c.setPiece(map.get(j));
+    			if( (((casePos.getX() - i) + j) < 15) || (((casePos.getX() - i) + j) >= 0)) {
+	    			c = board[casePos.getY()][(casePos.getX() - i) + j];
+	    			if(c.estLibre()) {
+//	    				if(c.getPiece().getLettre() != word.charAt(j)) {
+			    			poserUnePiece(map.get(j), c);
+
+		                    this.essaiMot.add(map.get(j));
+		    				System.out.println("y");
+			//				c.setPiece(map.get(j));
+//	    				}
+	    			}
+    			}
     		}
     		succes = true;
     	break;
@@ -282,10 +310,10 @@ public class IA extends Joueur implements Serializable{
     	ArrayList<Character> p = new ArrayList<Character>();
     	int taille = word.length();
     	ArrayList<Character> pieces2 = pieces;
-    	if(pieces2.contains('?')) {
-    		count--;
-    		pieces2.remove((Character) '?');
-    	}
+//    	if(pieces2.contains('?')) {
+//    		count--;
+//    		pieces2.remove((Character) '?');
+//    	}
     	for(int i = 0; i<taille; i++) {
     		if(!pieces2.contains((Character) word.charAt(i))) {
     			p.add((Character) word.charAt(i));
@@ -340,14 +368,14 @@ public class IA extends Joueur implements Serializable{
 
 //    	System.out.println("-------------------------------------");
     	ArrayList<String> str = this.researchWordContainsLetter(scrab.getDico().getDico(), IADifficulties.EASY);
-    	findAllWord (this.getMain(), str, scrab.getBoard());
-    	
-    	this.addNbPoints(compterPoints(scrab.getBoard())); // ajoute les points
-		retirerLettresDuMot(); // retire les lettres posees de la main du joueur
-		piocher(scrab.getPioche());
-		viderEssaiMot(); // vide la tentative de mot pose
+    	boolean res = findAllWord (this.getMain(), str, scrab.getBoard(), scrab);
+    	if(res==false && this.motValide(scrab.getBoard(), scrab.getDico())) {
+    		this.addNbPoints(compterPoints(scrab.getBoard())); // ajoute les points
+    		retirerLettresDuMot(); // retire les lettres posees de la main du joueur
+    		piocher(scrab.getPioche());
+    		viderEssaiMot(); // vide la tentative de mot pose
+    	}
 		aJoue = true;
-//    	System.out.println("-------------------------------------");
     	return true;
     }
 
