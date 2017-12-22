@@ -45,8 +45,8 @@ public class Case implements Serializable {
         this.piece = piece;
         if (this.piece != null) {
             this.piece.setCasePiece(this);
+            this.libre = false;
         }
-        this.libre = false;
     }
     
     public void libererCase()

@@ -754,7 +754,7 @@ public class MainUIController {
                     int numeroDeCase = Integer.parseInt(sp.getId().replace("S", ""));
                     //retirer dans le modele du board
                     Case c = mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15];
-                    mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15] = new Case(c.getBonus(), c.getX(), c.getY());
+                    mainApp.getScrabble().getBoard()[numeroDeCase % 15][numeroDeCase / 15] = new Case(c.getBonus(), c.getY(), c.getX());
                     sp.getChildren().remove(b);  //retirer la piece
                     resetBonusLabel(sp,Integer.parseInt(sp.getId().replace("S", "")));//remettre par defaut les cases
                 }

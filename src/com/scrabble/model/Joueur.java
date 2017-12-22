@@ -123,38 +123,27 @@ public class Joueur implements Serializable {
     {
     	if(!(essaiMot.isEmpty()) && checkPremierMot(scrab.isPremierMot()) && motValide(scrab.getBoard(),scrab.getDico())) 
     	{
-            int nbPointsMot=compterPoints(scrab.getBoard());
-            if ((util && !scrab.isPremierMot()) || scrab.isPremierMot()){
-                this.addNbPoints(nbPointsMot); // ajoute les points
-                util = false;
-                retirerLettresDuMot(); // retire les lettres posees de la main du joueur
-                piocher(scrab.getPioche());
-                viderEssaiMot(); // vide la tentative de mot pose
-                aJoue = true;
-    		    return true;
-            }else {
-                for(Piece p : essaiMot) // libere les cases
-                {
-                    this.main.add(p); // on lui rend sa piece
-                    Case c = p.getCasePiece();
-                    p.libererPiece();
-                    c.libererCase();
-                }
 
-                return false;
-            }
+    		this.addNbPoints(compterPoints(scrab.getBoard())); // ajoute les points
+    		retirerLettresDuMot(); // retire les lettres posees de la main du joueur
+    		piocher(scrab.getPioche());
+    		viderEssaiMot(); // vide la tentative de mot pose
+    		aJoue = true;
+    		return true;
     	}
     	else
     	{
-
+    		System.out.println("ICI");
     		for(Piece p : essaiMot) // libere les cases 
     		{
-    			this.main.add(p); // on lui rend sa piece
     			Case c = p.getCasePiece();
     			p.libererPiece();
     			c.libererCase();
+    			this.main.add(p); // on lui rend sa piece
+    			System.out.println("case "+c.getY()+" "+c.getX()+" liberee");
     		}
 
+			viderEssaiMot();
     		return false;
     	}
     }
@@ -187,7 +176,12 @@ public class Joueur implements Serializable {
         int lastX = lastPiece.getCasePiece().getX();
         int firstY = firstPiece.getCasePiece().getY();
         int lastY = lastPiece.getCasePiece().getY();
-
+        String s = "";
+        for(Piece p : essaiMot)
+        {
+        	s+=p.getCasePiece().getY()+" "+p.getCasePiece().getX()+" "+p.getLettre()+"\n";
+        }
+        System.out.println(s);
         boolean motValide = true; //flag
         String mot = "";
 
@@ -248,8 +242,8 @@ public class Joueur implements Serializable {
             }
 
         }
-        System.out.println(mot);
-
+        System.out.println(mot+" "+motValide);
+        
         return motValide; // Sinon le mot est valide
     }
 
@@ -699,5 +693,5 @@ public class Joueur implements Serializable {
                 scrab.getBoard()[i][j]
     }
 */
-
+    
 }
